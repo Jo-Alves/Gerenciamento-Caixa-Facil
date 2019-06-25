@@ -21,7 +21,7 @@ namespace sistemaControleVendas
         public string Descricao { get; set; }
         public string PrecoServico { get; set; }
 
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4");
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3");
         string _sql;
         private void FrmPesquisarServico_Load(object sender, EventArgs e)
         {
@@ -39,7 +39,7 @@ namespace sistemaControleVendas
         {
 
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "Select Produto.Id_Produto, Produto.Descricao, Produto.ValorVenda from Produto inner join Categoria on Categoria.Id_Categoria = Produto.Id_Categoria where Produto.Descricao like '" + txt_Nome.Text.Trim() + "%' and Categoria.Descricao = 'Serviço'";
+            _sql = "Select Produto.Id_Produto, Produto.Descricao, Produto.ValorVenda from Produto inner join Categoria on Categoria.Id_Categoria = Produto.Id_Categoria where Produto.Descricao like '%" + txt_Nome.Text.Trim() + "%' and Categoria.Descricao = 'Serviço'";
             SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
             comando.SelectCommand.CommandText = _sql;
             DataTable Tabela = new DataTable();

@@ -493,6 +493,7 @@
             this.txt_DataValidade.Name = "txt_DataValidade";
             this.txt_DataValidade.Size = new System.Drawing.Size(78, 26);
             this.txt_DataValidade.TabIndex = 7;
+            this.txt_DataValidade.Text = "00000000";
             this.txt_DataValidade.ValidatingType = typeof(System.DateTime);
             this.txt_DataValidade.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.txt_DataValidade_MaskInputRejected);
             this.txt_DataValidade.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_DataValidade_KeyDown);
@@ -1161,6 +1162,7 @@
             this.mask_DataValidadeEdicao.Name = "mask_DataValidadeEdicao";
             this.mask_DataValidadeEdicao.Size = new System.Drawing.Size(78, 26);
             this.mask_DataValidadeEdicao.TabIndex = 59;
+            this.mask_DataValidadeEdicao.Text = "00000000";
             this.mask_DataValidadeEdicao.ValidatingType = typeof(System.DateTime);
             this.mask_DataValidadeEdicao.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.mask_DataValidadeEdicao_MaskInputRejected);
             this.mask_DataValidadeEdicao.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mask_DataValidadeEdicao_KeyDown);

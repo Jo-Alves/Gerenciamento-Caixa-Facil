@@ -18,13 +18,16 @@ namespace sistemaControleVendas
             InitializeComponent();
         }
 
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql;
+
         private void FrmPesquisarBoletos_Load(object sender, EventArgs e)
         {
-            // TODO: esta linha de código carrega dados na tabela 'dbControleVendaDataSet.ContasPagar'. Você pode movê-la ou removê-la conforme necessário.
-            this.contasPagarTableAdapter.Fill(this.dbControleVendaDataSet.ContasPagar);
-            // TODO: esta linha de código carrega dados na tabela 'dbControleVendaDataSet.ContasPagar'. Você pode movê-la ou removê-la conforme necessário.
-            this.contasPagarTableAdapter.Fill(this.dbControleVendaDataSet.ContasPagar);
-
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "SELECT Id, Beneficiario, NumeroDocumento, Vencimento, ValorDocumento, Referencia, Desconto FROM ContasPagar WHERE (Status = 'Não Pago')";
+            SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
+            DataTable Tabela = new DataTable();
+            comando.Fill(Tabela);
+            dgv_Busca.DataSource = Tabela;
         }
 
         public string Codigo { get; set; }
@@ -71,7 +74,7 @@ namespace sistemaControleVendas
 
         private void txt_Beneficiario_TextChanged(object sender, EventArgs e)
         {
-            string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4");
+            string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3");
             SqlConnection conexao = new SqlConnection(stringConn);
             string _sql = "Select * from ContasPagar where Beneficiario like '" + txt_Beneficiario.Text.Trim() + "%'";
             SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);

@@ -77,7 +77,7 @@ namespace sistemaControleVendas
         }
 
         int Id_Usuario;
-        string NomeUsuario, stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4"), _sql;
+        string NomeUsuario, stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql;
 
         private void CarregarImagem()
         {
@@ -223,7 +223,7 @@ namespace sistemaControleVendas
             CriarPasta();
             SetHorarioBackup();
 
-            SqlConnection conexao = new SqlConnection(ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdHJjGrOXTsH7YfMGR7bciVESTNxiggiQBDbnJJ0mwpG2P2NoQZI/N9NA=="));
+            SqlConnection conexao = new SqlConnection(ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdHJjGrOXTsH7b9NW1qcCpVJxD4wsfhTDR6OXOUSfCqDynZ+0PYEaREWQ=="));
             _sql = "backup database dbControleVenda to disk = '" + Pasta + "Backup - " + DataTempo + ".bak'";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.CommandText = _sql;
@@ -402,8 +402,11 @@ namespace sistemaControleVendas
                     Servico = tabela.Rows[0]["Servico"].ToString();
                     Horario = tabela.Rows[0]["Horario"].ToString();
                     SoundPlayer sound = new SoundPlayer();
-                    sound.SoundLocation = @"C:\Program Files\LAS Technology\Gerenciamento Caixa Fácil\Toque.wav";
-                    sound.Play();
+                    if (File.Exists(Arquivo))
+                    {
+                        sound.SoundLocation = Arquivo;
+                        sound.Play();
+                    }
                     PopupNotifier popup = new PopupNotifier();
                     popup.Image = Properties.Resources._1Apps_Notifications_icon;
                     popup.TitleText = "Notificação do sistema...";
@@ -446,7 +449,7 @@ namespace sistemaControleVendas
 
         private bool SituacaoCaixa()
         {
-            string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4"), _sql;
+            string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql;
             SqlConnection conexao = new SqlConnection(stringConn);
             _sql = "Select * from FluxoCaixa where DataSaida = ''";
             SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
@@ -549,6 +552,7 @@ namespace sistemaControleVendas
             }
         }
 
+        string Arquivo = @"C:\Program Files\LAS Technology\Gerenciamento Caixa Fácil\Toque.wav";
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
             VerificarValidadeProdutos();
@@ -558,8 +562,11 @@ namespace sistemaControleVendas
                 {
                     linkNotificacao.Visible = true;
                     SoundPlayer sound = new SoundPlayer();
-                    sound.SoundLocation = @"C:\Program Files\LAS Technology\Gerenciamento Caixa Fácil\Toque.wav";
-                    sound.Play();
+                    if (File.Exists(Arquivo))
+                    {
+                        sound.SoundLocation = Arquivo;
+                        sound.Play();
+                    }
                     PopupNotifier popup = new PopupNotifier();
                     popup.Image = Properties.Resources._1Apps_Notifications_icon;
                     popup.TitleText = "Notificaçao do sistema...";
@@ -725,6 +732,12 @@ namespace sistemaControleVendas
         {
             FrmSetting setting = new FrmSetting();
             setting.ShowDialog();
+        }
+
+        private void menuAlterarExcluirVenda_Click(object sender, EventArgs e)
+        {
+            FrmBuscarItensVendaAlterarExcluir alterarExcluirVenda = new FrmBuscarItensVendaAlterarExcluir();
+            alterarExcluirVenda.ShowDialog();
         }
 
         private void MenuRegistroSaldoFinal_Click(object sender, EventArgs e)

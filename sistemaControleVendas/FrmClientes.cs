@@ -24,7 +24,7 @@ namespace sistemaControleVendas
             }
         }
 
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4");
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3");
         string _sql;
         //MÉTODO PARA MOSTRAR AO USUÁRIO DO SISTEMA O CÓDIGO DO CLIENTE QUE SERÁ GERADO AO CADASTRAR O CLIENTE NO SISTEMA
         private void codigoCliente()
@@ -96,25 +96,18 @@ namespace sistemaControleVendas
             {
                 try
                 {
-                    string url = "https://www.republicavirtual.com.br/web_cep.php?cep=@Cep&formato=xml";
-                    DataSet ds = new DataSet();
-                    ds.ReadXml(url.Replace("@Cep", mask_Cep.Text));
-
-                    string retorno = ds.Tables[0].Rows[0]["Resultado"].ToString();
-
-                    if (retorno == "0")
+                    using (var ws = new WsCorreios.AtendeClienteClient())
                     {
-                        MessageBox.Show("CEP inválido! Verifique o número do CEP ou a conexão com a internet ", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    else
-                    {
-                        txt_Cidade.Text = ds.Tables[0].Rows[0]["cidade"].ToString();
-                        cb_Estado.Text = ds.Tables[0].Rows[0]["uf"].ToString();
+                        var consultaCep = ws.consultaCEP(mask_Cep.Text);
+                        txt_Endereco.Text = consultaCep.end;
+                        txt_Bairro.Text = consultaCep.bairro;
+                        txt_Cidade.Text = consultaCep.cidade;
+                        cb_Estado.Text = consultaCep.uf;
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Sem conexão com a internet!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -708,25 +701,18 @@ namespace sistemaControleVendas
             {
                 try
                 {
-                    string url = "https://www.republicavirtual.com.br/web_cep.php?cep=@Cep&formato=xml";
-                    DataSet ds = new DataSet();
-                    ds.ReadXml(url.Replace("@Cep", mask_Cep.Text));
-
-                    string retorno = ds.Tables[0].Rows[0]["Resultado"].ToString();
-
-                    if (retorno == "0")
+                   using(var ws = new WsCorreios.AtendeClienteClient())
                     {
-                        MessageBox.Show("CEP inválido! Verifique o número do CEP ou a conexão com a internet ", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    else
-                    {
-                        txt_CidadeEdicao.Text = ds.Tables[0].Rows[0]["cidade"].ToString();
-                        cb_EstadoEdicao.Text = ds.Tables[0].Rows[0]["uf"].ToString();
+                        var consultaCEP = ws.consultaCEP(mask_CepEdicao.Text);
+                        txt_EnderecoEdicao.Text = consultaCEP.end;
+                        txt_BairroEdicao.Text = consultaCEP.bairro;
+                        txt_CidadeEdicao.Text = consultaCEP.cidade;
+                        cb_EstadoEdicao.Text = consultaCEP.uf;
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Sem conexão com a internet!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

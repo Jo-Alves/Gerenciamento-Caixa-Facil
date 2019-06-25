@@ -6005,7 +6005,7 @@ SELECT Id_Empresa, RazaoSocial, NomeFantasia, AreaAtuacao, CNPJ, InscricaoEstadu
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        Empresa.*\r\nFROM            Empresa";
+            this._commandCollection[0].CommandText = "SELECT        Empresa.*\nFROM            Empresa";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6714,7 +6714,7 @@ SELECT Id, Beneficiario, NumeroDocumento, Vencimento, ValorDocumento, Referencia
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::sistemaControleVendas.Properties.Settings.Default.dbControleVendaConnectionString1;
+            this._connection.ConnectionString = global::sistemaControleVendas.Properties.Settings.Default.DbControleVendaConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6724,8 +6724,8 @@ SELECT Id, Beneficiario, NumeroDocumento, Vencimento, ValorDocumento, Referencia
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        Id, Beneficiario, NumeroDocumento, Vencimento, ValorDocumento, Refe" +
-                "rencia, Desconto, Status\r\nFROM            ContasPagar\r\nWHERE        (Status = \'N" +
-                "ão Pago\')";
+                "rencia, Desconto, Status\nFROM            ContasPagar \nWHERE        (Status = \'Nã" +
+                "o Pago\')";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7507,8 +7507,8 @@ FROM            Categoria INNER JOIN
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        Usuario\r\nFROM            Usuario\r\nWHERE        (Situacao <> \'BLOQUE" +
-                "ADO\')";
+            this._commandCollection[0].CommandText = "SELECT        Usuario\nFROM            Usuario\nWHERE        (Situacao <> \'BLOQUEAD" +
+                "O\')";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7865,8 +7865,8 @@ WHERE        (Venda.DataVenda = @DataVenda)";
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [PrestacaoServico] ([Descricao], [PrecoServico]) VALUES (@Descricao, " +
-                "@PrecoServico);\r\nSELECT Id_PrestacaoServico, Descricao, PrecoServico FROM Presta" +
-                "caoServico WHERE (Id_PrestacaoServico = SCOPE_IDENTITY())";
+                "@PrecoServico);\nSELECT Id_PrestacaoServico, Descricao, PrecoServico FROM Prestac" +
+                "aoServico WHERE (Id_PrestacaoServico = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descricao", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Descricao", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PrecoServico", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "PrecoServico", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -7895,7 +7895,7 @@ SELECT Id_PrestacaoServico, Descricao, PrecoServico FROM PrestacaoServico WHERE 
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        PrestacaoServico.*\r\nFROM            PrestacaoServico";
+            this._commandCollection[0].CommandText = "SELECT        PrestacaoServico.*\nFROM            PrestacaoServico";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

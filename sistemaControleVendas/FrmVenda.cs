@@ -860,6 +860,7 @@ namespace sistemaControleVendas
             lbl_Quantidade.Enabled = true;
             DGV_ItensVenda.Enabled = true;
             txt_CodigoVenda.Enabled = true;
+            id_Cliente = "1";
         }
 
         private void Sair()
@@ -1360,7 +1361,7 @@ namespace sistemaControleVendas
                 MessageBox.Show("Informe o valor Pago!", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4"), _sql, codigoVenda, id_Cliente = "1";
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, codigoVenda, id_Cliente = "1";
 
         int EstoqueAtual, EstoqueAtualizado,QuantidadeItens;
         private void ConfirmarVenda()

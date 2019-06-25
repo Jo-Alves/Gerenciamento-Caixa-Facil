@@ -23,7 +23,7 @@ namespace sistemaControleVendas
             // TODO: esta linha de código carrega dados na tabela 'dbControleVendaDataSet.TabelaProduto'. Você pode movê-la ou removê-la conforme necessário.
             this.tabelaProdutoTableAdapter.Fill(this.dbControleVendaDataSet.TabelaProduto);
         }
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4");
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3");
         string _sql;
         
         public string ID { get; set; }
@@ -71,7 +71,7 @@ namespace sistemaControleVendas
         private void txt_Nome_TextChanged(object sender, EventArgs e)
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "SELECT Produto.Id_Produto, Produto.CodigoBarra, Produto.Descricao as DescricaoNome, Produto.Marca, Produto.DataValidade, Produto.ValorCusto, Produto.ValorVenda, Produto.EstoqueAtual, Produto.EstoqueMinimo, Produto.Unidade, Categoria.Descricao, Fornecedor.Nome, Produto.Lucro FROM Categoria INNER JOIN Produto ON Categoria.Id_Categoria = Produto.Id_Categoria INNER JOIN Fornecedor ON Produto.Id_Fornecedor = Fornecedor.Id_Fornecedor WHERE Produto.Descricao like '" + txt_Nome.Text.Trim() + "%'";
+            _sql = "SELECT Produto.Id_Produto, Produto.CodigoBarra, Produto.Descricao as DescricaoNome, Produto.Marca, Produto.DataValidade, Produto.ValorCusto, Produto.ValorVenda, Produto.EstoqueAtual, Produto.EstoqueMinimo, Produto.Unidade, Categoria.Descricao, Fornecedor.Nome, Produto.Lucro FROM Categoria INNER JOIN Produto ON Categoria.Id_Categoria = Produto.Id_Categoria INNER JOIN Fornecedor ON Produto.Id_Fornecedor = Fornecedor.Id_Fornecedor WHERE Produto.Descricao like '%" + txt_Nome.Text.Trim() + "%'";
             SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
             comando.SelectCommand.CommandText = _sql;
             DataTable Tabela = new DataTable();

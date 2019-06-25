@@ -38,7 +38,7 @@ namespace sistemaControleVendas
         string serial = "MEWLA-RBTWR-FOUNR-JQPZV";
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            SqlConnection conexao = new SqlConnection(ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdHJjGrOXTsH7YfMGR7bciVESTNxiggiQBDbnJJ0mwpG2P2NoQZI/N9NA=="));
+            SqlConnection conexao = new SqlConnection(ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdHJjGrOXTsH7b9NW1qcCpVJxD4wsfhTDR6OXOUSfCqDynZ+0PYEaREWQ=="));
             string _sql = "insert into autentico values ('Ativo')";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.CommandText = _sql;

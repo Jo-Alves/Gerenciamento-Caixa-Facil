@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListaVenda));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmListaVenda));
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lbl_TotalDesconto = new System.Windows.Forms.Label();
@@ -43,7 +43,6 @@
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.Menu_imprimirDuplicaPromissoria = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.Menu_Sair = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -66,13 +65,14 @@
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelCabecalho = new System.Windows.Forms.Panel();
             this.Lbl_Titulo = new System.Windows.Forms.Label();
-            this.Lbl_Icone = new System.Windows.Forms.Label();
             this.btn_Fechar = new System.Windows.Forms.Button();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
+            this.Menu_imprimirDuplicaPromissoria = new System.Windows.Forms.ToolStripMenuItem();
+            this.Lbl_Icone = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -174,17 +174,6 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(336, 6);
-            // 
-            // Menu_imprimirDuplicaPromissoria
-            // 
-            this.Menu_imprimirDuplicaPromissoria.Font = new System.Drawing.Font("Times New Roman", 10F);
-            this.Menu_imprimirDuplicaPromissoria.Image = ((System.Drawing.Image)(resources.GetObject("Menu_imprimirDuplicaPromissoria.Image")));
-            this.Menu_imprimirDuplicaPromissoria.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Menu_imprimirDuplicaPromissoria.Name = "Menu_imprimirDuplicaPromissoria";
-            this.Menu_imprimirDuplicaPromissoria.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.Menu_imprimirDuplicaPromissoria.Size = new System.Drawing.Size(339, 22);
-            this.Menu_imprimirDuplicaPromissoria.Text = "&Imprimir duplicata de nota promissória";
-            this.Menu_imprimirDuplicaPromissoria.Click += new System.EventHandler(this.Menu_imprimirDuplicaPromissoria_Click);
             // 
             // toolStripSeparator2
             // 
@@ -442,16 +431,6 @@
             this.Lbl_Titulo.Size = new System.Drawing.Size(0, 19);
             this.Lbl_Titulo.TabIndex = 65;
             // 
-            // Lbl_Icone
-            // 
-            this.Lbl_Icone.Image = global::sistemaControleVendas.Properties.Resources.Data_List_icon;
-            this.Lbl_Icone.Location = new System.Drawing.Point(11, 4);
-            this.Lbl_Icone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Lbl_Icone.Name = "Lbl_Icone";
-            this.Lbl_Icone.Size = new System.Drawing.Size(88, 53);
-            this.Lbl_Icone.TabIndex = 64;
-            this.Lbl_Icone.Text = "    ";
-            // 
             // btn_Fechar
             // 
             this.btn_Fechar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -505,6 +484,27 @@
             // ContentPanel
             // 
             this.ContentPanel.Size = new System.Drawing.Size(150, 106);
+            // 
+            // Menu_imprimirDuplicaPromissoria
+            // 
+            this.Menu_imprimirDuplicaPromissoria.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.Menu_imprimirDuplicaPromissoria.Image = ((System.Drawing.Image)(resources.GetObject("Menu_imprimirDuplicaPromissoria.Image")));
+            this.Menu_imprimirDuplicaPromissoria.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Menu_imprimirDuplicaPromissoria.Name = "Menu_imprimirDuplicaPromissoria";
+            this.Menu_imprimirDuplicaPromissoria.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.Menu_imprimirDuplicaPromissoria.Size = new System.Drawing.Size(339, 22);
+            this.Menu_imprimirDuplicaPromissoria.Text = "&Imprimir duplicata de nota promissória";
+            this.Menu_imprimirDuplicaPromissoria.Click += new System.EventHandler(this.Menu_imprimirDuplicaPromissoria_Click);
+            // 
+            // Lbl_Icone
+            // 
+            this.Lbl_Icone.Image = global::sistemaControleVendas.Properties.Resources.Data_List_icon;
+            this.Lbl_Icone.Location = new System.Drawing.Point(11, 4);
+            this.Lbl_Icone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Lbl_Icone.Name = "Lbl_Icone";
+            this.Lbl_Icone.Size = new System.Drawing.Size(88, 53);
+            this.Lbl_Icone.TabIndex = 64;
+            this.Lbl_Icone.Text = "    ";
             // 
             // FrmListaVenda
             // 

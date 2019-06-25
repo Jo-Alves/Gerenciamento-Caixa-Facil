@@ -99,6 +99,7 @@
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuConfiguracao = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAjustar = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAlterarExcluirVenda = new System.Windows.Forms.ToolStripMenuItem();
             timer = new System.Windows.Forms.Timer(this.components);
             this.panelCabecalho.SuspendLayout();
             this.PanelCorpo.SuspendLayout();
@@ -455,6 +456,7 @@
             this.Menu_ContasPagar,
             this.Menu_ContasReceber,
             this.Menu_RealizarVendas,
+            this.menuAlterarExcluirVenda,
             this.Menu_AnaliseDeVendas});
             this.Menu_Movimentos.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Menu_Movimentos.Image = global::sistemaControleVendas.Properties.Resources.Cash_register_icon;
@@ -892,9 +894,19 @@
             this.menuAjustar.Image = global::sistemaControleVendas.Properties.Resources.Settings_icon;
             this.menuAjustar.Name = "menuAjustar";
             this.menuAjustar.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.menuAjustar.Size = new System.Drawing.Size(180, 24);
+            this.menuAjustar.Size = new System.Drawing.Size(175, 24);
             this.menuAjustar.Text = "Ajustar";
             this.menuAjustar.Click += new System.EventHandler(this.menuAjustar_Click);
+            // 
+            // menuAlterarExcluirVenda
+            // 
+            this.menuAlterarExcluirVenda.BackColor = System.Drawing.Color.Aquamarine;
+            this.menuAlterarExcluirVenda.Image = global::sistemaControleVendas.Properties.Resources.Carrinho_de_compra;
+            this.menuAlterarExcluirVenda.Name = "menuAlterarExcluirVenda";
+            this.menuAlterarExcluirVenda.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.menuAlterarExcluirVenda.Size = new System.Drawing.Size(306, 22);
+            this.menuAlterarExcluirVenda.Text = "Alterar/Excluir Venda";
+            this.menuAlterarExcluirVenda.Click += new System.EventHandler(this.menuAlterarExcluirVenda_Click);
             // 
             // FrmPrincipal
             // 
@@ -997,6 +1009,7 @@
         private System.Windows.Forms.ToolStripMenuItem MenuRegistroSaldoFinal;
         private System.Windows.Forms.ToolStripMenuItem menuConfiguracao;
         private System.Windows.Forms.ToolStripMenuItem menuAjustar;
+        private System.Windows.Forms.ToolStripMenuItem menuAlterarExcluirVenda;
     }
 }
 

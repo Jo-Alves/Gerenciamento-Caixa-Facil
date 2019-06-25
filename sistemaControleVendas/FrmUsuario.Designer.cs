@@ -176,7 +176,7 @@
             this.txt_RespostaSeguranca.MaxLength = 30;
             this.txt_RespostaSeguranca.Name = "txt_RespostaSeguranca";
             this.txt_RespostaSeguranca.Size = new System.Drawing.Size(176, 26);
-            this.txt_RespostaSeguranca.TabIndex = 149;
+            this.txt_RespostaSeguranca.TabIndex = 7;
             this.txt_RespostaSeguranca.TextChanged += new System.EventHandler(this.txt_RespostaSeguranca_TextChanged);
             // 
             // label11
@@ -202,7 +202,7 @@
             this.cb_PerguntaSeguranca.Location = new System.Drawing.Point(335, 152);
             this.cb_PerguntaSeguranca.Name = "cb_PerguntaSeguranca";
             this.cb_PerguntaSeguranca.Size = new System.Drawing.Size(357, 27);
-            this.cb_PerguntaSeguranca.TabIndex = 147;
+            this.cb_PerguntaSeguranca.TabIndex = 6;
             this.cb_PerguntaSeguranca.SelectedIndexChanged += new System.EventHandler(this.cb_PerguntaSeguranca_SelectedIndexChanged);
             // 
             // label10
@@ -225,7 +225,7 @@
             this.txt_DicaSenha.MaxLength = 30;
             this.txt_DicaSenha.Name = "txt_DicaSenha";
             this.txt_DicaSenha.Size = new System.Drawing.Size(176, 26);
-            this.txt_DicaSenha.TabIndex = 19;
+            this.txt_DicaSenha.TabIndex = 5;
             this.txt_DicaSenha.TextChanged += new System.EventHandler(this.txt_DicaSenha_TextChanged);
             // 
             // label8
@@ -248,7 +248,7 @@
             this.cb_Funcao.Location = new System.Drawing.Point(92, 222);
             this.cb_Funcao.Name = "cb_Funcao";
             this.cb_Funcao.Size = new System.Drawing.Size(200, 27);
-            this.cb_Funcao.TabIndex = 20;
+            this.cb_Funcao.TabIndex = 8;
             this.cb_Funcao.SelectedIndexChanged += new System.EventHandler(this.cb_Funcao_SelectedIndexChanged);
             // 
             // label5
@@ -290,7 +290,7 @@
             this.txt_senha.MaxLength = 15;
             this.txt_senha.Name = "txt_senha";
             this.txt_senha.Size = new System.Drawing.Size(176, 26);
-            this.txt_senha.TabIndex = 18;
+            this.txt_senha.TabIndex = 4;
             this.txt_senha.UseSystemPasswordChar = true;
             this.txt_senha.TextChanged += new System.EventHandler(this.txt_senha_TextChanged);
             this.txt_senha.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_senha_KeyDown);
@@ -315,7 +315,7 @@
             this.txt_Usuario.MaxLength = 30;
             this.txt_Usuario.Name = "txt_Usuario";
             this.txt_Usuario.Size = new System.Drawing.Size(176, 26);
-            this.txt_Usuario.TabIndex = 17;
+            this.txt_Usuario.TabIndex = 3;
             this.txt_Usuario.TextChanged += new System.EventHandler(this.txt_Usuario_TextChanged);
             this.txt_Usuario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_Usuario_KeyDown);
             this.txt_Usuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Usuario_KeyPress);
@@ -339,7 +339,7 @@
             this.txt_Email.MaxLength = 100;
             this.txt_Email.Name = "txt_Email";
             this.txt_Email.Size = new System.Drawing.Size(390, 26);
-            this.txt_Email.TabIndex = 16;
+            this.txt_Email.TabIndex = 2;
             this.txt_Email.TextChanged += new System.EventHandler(this.txt_Email_TextChanged);
             this.txt_Email.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_Email_KeyDown);
             // 
@@ -455,7 +455,7 @@
             this.txt_RespostaSegurancaEdicao.MaxLength = 30;
             this.txt_RespostaSegurancaEdicao.Name = "txt_RespostaSegurancaEdicao";
             this.txt_RespostaSegurancaEdicao.Size = new System.Drawing.Size(176, 26);
-            this.txt_RespostaSegurancaEdicao.TabIndex = 153;
+            this.txt_RespostaSegurancaEdicao.TabIndex = 7;
             this.txt_RespostaSegurancaEdicao.UseSystemPasswordChar = true;
             // 
             // label12
@@ -481,7 +481,7 @@
             this.cb_PerguntaSegurancaEdicao.Location = new System.Drawing.Point(331, 157);
             this.cb_PerguntaSegurancaEdicao.Name = "cb_PerguntaSegurancaEdicao";
             this.cb_PerguntaSegurancaEdicao.Size = new System.Drawing.Size(357, 27);
-            this.cb_PerguntaSegurancaEdicao.TabIndex = 151;
+            this.cb_PerguntaSegurancaEdicao.TabIndex = 6;
             this.cb_PerguntaSegurancaEdicao.SelectedIndexChanged += new System.EventHandler(this.cb_PerguntaSegurancaEdicao_SelectedIndexChanged);
             // 
             // label13
@@ -504,7 +504,7 @@
             this.txt_DicaSenhaEdicao.MaxLength = 30;
             this.txt_DicaSenhaEdicao.Name = "txt_DicaSenhaEdicao";
             this.txt_DicaSenhaEdicao.Size = new System.Drawing.Size(176, 26);
-            this.txt_DicaSenhaEdicao.TabIndex = 148;
+            this.txt_DicaSenhaEdicao.TabIndex = 5;
             this.txt_DicaSenhaEdicao.TextChanged += new System.EventHandler(this.txt_DicaSenhaEdicao_TextChanged);
             // 
             // label9
@@ -527,7 +527,7 @@
             this.cb_FuncaoEdicao.Location = new System.Drawing.Point(68, 230);
             this.cb_FuncaoEdicao.Name = "cb_FuncaoEdicao";
             this.cb_FuncaoEdicao.Size = new System.Drawing.Size(198, 27);
-            this.cb_FuncaoEdicao.TabIndex = 147;
+            this.cb_FuncaoEdicao.TabIndex = 8;
             this.cb_FuncaoEdicao.SelectedIndexChanged += new System.EventHandler(this.cb_FuncaoEdicao_SelectedIndexChanged);
             // 
             // label6
@@ -567,7 +567,7 @@
             this.txt_SenhaEdicao.MaxLength = 15;
             this.txt_SenhaEdicao.Name = "txt_SenhaEdicao";
             this.txt_SenhaEdicao.Size = new System.Drawing.Size(176, 26);
-            this.txt_SenhaEdicao.TabIndex = 18;
+            this.txt_SenhaEdicao.TabIndex = 4;
             this.txt_SenhaEdicao.UseSystemPasswordChar = true;
             this.txt_SenhaEdicao.TextChanged += new System.EventHandler(this.txt_SenhaEdicao_TextChanged);
             this.txt_SenhaEdicao.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_SenhaEdicao_KeyDown);
@@ -594,7 +594,7 @@
             this.txt_UsuarioEdicao.Name = "txt_UsuarioEdicao";
             this.txt_UsuarioEdicao.ReadOnly = true;
             this.txt_UsuarioEdicao.Size = new System.Drawing.Size(176, 26);
-            this.txt_UsuarioEdicao.TabIndex = 17;
+            this.txt_UsuarioEdicao.TabIndex = 3;
             this.txt_UsuarioEdicao.TextChanged += new System.EventHandler(this.txt_UsuarioEdicao_TextChanged);
             this.txt_UsuarioEdicao.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_UsuarioEdicao_KeyDown);
             // 
@@ -617,7 +617,7 @@
             this.txt_EmailEdicao.MaxLength = 100;
             this.txt_EmailEdicao.Name = "txt_EmailEdicao";
             this.txt_EmailEdicao.Size = new System.Drawing.Size(390, 26);
-            this.txt_EmailEdicao.TabIndex = 16;
+            this.txt_EmailEdicao.TabIndex = 2;
             this.txt_EmailEdicao.TextChanged += new System.EventHandler(this.txt_EmailEdicao_TextChanged);
             this.txt_EmailEdicao.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_EmailEdicao_KeyDown);
             // 
@@ -697,7 +697,7 @@
             this.btn_LimparEdicao.Location = new System.Drawing.Point(383, 198);
             this.btn_LimparEdicao.Name = "btn_LimparEdicao";
             this.btn_LimparEdicao.Size = new System.Drawing.Size(133, 77);
-            this.btn_LimparEdicao.TabIndex = 19;
+            this.btn_LimparEdicao.TabIndex = 9;
             this.toolTip1.SetToolTip(this.btn_LimparEdicao, "Limpar");
             this.btn_LimparEdicao.UseVisualStyleBackColor = true;
             this.btn_LimparEdicao.Click += new System.EventHandler(this.btn_LimparEdicao_Click);
@@ -709,7 +709,7 @@
             this.btn_Editar.Location = new System.Drawing.Point(522, 198);
             this.btn_Editar.Name = "btn_Editar";
             this.btn_Editar.Size = new System.Drawing.Size(133, 77);
-            this.btn_Editar.TabIndex = 20;
+            this.btn_Editar.TabIndex = 10;
             this.toolTip1.SetToolTip(this.btn_Editar, "Atualizar");
             this.btn_Editar.UseVisualStyleBackColor = true;
             this.btn_Editar.Click += new System.EventHandler(this.btn_Editar_Click);

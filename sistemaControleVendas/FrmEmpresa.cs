@@ -66,7 +66,7 @@ namespace sistemaControleVendas
                     txt_NumeroEdicao.Text = empresa.numero.ToString();
                     txt_BairroEdicao.Text = empresa.bairro;
                     txt_CidadeEdicao.Text = empresa.cidade;
-                    cb_Estadoedicao.Text = empresa.estado;
+                    cb_EstadoEdicao.Text = empresa.estado;
                     mask_TelefoneEdicao.Text = empresa.telefone;
                     mask_CelularEdicao.Text = empresa.celular;
                     txt_EmailEdicao.Text = empresa.email;
@@ -249,7 +249,7 @@ namespace sistemaControleVendas
             }
         }
 
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4"), _sql;
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql;
         int Id_Empresa;
         public void CodigoEmpresa()
         {
@@ -449,20 +449,13 @@ namespace sistemaControleVendas
             {
                 try
                 {
-                    string url = "https://www.republicavirtual.com.br/web_cep.php?cep=@Cep&formato=xml";
-                    DataSet ds = new DataSet();
-                    ds.ReadXml(url.Replace("@Cep", mask_Cep.Text));
-
-                    string retorno = ds.Tables[0].Rows[0]["Resultado"].ToString();
-
-                    if (retorno == "0")
+                   using(var ws = new WsCorreios.AtendeClienteClient())
                     {
-                        MessageBox.Show("CEP inválido! Verifique o número do CEP ou a conexão com a internet ", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    else
-                    {
-                        txt_Cidade.Text = ds.Tables[0].Rows[0]["cidade"].ToString();
-                        cb_Estado.Text = ds.Tables[0].Rows[0]["uf"].ToString();
+                        var consultaCEP = ws.consultaCEP(mask_Cep.Text);
+                        txt_Logradouro.Text = consultaCEP.end;
+                        txt_Bairro.Text = consultaCEP.bairro;
+                        txt_Cidade.Text = consultaCEP.cidade;
+                        cb_Estado.Text = consultaCEP.uf;
                     }
                 }
                 catch (Exception ex)
@@ -511,7 +504,7 @@ namespace sistemaControleVendas
             mask_CNPJEdicao.Clear();
             mask_TelefoneEdicao.Clear();
             mask_InscricaoEstadualEdicao.Clear();
-            cb_Estadoedicao.Text = " ";
+            cb_EstadoEdicao.Text = " ";
         }
 
         private void txt_RazaoSocial_KeyDown(object sender, KeyEventArgs e)
@@ -887,7 +880,7 @@ namespace sistemaControleVendas
                         empresa.numero = int.Parse(txt_NumeroEdicao.Text.Trim());
                         empresa.bairro = txt_BairroEdicao.Text.Trim();
                         empresa.cidade = txt_CidadeEdicao.Text.Trim();
-                        empresa.estado = cb_Estadoedicao.Text;
+                        empresa.estado = cb_EstadoEdicao.Text;
                         empresa.celular = mask_CelularEdicao.Text;
                         empresa.email = txt_EmailEdicao.Text.Trim();
                         empresa.telefone = mask_TelefoneEdicao.Text;
@@ -1077,6 +1070,28 @@ namespace sistemaControleVendas
         private void mask_celular_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
             errorProvider.Clear();
+        }
+
+        private void btn_BuscarCepEdicao_Click(object sender, EventArgs e)
+        {
+            if (mask_CepEdicao.MaskCompleted)
+            {
+                try
+                {
+                    using (var ws = new WsCorreios.AtendeClienteClient())
+                    {
+                        var consultaCEP = ws.consultaCEP(mask_CepEdicao.Text);
+                        txt_LogradouroEdicao.Text = consultaCEP.end;
+                        txt_BairroEdicao.Text = consultaCEP.bairro;
+                        txt_CidadeEdicao.Text = consultaCEP.cidade;
+                        cb_EstadoEdicao.Text = consultaCEP.uf;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btn_Adicionar_Click(object sender, EventArgs e)

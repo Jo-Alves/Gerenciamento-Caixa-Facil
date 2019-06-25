@@ -68,13 +68,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.PanelCorpo = new System.Windows.Forms.TabPage();
+            this.btn_BuscarCepEdicao = new System.Windows.Forms.Button();
+            this.mask_CepEdicao = new System.Windows.Forms.MaskedTextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.cb_AreaAtuacaoEdicao = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.btn_LimparImagemAtualizar = new System.Windows.Forms.Button();
             this.btn_AlterarImagem = new System.Windows.Forms.Button();
             this.pb_ImagemAlterar = new System.Windows.Forms.PictureBox();
             this.label27 = new System.Windows.Forms.Label();
-            this.cb_Estadoedicao = new System.Windows.Forms.ComboBox();
+            this.cb_EstadoEdicao = new System.Windows.Forms.ComboBox();
             this.btn_Pesquisar = new System.Windows.Forms.Button();
             this.txt_EmailEdicao = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -86,8 +89,6 @@
             this.mask_TelefoneEdicao = new System.Windows.Forms.MaskedTextBox();
             this.txt_CidadeEdicao = new System.Windows.Forms.TextBox();
             this.txt_BairroEdicao = new System.Windows.Forms.TextBox();
-            this.mask_CepEdicao = new System.Windows.Forms.MaskedTextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.mask_CNPJEdicao = new System.Windows.Forms.MaskedTextBox();
             this.mask_InscricaoEstadualEdicao = new System.Windows.Forms.MaskedTextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -426,7 +427,7 @@
             // btn_BuscarCep
             // 
             this.btn_BuscarCep.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_BuscarCep.Location = new System.Drawing.Point(576, 145);
+            this.btn_BuscarCep.Location = new System.Drawing.Point(249, 144);
             this.btn_BuscarCep.Name = "btn_BuscarCep";
             this.btn_BuscarCep.Size = new System.Drawing.Size(114, 34);
             this.btn_BuscarCep.TabIndex = 79;
@@ -439,7 +440,7 @@
             this.mask_Cep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mask_Cep.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mask_Cep.ForeColor = System.Drawing.Color.Black;
-            this.mask_Cep.Location = new System.Drawing.Point(475, 148);
+            this.mask_Cep.Location = new System.Drawing.Point(130, 148);
             this.mask_Cep.Mask = "00000-000";
             this.mask_Cep.Name = "mask_Cep";
             this.mask_Cep.Size = new System.Drawing.Size(95, 26);
@@ -453,7 +454,7 @@
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(414, 151);
+            this.label16.Location = new System.Drawing.Point(65, 150);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(47, 18);
             this.label16.TabIndex = 78;
@@ -491,7 +492,7 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(302, 119);
+            this.label14.Location = new System.Drawing.Point(317, 119);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(152, 18);
             this.label14.TabIndex = 53;
@@ -513,10 +514,10 @@
             this.txt_Logradouro.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_Logradouro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_Logradouro.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_Logradouro.Location = new System.Drawing.Point(130, 148);
+            this.txt_Logradouro.Location = new System.Drawing.Point(475, 148);
             this.txt_Logradouro.MaxLength = 100;
             this.txt_Logradouro.Name = "txt_Logradouro";
-            this.txt_Logradouro.Size = new System.Drawing.Size(276, 26);
+            this.txt_Logradouro.Size = new System.Drawing.Size(190, 26);
             this.txt_Logradouro.TabIndex = 5;
             this.txt_Logradouro.TextChanged += new System.EventHandler(this.txt_Logradouro_TextChanged);
             this.txt_Logradouro.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_Logradouro_KeyDown);
@@ -581,7 +582,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(24, 151);
+            this.label10.Location = new System.Drawing.Point(369, 153);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(100, 18);
             this.label10.TabIndex = 21;
@@ -621,13 +622,16 @@
             // 
             this.PanelCorpo.BackColor = System.Drawing.SystemColors.Control;
             this.PanelCorpo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelCorpo.Controls.Add(this.btn_BuscarCepEdicao);
+            this.PanelCorpo.Controls.Add(this.mask_CepEdicao);
+            this.PanelCorpo.Controls.Add(this.label5);
             this.PanelCorpo.Controls.Add(this.cb_AreaAtuacaoEdicao);
             this.PanelCorpo.Controls.Add(this.label29);
             this.PanelCorpo.Controls.Add(this.btn_LimparImagemAtualizar);
             this.PanelCorpo.Controls.Add(this.btn_AlterarImagem);
             this.PanelCorpo.Controls.Add(this.pb_ImagemAlterar);
             this.PanelCorpo.Controls.Add(this.label27);
-            this.PanelCorpo.Controls.Add(this.cb_Estadoedicao);
+            this.PanelCorpo.Controls.Add(this.cb_EstadoEdicao);
             this.PanelCorpo.Controls.Add(this.btn_Pesquisar);
             this.PanelCorpo.Controls.Add(this.txt_EmailEdicao);
             this.PanelCorpo.Controls.Add(this.label24);
@@ -639,8 +643,6 @@
             this.PanelCorpo.Controls.Add(this.mask_TelefoneEdicao);
             this.PanelCorpo.Controls.Add(this.txt_CidadeEdicao);
             this.PanelCorpo.Controls.Add(this.txt_BairroEdicao);
-            this.PanelCorpo.Controls.Add(this.mask_CepEdicao);
-            this.PanelCorpo.Controls.Add(this.label5);
             this.PanelCorpo.Controls.Add(this.mask_CNPJEdicao);
             this.PanelCorpo.Controls.Add(this.mask_InscricaoEstadualEdicao);
             this.PanelCorpo.Controls.Add(this.label6);
@@ -661,6 +663,41 @@
             this.PanelCorpo.Size = new System.Drawing.Size(913, 474);
             this.PanelCorpo.TabIndex = 1;
             this.PanelCorpo.Text = "Atualizar";
+            // 
+            // btn_BuscarCepEdicao
+            // 
+            this.btn_BuscarCepEdicao.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_BuscarCepEdicao.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_BuscarCepEdicao.Location = new System.Drawing.Point(243, 142);
+            this.btn_BuscarCepEdicao.Name = "btn_BuscarCepEdicao";
+            this.btn_BuscarCepEdicao.Size = new System.Drawing.Size(109, 29);
+            this.btn_BuscarCepEdicao.TabIndex = 130;
+            this.btn_BuscarCepEdicao.Text = "Buscar CEP";
+            this.btn_BuscarCepEdicao.UseVisualStyleBackColor = true;
+            this.btn_BuscarCepEdicao.Click += new System.EventHandler(this.btn_BuscarCepEdicao_Click);
+            // 
+            // mask_CepEdicao
+            // 
+            this.mask_CepEdicao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mask_CepEdicao.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.mask_CepEdicao.ForeColor = System.Drawing.Color.Black;
+            this.mask_CepEdicao.Location = new System.Drawing.Point(146, 142);
+            this.mask_CepEdicao.Mask = "00000-000";
+            this.mask_CepEdicao.Name = "mask_CepEdicao";
+            this.mask_CepEdicao.Size = new System.Drawing.Size(95, 26);
+            this.mask_CepEdicao.TabIndex = 128;
+            this.mask_CepEdicao.ValidatingType = typeof(System.DateTime);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(102, 145);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 18);
+            this.label5.TabIndex = 129;
+            this.label5.Text = "CEP:";
             // 
             // cb_AreaAtuacaoEdicao
             // 
@@ -737,14 +774,14 @@
             this.label27.TabIndex = 117;
             this.label27.Text = "Estado:";
             // 
-            // cb_Estadoedicao
+            // cb_EstadoEdicao
             // 
-            this.cb_Estadoedicao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_Estadoedicao.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cb_Estadoedicao.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.cb_Estadoedicao.ForeColor = System.Drawing.Color.Black;
-            this.cb_Estadoedicao.FormattingEnabled = true;
-            this.cb_Estadoedicao.Items.AddRange(new object[] {
+            this.cb_EstadoEdicao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_EstadoEdicao.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cb_EstadoEdicao.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.cb_EstadoEdicao.ForeColor = System.Drawing.Color.Black;
+            this.cb_EstadoEdicao.FormattingEnabled = true;
+            this.cb_EstadoEdicao.Items.AddRange(new object[] {
             " ",
             "AC",
             "AL",
@@ -773,11 +810,11 @@
             "SP",
             "SE",
             "TO"});
-            this.cb_Estadoedicao.Location = new System.Drawing.Point(146, 236);
-            this.cb_Estadoedicao.Name = "cb_Estadoedicao";
-            this.cb_Estadoedicao.Size = new System.Drawing.Size(75, 27);
-            this.cb_Estadoedicao.TabIndex = 116;
-            this.cb_Estadoedicao.SelectedIndexChanged += new System.EventHandler(this.cb_Estadoedicao_SelectedIndexChanged);
+            this.cb_EstadoEdicao.Location = new System.Drawing.Point(146, 236);
+            this.cb_EstadoEdicao.Name = "cb_EstadoEdicao";
+            this.cb_EstadoEdicao.Size = new System.Drawing.Size(75, 27);
+            this.cb_EstadoEdicao.TabIndex = 116;
+            this.cb_EstadoEdicao.SelectedIndexChanged += new System.EventHandler(this.cb_Estadoedicao_SelectedIndexChanged);
             // 
             // btn_Pesquisar
             // 
@@ -907,31 +944,6 @@
             this.txt_BairroEdicao.TextChanged += new System.EventHandler(this.txt_BairroEdicao_TextChanged);
             this.txt_BairroEdicao.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_BairroEdicao_KeyDown);
             // 
-            // mask_CepEdicao
-            // 
-            this.mask_CepEdicao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mask_CepEdicao.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.mask_CepEdicao.ForeColor = System.Drawing.Color.Black;
-            this.mask_CepEdicao.Location = new System.Drawing.Point(475, 143);
-            this.mask_CepEdicao.Mask = "00000-000";
-            this.mask_CepEdicao.Name = "mask_CepEdicao";
-            this.mask_CepEdicao.Size = new System.Drawing.Size(95, 26);
-            this.mask_CepEdicao.TabIndex = 5;
-            this.mask_CepEdicao.ValidatingType = typeof(System.DateTime);
-            this.mask_CepEdicao.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.mask_CepEdicao_MaskInputRejected);
-            this.mask_CepEdicao.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mask_CepEdicao_KeyDown);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(431, 146);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 18);
-            this.label5.TabIndex = 101;
-            this.label5.Text = "CEP:";
-            // 
             // mask_CNPJEdicao
             // 
             this.mask_CNPJEdicao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -984,10 +996,10 @@
             // 
             this.txt_LogradouroEdicao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_LogradouroEdicao.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.txt_LogradouroEdicao.Location = new System.Drawing.Point(147, 143);
+            this.txt_LogradouroEdicao.Location = new System.Drawing.Point(463, 142);
             this.txt_LogradouroEdicao.MaxLength = 100;
             this.txt_LogradouroEdicao.Name = "txt_LogradouroEdicao";
-            this.txt_LogradouroEdicao.Size = new System.Drawing.Size(276, 26);
+            this.txt_LogradouroEdicao.Size = new System.Drawing.Size(217, 26);
             this.txt_LogradouroEdicao.TabIndex = 4;
             this.txt_LogradouroEdicao.TextChanged += new System.EventHandler(this.txt_LogradouroEdicacao_TextChanged);
             this.txt_LogradouroEdicao.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_LogradouroEdicacao_KeyDown);
@@ -1050,7 +1062,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(41, 146);
+            this.label18.Location = new System.Drawing.Point(358, 145);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(100, 18);
             this.label18.TabIndex = 89;
@@ -1226,8 +1238,6 @@
         private System.Windows.Forms.MaskedTextBox mask_TelefoneEdicao;
         private System.Windows.Forms.TextBox txt_CidadeEdicao;
         private System.Windows.Forms.TextBox txt_BairroEdicao;
-        private System.Windows.Forms.MaskedTextBox mask_CepEdicao;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.MaskedTextBox mask_CNPJEdicao;
         private System.Windows.Forms.MaskedTextBox mask_InscricaoEstadualEdicao;
         private System.Windows.Forms.Label label6;
@@ -1255,7 +1265,7 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox cb_Estado;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.ComboBox cb_Estadoedicao;
+        private System.Windows.Forms.ComboBox cb_EstadoEdicao;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btn_Adicionar;
         private System.Windows.Forms.PictureBox pb_ImagemEmpresa;
@@ -1267,5 +1277,8 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.ComboBox cb_AreaAtuacao;
         private System.Windows.Forms.ComboBox cb_AreaAtuacaoEdicao;
+        private System.Windows.Forms.Button btn_BuscarCepEdicao;
+        private System.Windows.Forms.MaskedTextBox mask_CepEdicao;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -344,7 +344,7 @@ namespace sistemaControleVendas
         private void GerenciarCaixaCredito()
         {
             decimal Desconto = decimal.Parse(txt_DescontoDinheiro.Text);
-            SqlConnection conexao = new SqlConnection(ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4"));
+            SqlConnection conexao = new SqlConnection(ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"));
             string _sql = "update FluxoCaixa set Desconto = Desconto + @Desconto Where DataSaida = ''";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.Parameters.AddWithValue("@Desconto", Desconto);
@@ -368,7 +368,7 @@ namespace sistemaControleVendas
         {
             decimal Valor = decimal.Parse(txt_ValorDesconto.Text);
             decimal Desconto= decimal.Parse(txt_DescontoDinheiro.Text);
-            SqlConnection conexao = new SqlConnection(ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4"));
+            SqlConnection conexao = new SqlConnection(ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"));
             string _sql = "update FluxoCaixa set ValorRecebidoDebito = ValorRecebidoDebito + @Valor, Desconto = Desconto + @Desconto Where DataSaida = ''";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.Parameters.AddWithValue("@Desconto", Desconto);

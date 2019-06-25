@@ -430,6 +430,7 @@
             this.dgv_PagamentoParcial.Location = new System.Drawing.Point(3, 3);
             this.dgv_PagamentoParcial.Name = "dgv_PagamentoParcial";
             this.dgv_PagamentoParcial.ReadOnly = true;
+            this.dgv_PagamentoParcial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_PagamentoParcial.Size = new System.Drawing.Size(805, 474);
             this.dgv_PagamentoParcial.TabIndex = 1;
             // 

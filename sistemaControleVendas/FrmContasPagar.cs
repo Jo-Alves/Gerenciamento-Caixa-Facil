@@ -330,12 +330,9 @@ namespace sistemaControleVendas
 
         private void FrmContasPagar_Load(object sender, EventArgs e)
         {
-            // TODO: esta linha de código carrega dados na tabela 'dbControleVendaDataSet.ContasPagar'. Você pode movê-la ou removê-la conforme necessário.
-            this.contasPagarTableAdapter.Fill(this.dbControleVendaDataSet.ContasPagar);
-            // TODO: esta linha de código carrega dados na tabela 'dbControleVendaDataSet.ContasPagar'. Você pode movê-la ou removê-la conforme necessário.
-            this.contasPagarTableAdapter.Fill(this.dbControleVendaDataSet.ContasPagar);
-
+            CarregarGrid();
         }
+
         string codigo = "";
         private void btn_PesquisarQuitar_Click(object sender, EventArgs e)
         {
@@ -588,10 +585,13 @@ namespace sistemaControleVendas
             }
         }
 
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql;
+
         private void CarregarGrid()
         {            
-            SqlConnection conexao = new SqlConnection(@"Eata Source = LOCALHOST\SQLEXPRESS; Initial Catalog = DbControleVenda; Integrated Security = True");
-            SqlDataAdapter comando = new SqlDataAdapter("SELECT Id, Beneficiario, NumeroDocumento, Vencimento, ValorDocumento, Referencia, Desconto FROM ContasPagar WHERE (Status = 'Não Pago')",conexao);
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "SELECT Id, Beneficiario, NumeroDocumento, Vencimento, ValorDocumento, Referencia, Desconto FROM ContasPagar WHERE (Status = 'Não Pago')";
+            SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
             DataTable Tabela = new DataTable();
             comando.Fill(Tabela);
             dataGridView_Consulta.DataSource = Tabela;

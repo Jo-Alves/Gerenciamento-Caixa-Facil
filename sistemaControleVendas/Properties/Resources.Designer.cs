@@ -1103,6 +1103,16 @@ namespace sistemaControleVendas.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Text_Edit_icon__1_1 {
+            get {
+                object obj = ResourceManager.GetObject("Text-Edit-icon (1)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap User_Clients_icon {
             get {
                 object obj = ResourceManager.GetObject("User-Clients-icon", resourceCulture);

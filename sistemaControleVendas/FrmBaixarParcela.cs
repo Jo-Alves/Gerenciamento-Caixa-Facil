@@ -69,11 +69,11 @@ namespace sistemaControleVendas
             ValoresCaixa();
         }
 
-        string stringConn = null;
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3");
         string _sql;
+
         private void BaixarParcela()
         {
-            stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4");
             SqlConnection conexao = new SqlConnection(stringConn);
             _sql = "update ParcelaVenda set DataPagamento = @DataPagamento, HoraPagamento = @HoraPagamento from ParcelaVenda inner join Venda on ParcelaVenda.Id_Venda = Venda.Id_Venda inner join Cliente on Cliente.Id_Cliente = venda.Id_Cliente inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda where Cliente.Id_Cliente = @id and FormaPagamento.Descricao = 'PARCELADO' and ParcelaVenda.DataPagamento = '' AND ParcelaVenda.Parcela = @Parcela and DataVencimento = @Vencimento AND ParcelaVenda.Id_Venda = @Id_Venda";
             SqlCommand comando = new SqlCommand(_sql, conexao);

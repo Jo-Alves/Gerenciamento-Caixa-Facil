@@ -67,7 +67,7 @@ namespace sistemaControleVendas
         }
 
         string Id_Categoria;
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4");
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3");
         string _sql;
         private void Codigocategoria()
         {
@@ -131,7 +131,7 @@ namespace sistemaControleVendas
             txt_NomeFornecedor.Clear();
             txt_Categoria.Clear();
             txt_CodigoBarra.Clear();
-            txt_DataValidade.Clear();
+            txt_DataValidade.Text = "00000000";
             txt_Marca.Clear();
             txt_NomeProduto.Clear();
             txt_PrecoVenda.Clear();
@@ -644,7 +644,7 @@ namespace sistemaControleVendas
             txt_fornecedorEdicao.Clear();
             txt_CategoriaEdicao.Clear();
             txt_CodigoBarraEdicao.Clear();
-            mask_DataValidadeEdicao.Clear();
+            mask_DataValidadeEdicao.Text = "00000000";
             txt_MarcaEdicao.Clear();
             txt_NomeProdutoEdicao.Clear();
             txt_PrecoVendaEdicao.Clear();

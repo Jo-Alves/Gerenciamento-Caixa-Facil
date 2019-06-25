@@ -48,7 +48,7 @@ namespace sistemaControleVendas
                 conexao.Close();
             }
         }
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRaXjDXC9eLqkg7Prh31kSiCYidze0zIx2X787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/ke2zixO52OdEzjJQ0vke62X8XuSqZtzzrbphZQivXUYi4"),  _sql;
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"),  _sql;
 
         public string Codigo { get; set; }
         public string Nome { get; set; }
@@ -117,7 +117,7 @@ namespace sistemaControleVendas
             if (txt_Nome.Text != string.Empty)
             {
                 SqlConnection conexao = new SqlConnection(stringConn);
-                string _sql = "Select * FROM Cliente WHERE  Nome like   '" + txt_Nome.Text.Trim() + "%'";
+                string _sql = "Select * FROM Cliente WHERE  Nome like   '%" + txt_Nome.Text.Trim() + "%'";
                 SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
                 comando.SelectCommand.CommandText = _sql;
                 DataTable Tabela = new DataTable();
