@@ -71,7 +71,7 @@ namespace sistemaControleVendas
             try
             {
                 SqlConnection conexao = new SqlConnection(stringConn);
-                _sql = "select Sum(ItensVenda.LucroItens) as Lucro, sum(ItensVenda.Valor) as Valor, Sum(Venda.Desconto) as Desconto from Cliente inner join venda on Venda.Id_Cliente = Cliente.Id_Cliente inner join ItensVenda on ItensVenda.Id_Venda = Venda.Id_Venda inner join Produto on Produto.Id_Produto = ItensVenda.Id_Produto inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda inner join Usuario on Usuario.Id_Usuario = Venda.Id_Usuario where Venda.DataVenda = @DataVenda";
+                _sql = "select Sum(Venda.Lucro) as Lucro, sum(Venda.ValorTotal + Venda.Desconto) as Valor, Sum(Venda.Desconto) as Desconto from Venda inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda where Venda.DataVenda = @DataVenda";
                 SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
                 comando.SelectCommand.Parameters.AddWithValue("@DataVenda", DateTime.Now.ToShortDateString());
                 comando.SelectCommand.CommandText = _sql;
@@ -127,7 +127,7 @@ namespace sistemaControleVendas
             try
             {
                 SqlConnection conexao = new SqlConnection(stringConn);
-                _sql = "select Sum(ItensVenda.LucroItens) as Lucro, sum(ItensVenda.Valor) as Valor, Sum(Venda.Desconto) as Desconto from venda inner join ItensVenda on ItensVenda.Id_Venda = Venda.Id_Venda";
+                _sql = "select Sum(Venda.Lucro) as Lucro, sum(Venda.ValorTotal + Venda.Desconto) as Valor, Sum(Venda.Desconto) as Desconto from Venda inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda";
                 SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
                 comando.SelectCommand.CommandText = _sql;
                 DataTable Tabela = new DataTable();
@@ -176,7 +176,7 @@ namespace sistemaControleVendas
             try
             {
                 SqlConnection conexao = new SqlConnection(stringConn);
-                _sql = "select  Sum(ItensVenda.LucroItens) as Lucro, sum(ItensVenda.Valor) as Valor, Sum(Venda.Desconto) as Desconto from Cliente inner join venda on Venda.Id_Cliente = Cliente.Id_Cliente inner join ItensVenda on ItensVenda.Id_Venda = Venda.Id_Venda inner join Produto on Produto.Id_Produto = ItensVenda.Id_Produto inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda inner join Usuario on Usuario.Id_Usuario = Venda.Id_Usuario where Convert(Date, Venda.DataVenda, 103) between Convert(Date, @DataInicial, 103) and Convert(Date, @DataFinal, 103) and FormaPagamento.Descricao = @Descricao";
+                _sql = "select Sum(Venda.Lucro) as Lucro, sum(Venda.ValorTotal + Venda.Desconto) as Valor, Sum(Venda.Desconto) as Desconto from Venda inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda where Convert(Date, Venda.DataVenda, 103) between Convert(Date, @DataInicial, 103) and Convert(Date, @DataFinal, 103) and FormaPagamento.Descricao = @Descricao";
                 SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
                 comando.SelectCommand.Parameters.AddWithValue("@DataInicial", DataInicial);
                 comando.SelectCommand.Parameters.AddWithValue("@DataFinal", DataFinal);
@@ -225,7 +225,7 @@ namespace sistemaControleVendas
             try
             {
                 SqlConnection conexao = new SqlConnection(stringConn);
-                _sql = "select  Sum(ItensVenda.LucroItens) as Lucro, sum(ItensVenda.Valor) as Valor, Sum(Venda.Desconto) as Desconto from Cliente inner join venda on Venda.Id_Cliente = Cliente.Id_Cliente inner join ItensVenda on ItensVenda.Id_Venda = Venda.Id_Venda inner join Produto on Produto.Id_Produto = ItensVenda.Id_Produto inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda inner join Usuario on Usuario.Id_Usuario = Venda.Id_Usuario where Convert(Date, Venda.DataVenda, 103) between Convert(Date, @DataInicial, 103) and Convert(Date, @DataFinal, 103)";
+                _sql = "select Sum(Venda.Lucro) as Lucro, sum(Venda.ValorTotal + Venda.Desconto) as Valor, Sum(Venda.Desconto) as Desconto from Venda inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda where Convert(Date, Venda.DataVenda, 103) between Convert(Date, @DataInicial, 103) and Convert(Date, @DataFinal, 103)";
                 SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
                 comando.SelectCommand.Parameters.AddWithValue("@DataInicial", DataInicial);
                 comando.SelectCommand.Parameters.AddWithValue("@DataFinal", DataFinal); comando.SelectCommand.CommandText = _sql;

@@ -632,8 +632,41 @@ namespace sistemaControleVendas
 
         private void Menu_TodasAsVendas_Click(object sender, EventArgs e)
         {
-            FrmListaVenda listavenda = new FrmListaVenda("","","");
-            listavenda.ShowDialog();
+            if (ListaTodasVendas() == "true")
+            {
+                FrmListaVenda listavenda = new FrmListaVenda("", "", "");
+                listavenda.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Não há venda realizadas.", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private string ListaTodasVendas()
+        {
+            try
+            {
+                SqlConnection conexao = new SqlConnection(stringConn);
+                _sql = "select Cliente.Id_Cliente, Cliente.Nome as NomeCliente, Venda.Id_Venda, ItensVenda.Quantidade, Produto.ValorVenda, ItensVenda.lucroItens, ItensVenda.Valor, FormaPagamento.Descricao, Venda.DataVenda, Venda.HoraVenda, Usuario.Nome as NomeUsuario, Produto.Descricao as DescricaoProduto from Cliente inner join venda on Venda.Id_Cliente = Cliente.Id_Cliente inner join ItensVenda on ItensVenda.Id_Venda = Venda.Id_Venda inner join Produto on Produto.Id_Produto = ItensVenda.Id_Produto inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda inner join Usuario on Usuario.Id_Usuario = Venda.Id_Usuario";
+                SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
+                comando.SelectCommand.CommandText = _sql;
+                DataTable Tabela = new DataTable();
+                comando.Fill(Tabela);
+                if(Tabela.Rows.Count == 0)
+                {
+                    return "false";
+                }
+                else
+                {
+                    return "true";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "erro";
+            }
         }
 
         private void Menu_RelatorioVendaPeriodo_Click(object sender, EventArgs e)
@@ -734,7 +767,7 @@ namespace sistemaControleVendas
             setting.ShowDialog();
         }
 
-        private void menuAlterarExcluirVenda_Click(object sender, EventArgs e)
+        private void menuAlterardevolverItensVenda_Click(object sender, EventArgs e)
         {
             FrmBuscarItensVendaAlterarExcluir alterarExcluirVenda = new FrmBuscarItensVendaAlterarExcluir();
             alterarExcluirVenda.ShowDialog();

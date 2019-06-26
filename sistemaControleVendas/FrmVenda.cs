@@ -861,6 +861,7 @@ namespace sistemaControleVendas
             DGV_ItensVenda.Enabled = true;
             txt_CodigoVenda.Enabled = true;
             id_Cliente = "1";
+            LucroTotal = 0.00m;
         }
 
         private void Sair()
