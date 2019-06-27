@@ -291,9 +291,9 @@ namespace sistemaControleVendas
         {
             FrmPesquisarProdutos pesquisarProdutos = new FrmPesquisarProdutos();
             pesquisarProdutos.ShowDialog();
-            if (pesquisarProdutos.ID != null)
+            if (pesquisarProdutos.ID_PRODUTO != null)
             {
-                txt_CodigoProdutoExclusao.Text = pesquisarProdutos.ID;
+                txt_CodigoProdutoExclusao.Text = pesquisarProdutos.ID_PRODUTO;
                 comandoProduto();
                 ComandoCategoria();
             }
@@ -535,11 +535,11 @@ namespace sistemaControleVendas
         {
             FrmPesquisarProdutos pesquisarProdutos = new FrmPesquisarProdutos();
             pesquisarProdutos.ShowDialog();
-            if (pesquisarProdutos.ID != null)
+            if (pesquisarProdutos.ID_PRODUTO != null)
             {
-                txt_CodigoEdicao.Text = pesquisarProdutos.ID;
+                txt_CodigoEdicao.Text = pesquisarProdutos.ID_PRODUTO;
                 AtualizarCategoria();
-                produto.id = int.Parse(pesquisarProdutos.ID);
+                produto.id = int.Parse(pesquisarProdutos.ID_PRODUTO);
                 produto.ConsultarCodigoProduto();
                 txt_CodigoBarraEdicao.Text = produto.codigoBarra;
                 txt_NomeProdutoEdicao.Text = produto.descricao;

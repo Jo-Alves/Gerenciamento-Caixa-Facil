@@ -19,7 +19,7 @@ namespace sistemaControleVendas
             InitializeComponent();
         }
         int Id_Usuario;
-        string NomeUsuario, TempoFechamento;
+        string NomeUsuario;
         double prazoFechamento;
         private void FrmAutenticacao_Load(object sender, EventArgs e)
         {
@@ -107,7 +107,6 @@ namespace sistemaControleVendas
                 }
                 if (!string.IsNullOrEmpty(Settings.Default["Disco"].ToString()))
                 {
-                    TempoFechamento = Settings.Default["TempoFechamento"].ToString();
                     DataAtual = DateTime.Now.ToShortDateString();
 
                     Id_Usuario = autenticacao.id;
@@ -121,13 +120,7 @@ namespace sistemaControleVendas
                         string NomeUsuario = Caixa.nomeUsuario;
                         int CodigoUsuario = Caixa.id_Usuario;
                         
-                        prazoFechamento = CalcularPeriodoDias();
-
-                        if (prazoFechamento > double.Parse(TempoFechamento))
-                        {
-                            InformarCaixaAberto();
-                        }
-                        else if (CodigoUsuario == Id_Usuario)
+                       if (CodigoUsuario == Id_Usuario)
                         {
                             if (MessageBox.Show("O Caixa está aberto! Deseja Continuar?", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {

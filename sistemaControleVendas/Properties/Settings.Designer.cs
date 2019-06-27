@@ -79,17 +79,5 @@ namespace sistemaControleVendas.Properties {
                 this["TempoPrazo"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TempoFechamento {
-            get {
-                return ((string)(this["TempoFechamento"]));
-            }
-            set {
-                this["TempoFechamento"] = value;
-            }
-        }
     }
 }

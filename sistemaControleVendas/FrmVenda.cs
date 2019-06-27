@@ -299,9 +299,9 @@ namespace sistemaControleVendas
                 {
                     CodigoBarra = txt_Codigo_Barra.Text;
                     Quantidade = int.Parse(txt_Quantidade.Text);
-                    if (produtos.ID != null)
+                    if (produtos.ID_PRODUTO != null)
                     {
-                        produto.id = int.Parse(produtos.ID);
+                        produto.id = int.Parse(produtos.ID_PRODUTO);
                         if (produto.ConsultarProduto() == true)
                         {
                             CodigoProduto = produto.id.ToString();

@@ -13,6 +13,9 @@ namespace sistemaControleVendas
 {
     public partial class FrmVendaAlterarExcluir : Form
     {
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, descricao, idItensVenda, idProduto;
+        decimal Valor, lucroItens;
+
         public FrmVendaAlterarExcluir(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda)
         {
             InitializeComponent();
@@ -28,8 +31,6 @@ namespace sistemaControleVendas
             dgv_ListaVenda.ClearSelection();
             ListaTodasVendas();
         }
-
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql;
 
         private void ListaTodasVendas()
         {
@@ -77,7 +78,8 @@ namespace sistemaControleVendas
             if (contLinhas > -1)
             {
                 DataGridViewRow linhas = dgv_ListaVenda.Rows[contLinhas];
-                CodVenda = linhas.Cells[0].Value.ToString();               
+                CodVenda = linhas.Cells[0].Value.ToString();
+                descricao = linhas.Cells[1].Value.ToString();
             }
         }
 
@@ -94,13 +96,13 @@ namespace sistemaControleVendas
 
             if(dr == DialogResult.Yes)
             {
-                ExcluirTodosItens();
+                ExcluirTodosItensVenda();
                 ListaTodasVendas();
                 this.Close();
             }
         }
 
-        private void ExcluirTodosItens()
+        private void ExcluirTodosItensVenda()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
             _sql = "delete from Venda where id_Venda = @IdVenda";
@@ -122,6 +124,135 @@ namespace sistemaControleVendas
                 conexao.Close();
             }
 
+        }
+
+        private void btnExcluirItem_Click(object sender, EventArgs e)
+        {
+            
+            if (dgv_ListaVenda.CurrentRow.Selected == true)
+            {
+                DialogResult dr = MessageBox.Show("Deseja mesmo excluir este item da venda?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                if (dr == DialogResult.Yes)
+                {
+                    BuscarIdItensVenda();
+                    excluirItensVenda();
+                    ListaTodasVendas();
+                    if (dgv_ListaVenda.Rows.Count == 0)
+                    {
+                        this.Close();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione o item para excluir!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void BuscarIdItensVenda()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select ItensVenda.Id_ItensVenda from ItensVenda  inner join  Produto on Produto.Id_Produto = ItensVenda.Id_Produto where itensVenda.id_Venda = @idVenda and Produto.Descricao = @descricao";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@idVenda", CodVenda);
+            comando.Parameters.AddWithValue("@descricao", descricao);
+            comando.CommandText = _sql;
+            
+            try
+            {
+                conexao.Open();
+                SqlDataReader dr = comando.ExecuteReader();
+                if (dr.Read())
+                {
+                    idItensVenda = dr[0].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void excluirItensVenda()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "delete from ItensVenda where id_ItensVenda = @IdItensVenda";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdItensVenda", idItensVenda);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+                MessageBox.Show("Item excluido!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void btnAlterarItem_Click(object sender, EventArgs e)
+        {
+            if (dgv_ListaVenda.CurrentRow.Selected == true)
+            {
+                FrmPesquisarProdutos pesquisarProdutos = new FrmPesquisarProdutos();
+                pesquisarProdutos.ShowDialog();
+                if (!string.IsNullOrEmpty(pesquisarProdutos.ID_PRODUTO))
+                {
+                    DialogResult dr = MessageBox.Show("Deseja mesmo alterar o produto " + descricao + " por " + pesquisarProdutos.Descricao + "?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                    if (dr == DialogResult.Yes)
+                    {                        
+                        idProduto = pesquisarProdutos.ID_PRODUTO;
+                        lucroItens = decimal.Parse(pesquisarProdutos.Lucro);
+                        Valor = decimal.Parse(pesquisarProdutos.ValorVenda);
+                        BuscarIdItensVenda();
+                        alterarItensVenda();
+                        ListaTodasVendas();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione o item para alterar!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        
+        private void alterarItensVenda()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "update ItensVenda set id_Produto = @idProduto, Valor = @Valor, lucroItens = @lucroItens  where id_ItensVenda = @IdItensVenda";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdProduto", idProduto);
+            comando.Parameters.AddWithValue("@IdItensVenda", idItensVenda);
+            comando.Parameters.AddWithValue("@valor", Valor);
+            comando.Parameters.AddWithValue("@lucroItens", lucroItens);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+                MessageBox.Show("Item excluido!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
 
         int X = 0, Y = 0;

@@ -34,8 +34,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.lblValorTotal = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAlterarItem = new System.Windows.Forms.Button();
+            this.btnExcluirItem = new System.Windows.Forms.Button();
             this.lblCodigoVenda = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
@@ -68,8 +68,8 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.lblValorTotal);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnAlterarItem);
+            this.panel1.Controls.Add(this.btnExcluirItem);
             this.panel1.Controls.Add(this.lblCodigoVenda);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.lblCliente);
@@ -101,27 +101,29 @@
             this.lblValorTotal.Size = new System.Drawing.Size(0, 19);
             this.lblValorTotal.TabIndex = 14;
             // 
-            // button2
+            // btnAlterarItem
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(142, 473);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(152, 47);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Alterar Item";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnAlterarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAlterarItem.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAlterarItem.Location = new System.Drawing.Point(142, 473);
+            this.btnAlterarItem.Name = "btnAlterarItem";
+            this.btnAlterarItem.Size = new System.Drawing.Size(152, 47);
+            this.btnAlterarItem.TabIndex = 13;
+            this.btnAlterarItem.Text = "Alterar Item";
+            this.btnAlterarItem.UseVisualStyleBackColor = true;
+            this.btnAlterarItem.Click += new System.EventHandler(this.btnAlterarItem_Click);
             // 
-            // button1
+            // btnExcluirItem
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(300, 473);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(152, 47);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Excluir Item";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnExcluirItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluirItem.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExcluirItem.Location = new System.Drawing.Point(300, 473);
+            this.btnExcluirItem.Name = "btnExcluirItem";
+            this.btnExcluirItem.Size = new System.Drawing.Size(152, 47);
+            this.btnExcluirItem.TabIndex = 12;
+            this.btnExcluirItem.Text = "Devolver Item";
+            this.btnExcluirItem.UseVisualStyleBackColor = true;
+            this.btnExcluirItem.Click += new System.EventHandler(this.btnExcluirItem_Click);
             // 
             // lblCodigoVenda
             // 
@@ -165,7 +167,7 @@
             this.btnExcluirTudo.Name = "btnExcluirTudo";
             this.btnExcluirTudo.Size = new System.Drawing.Size(152, 47);
             this.btnExcluirTudo.TabIndex = 7;
-            this.btnExcluirTudo.Text = "Excluir Tudo";
+            this.btnExcluirTudo.Text = "Devolver Tudo";
             this.btnExcluirTudo.UseVisualStyleBackColor = true;
             this.btnExcluirTudo.Click += new System.EventHandler(this.btnExcluirTudo_Click);
             // 
@@ -390,8 +392,8 @@
         private System.Windows.Forms.Label lblCodigoVenda;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblCliente;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAlterarItem;
+        private System.Windows.Forms.Button btnExcluirItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;

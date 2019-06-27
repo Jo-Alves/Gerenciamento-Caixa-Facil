@@ -26,10 +26,12 @@ namespace sistemaControleVendas
         string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3");
         string _sql;
         
-        public string ID { get; set; }
+        public string ID_PRODUTO { get; set; }
         public string CodBarra { get; set; }
         public string Fornecedor { get; set; }
         public string Descricao { get; set; }
+        public string Lucro { get; set; }
+        public string ValorVenda { get; set; }
         private void btn_Fechar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -98,10 +100,12 @@ namespace sistemaControleVendas
             if (Cont >= 0)
             {
                 DataGridViewRow LINHA = dgv_Busca.Rows[e.RowIndex];
-                ID = LINHA.Cells[0].Value.ToString();
+                ID_PRODUTO = LINHA.Cells[0].Value.ToString();
                 CodBarra = LINHA.Cells[1].Value.ToString();
                 Fornecedor = LINHA.Cells[12].Value.ToString();
                 Descricao = LINHA.Cells[3].Value.ToString();
+                Lucro = LINHA.Cells[7].Value.ToString();
+                ValorVenda = LINHA.Cells[6].Value.ToString();
                 this.Close();
             }
         }

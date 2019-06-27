@@ -13,7 +13,7 @@ namespace sistemaControleVendas
 {
     public partial class FrmSetting : Form
     {
-        string Disco = Settings.Default["Disco"].ToString(), TempoPrazo = Settings.Default["TempoPrazo"].ToString(), TempoFechamento = Settings.Default["TempoFechamento"].ToString();
+        string Disco = Settings.Default["Disco"].ToString(), TempoPrazo = Settings.Default["TempoPrazo"].ToString();
 
         public FrmSetting()
         {
@@ -41,7 +41,7 @@ namespace sistemaControleVendas
 
         private void HabilitarBotaoAplicar()
         {
-            if (cbDisco.Text == Disco && cbTempoFechamentoCaixa.Text == TempoFechamento && cbTempoPagamentoPrazo.Text == TempoPrazo)
+            if (cbDisco.Text == Disco && cbTempoPagamentoPrazo.Text == TempoPrazo)
             {
                 btnAplicar.Enabled = false;
             }
@@ -56,11 +56,6 @@ namespace sistemaControleVendas
             HabilitarBotaoAplicar();
         }
 
-        private void cbTempoFechamentoCaixa_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            HabilitarBotaoAplicar();
-        }
-
         private void cbTempoPagamentoPrazo_SelectedIndexChanged(object sender, EventArgs e)
         {
             HabilitarBotaoAplicar();
@@ -68,11 +63,10 @@ namespace sistemaControleVendas
 
         private bool SalvarConfiguracao()
         {
-            if (cbDisco.SelectedIndex >= 0 && cbTempoFechamentoCaixa.SelectedIndex >= 0 && cbTempoPagamentoPrazo.SelectedIndex >= 0)
+            if (cbDisco.SelectedIndex >= 0 && cbTempoPagamentoPrazo.SelectedIndex >= 0)
             {
                 Settings.Default["Disco"] = cbDisco.Text;
                 Settings.Default["TempoPrazo"] = cbTempoPagamentoPrazo.Text;
-                Settings.Default["TempoFechamento"] = cbTempoFechamentoCaixa.Text;
                 Settings.Default.Save();
                 return true;
             }
@@ -86,7 +80,6 @@ namespace sistemaControleVendas
         private void FrmSetting_Load(object sender, EventArgs e)
         {
             cbDisco.Text = Disco;
-            cbTempoFechamentoCaixa.Text = TempoFechamento;
             cbTempoPagamentoPrazo.Text = TempoPrazo;
         }
     }
