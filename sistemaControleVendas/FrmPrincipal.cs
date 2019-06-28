@@ -773,6 +773,12 @@ namespace sistemaControleVendas
             alterarExcluirVenda.ShowDialog();
         }
 
+        private void menuVendasNãoContablizadas_Click(object sender, EventArgs e)
+        {
+            FrmContasNaoContabilizadas contasNaoContabilizadas = new FrmContasNaoContabilizadas();
+            contasNaoContabilizadas.ShowDialog();
+        }
+
         private void MenuRegistroSaldoFinal_Click(object sender, EventArgs e)
         {
             FrmRelatorioSaldoFinal relatorioSaldoFinal = new FrmRelatorioSaldoFinal();

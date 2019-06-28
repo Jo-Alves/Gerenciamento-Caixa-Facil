@@ -143,9 +143,9 @@ namespace sistemaControleVendas
             dgv_HistoricoVendas.DataSource = Tabela;
         }
 
-    private void FrmFechamentoCaixa_Load(object sender, EventArgs e)
+        private void FrmFechamentoCaixa_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void HistoricoVendas()

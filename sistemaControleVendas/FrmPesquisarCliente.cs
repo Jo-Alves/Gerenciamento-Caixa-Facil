@@ -52,21 +52,10 @@ namespace sistemaControleVendas
 
         public string Codigo { get; set; }
         public string Nome { get; set; }
-
-        string CODIGO = null;
-        string NOME = null;
-        string DATANASCIMENTO = null;
-        string Cpf = null;
-        string Rg = null;
-        string CEP = null;
-        string BAIRRO = null;
-        string ENDERECO = null;
-        string NUMERO = null;
-        string CIDADE = null;
-        string ESTADO = null;
-        string TELEFONE = null;
-        string CELULAR = null;
-        string EMAIL = null;
+        public string Bairro { get; set; }
+        public string Endereco { get; set; }
+        public string Numero { get; set; }
+        public string Telefone { get; set; }
 
         int X = 0;
         int Y = 0;
@@ -151,6 +140,10 @@ namespace sistemaControleVendas
                 DataGridViewRow LINHA = dgv_Busca.Rows[e.RowIndex];
                 Codigo = LINHA.Cells[0].Value.ToString();
                 Nome = LINHA.Cells[1].Value.ToString();
+                Bairro = LINHA.Cells[6].Value.ToString();
+                Endereco = LINHA.Cells[7].Value.ToString();
+                Numero = LINHA.Cells[8].Value.ToString();
+                Telefone = LINHA.Cells[11].Value.ToString();
                 this.Close();
             }
         }

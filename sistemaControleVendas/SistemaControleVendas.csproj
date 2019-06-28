@@ -161,6 +161,7 @@
     <Compile Include="Classes\ClassSeguranca.cs" />
     <Compile Include="Classes\ClassValidacaoEmail.cs" />
     <Compile Include="Classes\ClassPagamentoParcial.cs" />
+    <Compile Include="Classes\ClassVendasNaoContabilizada.cs" />
     <Compile Include="Classes\CPF.cs" />
     <Compile Include="Classes\ClassFornecedor.cs" />
     <Compile Include="Classes\ClassProduto.cs" />
@@ -242,6 +243,12 @@
     </Compile>
     <Compile Include="FrmBaixarPagamentoPrazo.Designer.cs">
       <DependentUpon>FrmBaixarPagamentoPrazo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmContasNaoContabilizadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmContasNaoContabilizadas.Designer.cs">
+      <DependentUpon>FrmContasNaoContabilizadas.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmVendaAlterarExcluir.cs">
       <SubType>Form</SubType>
@@ -578,6 +585,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmBaixarPagamentoPrazo.resx">
       <DependentUpon>FrmBaixarPagamentoPrazo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmContasNaoContabilizadas.resx">
+      <DependentUpon>FrmContasNaoContabilizadas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmVendaAlterarExcluir.resx">
       <DependentUpon>FrmVendaAlterarExcluir.cs</DependentUpon>

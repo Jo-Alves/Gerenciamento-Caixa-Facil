@@ -100,6 +100,7 @@
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuConfiguracao = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAjustar = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuVendasNãoContablizadas = new System.Windows.Forms.ToolStripMenuItem();
             timer = new System.Windows.Forms.Timer(this.components);
             this.panelCabecalho.SuspendLayout();
             this.PanelCorpo.SuspendLayout();
@@ -452,12 +453,13 @@
             // Menu_Movimentos
             // 
             this.Menu_Movimentos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Menu_AnaliseDeVendas,
+            this.menuAlterardevolverItensVenda,
             this.Menu_ContasClientes,
             this.Menu_ContasPagar,
             this.Menu_ContasReceber,
             this.Menu_RealizarVendas,
-            this.menuAlterardevolverItensVenda,
-            this.Menu_AnaliseDeVendas});
+            this.menuVendasNãoContablizadas});
             this.Menu_Movimentos.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Menu_Movimentos.Image = global::sistemaControleVendas.Properties.Resources.Cash_register_icon;
             this.Menu_Movimentos.Name = "Menu_Movimentos";
@@ -593,9 +595,9 @@
             // diversosToolStripMenuItem
             // 
             this.diversosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Menu_ValidadesProdutos,
             this.Menu_Agendamento,
-            this.Menu_ProcurarAgenda});
+            this.Menu_ProcurarAgenda,
+            this.Menu_ValidadesProdutos});
             this.diversosToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 11.25F);
             this.diversosToolStripMenuItem.Image = global::sistemaControleVendas.Properties.Resources.images;
             this.diversosToolStripMenuItem.Name = "diversosToolStripMenuItem";
@@ -661,14 +663,14 @@
             // 
             this.Menu_Relatórios.BackColor = System.Drawing.Color.Aquamarine;
             this.Menu_Relatórios.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Menu_RelatorioFechamentoCaixa,
             this.Menu_AberturaCaixa,
-            this.MenuRegistroSaldoFinal,
             this.Menu_ListagemVendasRealizadasNoDia,
             this.Menu_Relatorio_RetiradasCaixa,
-            this.Menu_listagemDeProdutosCadastrados,
             this.Menu_listagensDeClientesCadastrados,
-            this.Menu_listagemDeServiçosCadastrados});
+            this.Menu_listagemDeProdutosCadastrados,
+            this.Menu_listagemDeServiçosCadastrados,
+            this.Menu_RelatorioFechamentoCaixa,
+            this.MenuRegistroSaldoFinal});
             this.Menu_Relatórios.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Menu_Relatórios.Image = ((System.Drawing.Image)(resources.GetObject("Menu_Relatórios.Image")));
             this.Menu_Relatórios.Name = "Menu_Relatórios";
@@ -908,6 +910,16 @@
             this.menuAjustar.Text = "Ajustar";
             this.menuAjustar.Click += new System.EventHandler(this.menuAjustar_Click);
             // 
+            // menuVendasNãoContablizadas
+            // 
+            this.menuVendasNãoContablizadas.BackColor = System.Drawing.Color.Aquamarine;
+            this.menuVendasNãoContablizadas.Image = global::sistemaControleVendas.Properties.Resources.Carrinho_de_compra;
+            this.menuVendasNãoContablizadas.Name = "menuVendasNãoContablizadas";
+            this.menuVendasNãoContablizadas.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.menuVendasNãoContablizadas.Size = new System.Drawing.Size(354, 22);
+            this.menuVendasNãoContablizadas.Text = "Vendas não contablizadas";
+            this.menuVendasNãoContablizadas.Click += new System.EventHandler(this.menuVendasNãoContablizadas_Click);
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -1010,6 +1022,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuConfiguracao;
         private System.Windows.Forms.ToolStripMenuItem menuAjustar;
         private System.Windows.Forms.ToolStripMenuItem menuAlterardevolverItensVenda;
+        private System.Windows.Forms.ToolStripMenuItem menuVendasNãoContablizadas;
     }
 }
 

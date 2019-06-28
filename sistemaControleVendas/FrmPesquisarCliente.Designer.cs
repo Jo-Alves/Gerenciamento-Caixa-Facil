@@ -40,7 +40,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txt_Nome = new System.Windows.Forms.TextBox();
             this.dgv_Busca = new System.Windows.Forms.DataGridView();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnDataNascimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +54,7 @@
             this.ColumnTelefone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCelular = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -79,9 +79,9 @@
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.btn_Fechar);
-            this.panel3.Location = new System.Drawing.Point(4, -1);
+            this.panel3.Location = new System.Drawing.Point(-1, -1);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1045, 89);
+            this.panel3.Size = new System.Drawing.Size(1050, 89);
             this.panel3.TabIndex = 2;
             this.panel3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel3_MouseDown);
             this.panel3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel3_MouseMove);
@@ -132,9 +132,9 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.txt_Nome);
             this.panel2.Controls.Add(this.dgv_Busca);
-            this.panel2.Location = new System.Drawing.Point(5, 85);
+            this.panel2.Location = new System.Drawing.Point(-1, 85);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1045, 511);
+            this.panel2.Size = new System.Drawing.Size(1051, 511);
             this.panel2.TabIndex = 1;
             // 
             // label1
