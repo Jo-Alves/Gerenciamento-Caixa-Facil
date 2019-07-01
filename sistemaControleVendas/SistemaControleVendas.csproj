@@ -161,7 +161,7 @@
     <Compile Include="Classes\ClassSeguranca.cs" />
     <Compile Include="Classes\ClassValidacaoEmail.cs" />
     <Compile Include="Classes\ClassPagamentoParcial.cs" />
-    <Compile Include="Classes\ClassVendasNaoContabilizada.cs" />
+    <Compile Include="Classes\ClassContasNaoContabilizada.cs" />
     <Compile Include="Classes\CPF.cs" />
     <Compile Include="Classes\ClassFornecedor.cs" />
     <Compile Include="Classes\ClassProduto.cs" />
@@ -232,6 +232,12 @@
     <Compile Include="FrmAdicionarQuantidade.Designer.cs">
       <DependentUpon>FrmAdicionarQuantidade.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmBaixarPagamentoContasNaoContabilizadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBaixarPagamentoContasNaoContabilizadas.Designer.cs">
+      <DependentUpon>FrmBaixarPagamentoContasNaoContabilizadas.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmBaixarPagamentoParcial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +249,12 @@
     </Compile>
     <Compile Include="FrmBaixarPagamentoPrazo.Designer.cs">
       <DependentUpon>FrmBaixarPagamentoPrazo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBuscarContasNaoContabilizadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBuscarContasNaoContabilizadas.Designer.cs">
+      <DependentUpon>FrmBuscarContasNaoContabilizadas.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmContasNaoContabilizadas.cs">
       <SubType>Form</SubType>
@@ -580,11 +592,17 @@
     <EmbeddedResource Include="FrmAdicionarQuantidade.resx">
       <DependentUpon>FrmAdicionarQuantidade.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmBaixarPagamentoContasNaoContabilizadas.resx">
+      <DependentUpon>FrmBaixarPagamentoContasNaoContabilizadas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmBaixarPagamentoParcial.resx">
       <DependentUpon>FrmBaixarPagamentoParcial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmBaixarPagamentoPrazo.resx">
       <DependentUpon>FrmBaixarPagamentoPrazo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmBuscarContasNaoContabilizadas.resx">
+      <DependentUpon>FrmBuscarContasNaoContabilizadas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmContasNaoContabilizadas.resx">
       <DependentUpon>FrmContasNaoContabilizadas.cs</DependentUpon>

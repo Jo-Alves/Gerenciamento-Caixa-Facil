@@ -66,6 +66,102 @@ namespace sistemaControleVendas
 
         string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3");
         string _sql;
+        bool Validado = false;
+        int codigo;
+
+        ClassContasNaoContabilizada vendasNaoContabilizada = new ClassContasNaoContabilizada();
+
+        private void btn_Editar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (codigo > 0)
+                {
+                    ValidarCampos();
+                    if (Validado == true)
+                    {
+                        vendasNaoContabilizada.codigo = codigo;
+                        vendasNaoContabilizada.nome = txt_Nome.Text.Trim();
+                        vendasNaoContabilizada.bairro = txt_Bairro.Text.Trim();
+                        vendasNaoContabilizada.endereco = txt_Endereco.Text.Trim();
+                        vendasNaoContabilizada.numero = txt_Numero.Text.Trim();
+                        vendasNaoContabilizada.valorConta = decimal.Parse(txt_Valor.Text.Trim());
+                        vendasNaoContabilizada.dataConta = dt_DataVenda.Text;
+                        vendasNaoContabilizada.EditarVendaNaoContabilizada();
+                        MessageBox.Show("Conta alterada com sucesso!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btn_Limpar_Click(sender, e);
+                        txt_Nome.Focus();
+                        Validado = false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Busque a conta que deseja alterar!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        decimal ValorConta;
+        private void btn_BuscarVenda_Click(object sender, EventArgs e)
+        {
+            if (BuscarConta() == true)
+            {
+                FrmBuscarContasNaoContabilizadas buscarContasNaoContabilizadas = new FrmBuscarContasNaoContabilizadas();
+                buscarContasNaoContabilizadas.ShowDialog();
+                if (buscarContasNaoContabilizadas.codigo > 0)
+                {
+                    codigo = buscarContasNaoContabilizadas.codigo;
+                    txt_Nome.Text = buscarContasNaoContabilizadas.nome;
+                    txt_Bairro.Text = buscarContasNaoContabilizadas.bairro;
+                    txt_Endereco.Text = buscarContasNaoContabilizadas.endereco;
+                    txt_Numero.Text = buscarContasNaoContabilizadas.numero;
+                    txt_Valor.Text = buscarContasNaoContabilizadas.valorConta;
+                    dt_DataVenda.Text = buscarContasNaoContabilizadas.DataConta;
+                    ValorConta = decimal.Parse(txt_Valor.Text);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Não existe contas não contabilizadas registrada no sistema!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private bool BuscarConta()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select * from ContasNaoContabilizadas";
+
+            SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
+            conexao.Open();
+            DataTable Tabela = new DataTable();
+            comando.Fill(Tabela);
+            if (Tabela.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void btn_BuscarCliente_Click(object sender, EventArgs e)
+        {
+            FrmPesquisarCliente pesquisarCliente = new FrmPesquisarCliente();
+            pesquisarCliente.ShowDialog();
+            if (!string.IsNullOrEmpty(pesquisarCliente.Nome))
+            {
+                txt_Nome.Text = pesquisarCliente.Nome;
+                txt_Bairro.Text = pesquisarCliente.Bairro;
+                txt_Endereco.Text = pesquisarCliente.Endereco;
+                txt_Numero.Text = pesquisarCliente.Numero;
+                txt_Valor.Focus();
+            }
+        }
 
         private void btn_Limpar_Click(object sender, EventArgs e)
         {
@@ -73,65 +169,83 @@ namespace sistemaControleVendas
             txt_Nome.Clear();
             txt_Endereco.Clear();
             txt_Bairro.Clear();
-            mask_Telefone.Clear();           
             txt_Numero.Clear();
             txt_Valor.Clear();
             dt_DataVenda.Text = DateTime.Now.ToShortDateString();
+            codigo = 0;
         }
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
             try
             {
-               if (txt_Nome.Text == string.Empty)
+                ValidarCampos();
+               if(Validado == true)
                 {
-                    MessageBox.Show("Preencha o campo 'Nome'!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    errorProvider.Clear();
-                    errorProvider.SetError(txt_Nome, "Campo obrigatório!");
-                    txt_Nome.Focus();
-                    return;
-                }
-                else if (txt_Bairro.Text == string.Empty)
-                {
-                    MessageBox.Show("Preencha o campo 'Bairro'!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    errorProvider.Clear();
-                    errorProvider.SetError(txt_Bairro, "Campo obrigatório!");
-                    txt_Bairro.Focus();
-                    return;
-                }
-
-                else if (txt_Endereco.Text == string.Empty)
-                {
-                    MessageBox.Show("Preencha o campo 'Endereço'!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    errorProvider.Clear();
-                    errorProvider.SetError(txt_Endereco, "Campo obrigatório!");
-                    txt_Endereco.Focus();
-                    return;
-                }
-                else if (txt_Numero.Text == string.Empty)
-                {
-                    MessageBox.Show("Preencha o campo 'Número'!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    errorProvider.Clear();
-                    errorProvider.SetError(txt_Numero, "Campo obrigatório!");
-                    txt_Numero.Focus();
-                    return;
-                }
-                else if (txt_Valor.Text == string.Empty)
-                {
-                    MessageBox.Show("Informe o valor!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    errorProvider.Clear();
-                    errorProvider.SetError(txt_Valor, "Campo obrigatório!");
-                    txt_Valor.Focus();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Cliente cadastrado com sucesso!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    vendasNaoContabilizada.nome = txt_Nome.Text.Trim();
+                    vendasNaoContabilizada.bairro = txt_Bairro.Text.Trim();
+                    vendasNaoContabilizada.endereco = txt_Endereco.Text.Trim();
+                    vendasNaoContabilizada.numero = txt_Numero.Text.Trim();
+                    vendasNaoContabilizada.valorConta = decimal.Parse(txt_Valor.Text.Trim());
+                    vendasNaoContabilizada.dataConta = dt_DataVenda.Text;
+                    vendasNaoContabilizada.ConfimarVendaNaoContabilizada();
+                    MessageBox.Show("Conta salvo com sucesso!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     btn_Limpar_Click(sender, e);
+                    txt_Nome.Focus();
+                    Validado = false;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ValidarCampos()
+        {
+            if (txt_Nome.Text == string.Empty)
+            {
+                MessageBox.Show("Preencha o campo 'Nome'!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                errorProvider.Clear();
+                errorProvider.SetError(txt_Nome, "Campo obrigatório!");
+                txt_Nome.Focus();
+                return;
+            }
+            else if (txt_Bairro.Text == string.Empty)
+            {
+                MessageBox.Show("Preencha o campo 'Bairro'!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                errorProvider.Clear();
+                errorProvider.SetError(txt_Bairro, "Campo obrigatório!");
+                txt_Bairro.Focus();
+                return;
+            }
+
+            else if (txt_Endereco.Text == string.Empty)
+            {
+                MessageBox.Show("Preencha o campo 'Endereço'!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                errorProvider.Clear();
+                errorProvider.SetError(txt_Endereco, "Campo obrigatório!");
+                txt_Endereco.Focus();
+                return;
+            }
+            else if (txt_Numero.Text == string.Empty)
+            {
+                MessageBox.Show("Preencha o campo 'Número'!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                errorProvider.Clear();
+                errorProvider.SetError(txt_Numero, "Campo obrigatório!");
+                txt_Numero.Focus();
+                return;
+            }
+            else if (txt_Valor.Text == string.Empty)
+            {
+                MessageBox.Show("Informe o valor!", "Campo Obrigatório!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                errorProvider.Clear();
+                errorProvider.SetError(txt_Valor, "Campo obrigatório!");
+                txt_Valor.Focus();
+                return;
+            }
+            else
+            {
+                Validado = true;
             }
         }
 
@@ -259,39 +373,32 @@ namespace sistemaControleVendas
             }
         }
 
+        private void btnBaixarConta_Click(object sender, EventArgs e)
+        {
+            if(codigo > 0)
+            {
+                FrmBaixarPagamentoContasNaoContabilizadas baixarPagamentoContasNaoContabilizadas = new FrmBaixarPagamentoContasNaoContabilizadas(ValorConta, codigo.ToString(), txt_Nome.Text.Trim());
+                baixarPagamentoContasNaoContabilizadas.ShowDialog();
+                if (baixarPagamentoContasNaoContabilizadas.pagamentobaixado)
+                {
+                    {
+                        btn_Limpar_Click(sender, e);
+                        txt_Nome.Focus();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Busque a conta que irá abater!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
         private void dt_DataVenda_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 btnConfirmar_Click(sender, e);
             }
-        }
-
-        ClassVendasNaoContabilizada vendasNaoContabilizada = new ClassVendasNaoContabilizada(); 
-
-        private void btn_Editar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_BuscarVenda_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_Buscar_Click(object sender, EventArgs e)
-        {
-            FrmPesquisarCliente pesquisarCliente = new FrmPesquisarCliente();
-            pesquisarCliente.ShowDialog();
-            if (!string.IsNullOrEmpty(pesquisarCliente.Nome))
-            {
-                txt_Nome.Text = pesquisarCliente.Nome;
-                txt_Bairro.Text = pesquisarCliente.Bairro;
-                txt_Endereco.Text = pesquisarCliente.Endereco;
-                txt_Numero.Text = pesquisarCliente.Numero;
-                mask_Telefone.Text = pesquisarCliente.Telefone;
-                txt_Valor.Focus();
-            }
-        }
+        }       
     }
 }

@@ -230,17 +230,16 @@ CREATE TABLE [dbo].[ValorAbatido] (
     FOREIGN KEY ([Id_PagamentoParcial]) REFERENCES [dbo].[PagamentoParcial] ([Id_PagamentoParcial])
 );
 
-CREATE TABLE [dbo].[ContasNaoContabilizadas]
-(
-	[Id] INT NOT NULL PRIMARY KEY identity(1,1), 
-    [Nome_Cliente] VARCHAR(100) NULL, 
-    [Bairro_Cliente] VARCHAR(100) NULL, 
-    [Endereco_Cliente] VARCHAR(100) NULL, 
-    [Numero_Cliente] VARCHAR(30) NULL, 
-    [ValorTotal_Venda] DECIMAL(18, 2) NULL, 
-    [Data_Venda] VARCHAR(10) NULL
-)
-
+CREATE TABLE [dbo].[ContasNaoContabilizadas] (
+    [Id]               INT             IDENTITY (1, 1) NOT NULL,
+    [Nome_Cliente]     VARCHAR (100)   NULL,
+    [Bairro_Cliente]   VARCHAR (100)   NULL,
+    [Endereco_Cliente] VARCHAR (100)   NULL,
+    [Numero_Cliente]   VARCHAR (30)    NULL,
+    [Valor_Conta]      DECIMAL (18, 2) NULL,
+    [Data_Conta]       VARCHAR (10)    NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
 
 insert into cliente values (1,'CLIENTE AVULSO','00/00/000','1txL80yiSZRON3oyvU5Luw==','ZG3pKrNg0qNZyduxtLfdvA==','000000','null','null',9,'null','null','','','')
 
