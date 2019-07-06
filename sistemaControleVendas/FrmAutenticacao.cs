@@ -114,15 +114,53 @@ namespace sistemaControleVendas
                     Funcao = autenticacao.funcao;
 
                     this.Visible = false;
-
-                    if (Caixa.SituacaoCaixa() == true)
+                    Caixa.SituacaoCaixa();
+                    if (Caixa.dataEntrada != DataAtual)
                     {
-                        string NomeUsuario = Caixa.nomeUsuario;
-                        int CodigoUsuario = Caixa.id_Usuario;
-                        
-                       if (CodigoUsuario == Id_Usuario)
+                        if (MessageBox.Show("O caixa anterior está aberto.Feche o caixa para prosseguir.", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
                         {
-                            if (MessageBox.Show("O Caixa está aberto! Deseja Continuar?", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            this.Visible = false;
+                            FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");
+                            fechamentoCaixa.ShowDialog();
+                            if (Caixa.SituacaoCaixa() == false)
+                            {
+                                FrmAberturaCaixa aberturaCaixa = new FrmAberturaCaixa(Id_Usuario, NomeUsuario, Funcao);
+                                aberturaCaixa.ShowDialog();
+                            }
+                        }
+                        else
+                        {
+                            Application.Exit();
+                        }
+                    }
+                    else
+                    {
+                        if (Caixa.SituacaoCaixa() == true)
+                        {
+                            string NomeUsuario = Caixa.nomeUsuario;
+                            int CodigoUsuario = Caixa.id_Usuario;
+
+                            if (CodigoUsuario == Id_Usuario)
+                            {
+                                if (MessageBox.Show("O Caixa está aberto! Deseja Continuar?", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                                {
+                                    this.Visible = false;
+                                    FrmPrincipal frmprincipal = new FrmPrincipal(Id_Usuario, NomeUsuario, Funcao);
+                                    frmprincipal.ShowDialog();
+                                }
+                                else
+                                {
+                                    this.Visible = false;
+                                    FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");
+                                    fechamentoCaixa.ShowDialog();
+                                    if (Caixa.SituacaoCaixa() == false)
+                                    {
+                                        FrmAberturaCaixa aberturaCaixa = new FrmAberturaCaixa(Id_Usuario, NomeUsuario, Funcao);
+                                        aberturaCaixa.ShowDialog();
+                                    }
+                                }
+                            }
+                            else if (CodigoUsuario != Id_Usuario && Funcao == "ADMINISTRADOR")
                             {
                                 this.Visible = false;
                                 FrmPrincipal frmprincipal = new FrmPrincipal(Id_Usuario, NomeUsuario, Funcao);
@@ -130,45 +168,28 @@ namespace sistemaControleVendas
                             }
                             else
                             {
-                                this.Visible = false;
-                                FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");
-                                fechamentoCaixa.ShowDialog();
-                                if (Caixa.SituacaoCaixa() == false)
+                                if (MessageBox.Show("Feche o caixa para continuar.", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
                                 {
-                                    FrmAberturaCaixa aberturaCaixa = new FrmAberturaCaixa(Id_Usuario, NomeUsuario, Funcao);
-                                    aberturaCaixa.ShowDialog();
+                                    this.Visible = false;
+                                    FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");
+                                    fechamentoCaixa.ShowDialog();
+                                    if (Caixa.SituacaoCaixa() == false)
+                                    {
+                                        FrmAberturaCaixa aberturaCaixa = new FrmAberturaCaixa(Id_Usuario, NomeUsuario, Funcao);
+                                        aberturaCaixa.ShowDialog();
+                                    }
+                                }
+                                else
+                                {
+                                    Application.Exit();
                                 }
                             }
-                        }
-                        else if(CodigoUsuario != Id_Usuario && Funcao == "ADMINISTRADOR")
-                        {
-                            this.Visible = false;
-                            FrmPrincipal frmprincipal = new FrmPrincipal(Id_Usuario, NomeUsuario, Funcao);
-                            frmprincipal.ShowDialog();
                         }
                         else
                         {
-                            if (MessageBox.Show("Feche o caixa anterior para continuar.", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
-                            {
-                                this.Visible = false;
-                                FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");
-                                fechamentoCaixa.ShowDialog();
-                                if (Caixa.SituacaoCaixa() == false)
-                                {
-                                    FrmAberturaCaixa aberturaCaixa = new FrmAberturaCaixa(Id_Usuario, NomeUsuario, Funcao);
-                                    aberturaCaixa.ShowDialog();
-                                }
-                            }
-                            else
-                            {
-                                Application.Exit();
-                            }
+                            FrmAberturaCaixa aberturaCaixa = new FrmAberturaCaixa(Id_Usuario, NomeUsuario, Funcao);
+                            aberturaCaixa.ShowDialog();
                         }
-                    }
-                    else
-                    {
-                        FrmAberturaCaixa aberturaCaixa = new FrmAberturaCaixa(Id_Usuario, NomeUsuario, Funcao);
-                        aberturaCaixa.ShowDialog();
                     }
                 }
             }

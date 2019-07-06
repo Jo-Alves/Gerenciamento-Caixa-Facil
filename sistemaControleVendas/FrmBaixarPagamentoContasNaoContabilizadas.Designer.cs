@@ -42,6 +42,8 @@
             this.btn_Cancelar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txt_ValorPago = new System.Windows.Forms.TextBox();
+            this.cbFormaAbatimento = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panelPagamentoParcial.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +51,8 @@
             // 
             this.panelPagamentoParcial.BackColor = System.Drawing.Color.MediumSlateBlue;
             this.panelPagamentoParcial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPagamentoParcial.Controls.Add(this.label2);
+            this.panelPagamentoParcial.Controls.Add(this.cbFormaAbatimento);
             this.panelPagamentoParcial.Controls.Add(this.lbl_Fechar);
             this.panelPagamentoParcial.Controls.Add(this.lbl_Restante);
             this.panelPagamentoParcial.Controls.Add(this.txt_ValorRestante);
@@ -90,7 +94,7 @@
             this.lbl_Restante.AutoSize = true;
             this.lbl_Restante.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Restante.ForeColor = System.Drawing.Color.White;
-            this.lbl_Restante.Location = new System.Drawing.Point(372, 78);
+            this.lbl_Restante.Location = new System.Drawing.Point(297, 80);
             this.lbl_Restante.Name = "lbl_Restante";
             this.lbl_Restante.Size = new System.Drawing.Size(75, 19);
             this.lbl_Restante.TabIndex = 65;
@@ -98,7 +102,7 @@
             // 
             // txt_ValorRestante
             // 
-            this.txt_ValorRestante.Location = new System.Drawing.Point(376, 101);
+            this.txt_ValorRestante.Location = new System.Drawing.Point(301, 103);
             this.txt_ValorRestante.Margin = new System.Windows.Forms.Padding(4);
             this.txt_ValorRestante.Name = "txt_ValorRestante";
             this.txt_ValorRestante.ReadOnly = true;
@@ -111,7 +115,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(239, 78);
+            this.label7.Location = new System.Drawing.Point(164, 80);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(110, 19);
             this.label7.TabIndex = 58;
@@ -119,7 +123,7 @@
             // 
             // txt_ValorConta
             // 
-            this.txt_ValorConta.Location = new System.Drawing.Point(246, 101);
+            this.txt_ValorConta.Location = new System.Drawing.Point(171, 103);
             this.txt_ValorConta.Margin = new System.Windows.Forms.Padding(4);
             this.txt_ValorConta.Name = "txt_ValorConta";
             this.txt_ValorConta.ReadOnly = true;
@@ -203,7 +207,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(83, 78);
+            this.label1.Location = new System.Drawing.Point(8, 80);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(148, 19);
             this.label1.TabIndex = 45;
@@ -211,7 +215,7 @@
             // 
             // txt_ValorPago
             // 
-            this.txt_ValorPago.Location = new System.Drawing.Point(87, 101);
+            this.txt_ValorPago.Location = new System.Drawing.Point(12, 103);
             this.txt_ValorPago.Margin = new System.Windows.Forms.Padding(4);
             this.txt_ValorPago.Name = "txt_ValorPago";
             this.txt_ValorPago.Size = new System.Drawing.Size(148, 26);
@@ -219,6 +223,31 @@
             this.txt_ValorPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txt_ValorPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_ValorPago_KeyPress);
             this.txt_ValorPago.Leave += new System.EventHandler(this.txt_ValorPago_Leave);
+            // 
+            // cbFormaAbatimento
+            // 
+            this.cbFormaAbatimento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFormaAbatimento.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbFormaAbatimento.FormattingEnabled = true;
+            this.cbFormaAbatimento.Items.AddRange(new object[] {
+            "CRÉDITO",
+            "DÉBITO",
+            "DINHEIRO"});
+            this.cbFormaAbatimento.Location = new System.Drawing.Point(430, 102);
+            this.cbFormaAbatimento.Name = "cbFormaAbatimento";
+            this.cbFormaAbatimento.Size = new System.Drawing.Size(174, 27);
+            this.cbFormaAbatimento.TabIndex = 67;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(426, 80);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(155, 19);
+            this.label2.TabIndex = 68;
+            this.label2.Text = "Forma de abatimento:";
             // 
             // FrmBaixarPagamentoContasNaoContabilizadas
             // 
@@ -254,5 +283,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_ValorPago;
         private System.Windows.Forms.Label lbl_Fechar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cbFormaAbatimento;
     }
 }

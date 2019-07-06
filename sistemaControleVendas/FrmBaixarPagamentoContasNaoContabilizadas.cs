@@ -16,6 +16,7 @@ namespace sistemaControleVendas
         public FrmBaixarPagamentoContasNaoContabilizadas(decimal ValorConta, string Codigo, string NomeCliente)
         {
             InitializeComponent();
+            cbFormaAbatimento.Text = "DINHEIRO";
             txt_ValorConta.Text = "R$ " + ValorConta.ToString();
             this.ValorConta = ValorConta;
             txt_Codigo.Text = Codigo;
@@ -153,17 +154,27 @@ namespace sistemaControleVendas
         }
 
         decimal ValorRecebido;
+        string CampoTabelaBancoDados;
         private void GerenciarCaixa()
         {
-
-
+            if (cbFormaAbatimento.Text == "DINHEIRO")
+            {
+                _sql = "Update FluxoCaixa set ValorCaixa = @ValorCaixa, ValorRecebidoParcial = ValorRecebidoParcial + @ValorRecebido where HoraSaida = '' and DataSaida = ''";
+            }
+            else if (cbFormaAbatimento.Text == "CRÉDITO")
+            {
+                _sql = "Update FluxoCaixa set ValorRecebidoCredito = ValorRecebidoCredito + @ValorRecebido where HoraSaida = '' and DataSaida = ''";
+            }
+            else if (cbFormaAbatimento.Text == "DÉBITO")
+            {
+                _sql = "Update FluxoCaixa set ValorRecebidoDebito = ValorRecebidoDebito + @ValorRecebido where HoraSaida = '' and DataSaida = ''";
+            }
 
             ValorCaixa += ValorNCaixa;
-            SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "Update FluxoCaixa set ValorCaixa = @ValorCaixa, ValorRecebidoParcial = ValorRecebidoParcial + @ValorRecebidoParcial where HoraSaida = '' and DataSaida = ''";
+            SqlConnection conexao = new SqlConnection(stringConn);           
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.Parameters.AddWithValue("@ValorCaixa", ValorCaixa);
-            comando.Parameters.AddWithValue("@ValorRecebidoParcial", ValorRecebido);
+            comando.Parameters.AddWithValue("@ValorRecebido", ValorRecebido);
             comando.CommandText = _sql;
             try
             {

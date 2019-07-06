@@ -245,7 +245,8 @@ namespace sistemaControleVendas
             if (Tabela.Rows.Count > 0)
             {
                 id_Usuario = int.Parse(Tabela.Rows[0]["Id_Usuario"].ToString());
-                nomeUsuario = Tabela.Rows[0]["Nome"].ToString();               
+                nomeUsuario = Tabela.Rows[0]["Nome"].ToString();   
+                DataEntrada = Tabela.Rows[0]["DataEntrada"].ToString();
                 return true;
             }
             else
