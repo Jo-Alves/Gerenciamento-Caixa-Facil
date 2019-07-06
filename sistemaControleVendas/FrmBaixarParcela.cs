@@ -65,7 +65,8 @@ namespace sistemaControleVendas
 
         private void FrmBaixarParcela_Load(object sender, EventArgs e)
         {
-           CodigoCaixa();
+            cbFormaAbatimento.Text = "DINHEIRO";
+            CodigoCaixa();
             ValoresCaixa();
         }
 
@@ -227,12 +228,24 @@ namespace sistemaControleVendas
 
         private void GerenciarCaixa()
         {
+            if (cbFormaAbatimento.Text == "DINHEIRO")
+            {
+                _sql = "Update FluxoCaixa set ValorCaixa = @ValorCaixa, ValorRecebidoParcela = ValorRecebidoParcela + @ValorRecebido where HoraSaida = '' and DataSaida = ''";
+            }
+            else if (cbFormaAbatimento.Text == "CRÉDITO")
+            {
+                _sql = "Update FluxoCaixa set ValorRecebidoCredito = ValorRecebidoCredito + @ValorRecebido where HoraSaida = '' and DataSaida = ''";
+            }
+            else if (cbFormaAbatimento.Text == "DÉBITO")
+            {
+                _sql = "Update FluxoCaixa set ValorRecebidoDebito = ValorRecebidoDebito + @ValorRecebido where HoraSaida = '' and DataSaida = ''";
+            }
+
             ValorCaixa += ValorParcela;
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "Update FluxoCaixa set ValorCaixa = @ValorCaixa, ValorRecebidoParcela = ValorRecebidoParcela + @ValorRecebidoParcela where HoraSaida = '' and DataSaida = ''";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.Parameters.AddWithValue("@ValorCaixa", ValorCaixa);
-            comando.Parameters.AddWithValue("@ValorRecebidoParcela", ValorParcela);
+            comando.Parameters.AddWithValue("@ValorRecebido", ValorParcela);
             comando.CommandText = _sql;
             try
             {

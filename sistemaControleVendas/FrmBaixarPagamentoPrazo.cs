@@ -20,7 +20,8 @@ namespace sistemaControleVendas
             this.CodigoCliente = int.Parse(CodigoCliente);
             txt_Nome.Text = NomeCliente;
             txt_CodigoCliente.Text = CodigoCliente;
-                
+            cbFormaAbatimento.Text = "DINHEIRO";
+
         }
         int CodigoCliente;
         decimal ValorPago, ValorConta, Troco;
@@ -185,12 +186,24 @@ namespace sistemaControleVendas
 
         private void GerenciarCaixa()
         {
+            if (cbFormaAbatimento.Text == "DINHEIRO")
+            {
+                _sql = "Update FluxoCaixa set ValorCaixa = @ValorCaixa, ValorRecebidoPrazo = ValorRecebidoPrazo + @ValorRecebido where HoraSaida = '' and DataSaida = ''";
+            }
+            else if (cbFormaAbatimento.Text == "CRÉDITO")
+            {
+                _sql = "Update FluxoCaixa set ValorRecebidoCredito = ValorRecebidoCredito + @ValorRecebido where HoraSaida = '' and DataSaida = ''";
+            }
+            else if (cbFormaAbatimento.Text == "DÉBITO")
+            {
+                _sql = "Update FluxoCaixa set ValorRecebidoDebito = ValorRecebidoDebito + @ValorRecebido where HoraSaida = '' and DataSaida = ''";
+            }
+
             ValorCaixa += ValorConta;
-            SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "Update FluxoCaixa set ValorCaixa = @ValorCaixa, ValorRecebidoPrazo = ValorRecebidoPrazo + @ValorRecebidoPrazo where HoraSaida = '' and DataSaida = ''";
+            SqlConnection conexao = new SqlConnection(stringConn);            
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.Parameters.AddWithValue("@ValorCaixa", ValorCaixa);
-            comando.Parameters.AddWithValue("@ValorRecebidoPrazo", ValorConta);
+            comando.Parameters.AddWithValue("@ValorRecebido", ValorConta);
             comando.CommandText = _sql;
             try
             {
