@@ -262,6 +262,12 @@
     <Compile Include="FrmContasNaoContabilizadas.Designer.cs">
       <DependentUpon>FrmContasNaoContabilizadas.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmHistoricoPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmHistoricoPagamento.designer.cs">
+      <DependentUpon>FrmHistoricoPagamento.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmVendaAlterarExcluir.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -606,6 +612,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmContasNaoContabilizadas.resx">
       <DependentUpon>FrmContasNaoContabilizadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHistoricoPagamento.resx">
+      <DependentUpon>FrmHistoricoPagamento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmVendaAlterarExcluir.resx">
       <DependentUpon>FrmVendaAlterarExcluir.cs</DependentUpon>

@@ -779,6 +779,12 @@ namespace sistemaControleVendas
             contasNaoContabilizadas.ShowDialog();
         }
 
+        private void menuHistoricoDePagamento_Click(object sender, EventArgs e)
+        {
+            FrmHistoricoPagamento historicoPagamento = new FrmHistoricoPagamento();
+            historicoPagamento.ShowDialog();
+        }
+
         private void MenuRegistroSaldoFinal_Click(object sender, EventArgs e)
         {
             FrmRelatorioSaldoFinal relatorioSaldoFinal = new FrmRelatorioSaldoFinal();

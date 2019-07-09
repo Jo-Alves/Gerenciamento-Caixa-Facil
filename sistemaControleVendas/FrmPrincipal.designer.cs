@@ -59,11 +59,6 @@
             this.Menu_Usuario = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Serviço = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Movimentos = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_ContasClientes = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_ContasPagar = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_ContasReceber = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_RealizarVendas = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuAlterardevolverItensVenda = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_AnaliseDeVendas = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_AnaliseVenda = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_DataAnaliseVenda = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,24 +66,31 @@
             this.produtoMenosVendidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Memu_DataServico = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_todosServiçosPrestados = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAlterardevolverItensVenda = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_ContasClientes = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_ContasPagar = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_ContasReceber = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_RealizarVendas = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuVendasNãoContablizadas = new System.Windows.Forms.ToolStripMenuItem();
             this.diversosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_ValidadesProdutos = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Agendamento = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_ProcurarAgenda = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_ProcurarAgendaPorData = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_ProcurarTodosOsAgendamentos = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_ValidadesProdutos = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Relatórios = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_RelatorioFechamentoCaixa = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHistoricoDePagamento = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_AberturaCaixa = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuRegistroSaldoFinal = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_ListagemVendasRealizadasNoDia = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_RelatorioVendasDias = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_RelatorioVendaPeriodo = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_TodasAsVendas = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_Relatorio_RetiradasCaixa = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_listagemDeProdutosCadastrados = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_listagensDeClientesCadastrados = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_listagemDeProdutosCadastrados = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_listagemDeServiçosCadastrados = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_RelatorioFechamentoCaixa = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuRegistroSaldoFinal = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_Relatorio_RetiradasCaixa = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_FluxoDeCaixa = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_retirarDinheiro = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_registroAtual = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,7 +102,6 @@
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuConfiguracao = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAjustar = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuVendasNãoContablizadas = new System.Windows.Forms.ToolStripMenuItem();
             timer = new System.Windows.Forms.Timer(this.components);
             this.panelCabecalho.SuspendLayout();
             this.PanelCorpo.SuspendLayout();
@@ -466,58 +467,6 @@
             this.Menu_Movimentos.Size = new System.Drawing.Size(108, 23);
             this.Menu_Movimentos.Text = "Movimentos";
             // 
-            // Menu_ContasClientes
-            // 
-            this.Menu_ContasClientes.BackColor = System.Drawing.Color.Aquamarine;
-            this.Menu_ContasClientes.Image = global::sistemaControleVendas.Properties.Resources.client_account_template_icon;
-            this.Menu_ContasClientes.Name = "Menu_ContasClientes";
-            this.Menu_ContasClientes.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.C)));
-            this.Menu_ContasClientes.Size = new System.Drawing.Size(354, 22);
-            this.Menu_ContasClientes.Text = "Contas Clientes";
-            this.Menu_ContasClientes.Click += new System.EventHandler(this.Menu_ContasClientes_Click);
-            // 
-            // Menu_ContasPagar
-            // 
-            this.Menu_ContasPagar.BackColor = System.Drawing.Color.Aquamarine;
-            this.Menu_ContasPagar.Image = global::sistemaControleVendas.Properties.Resources.Contas_a_pagar_e_receber_300x227;
-            this.Menu_ContasPagar.Name = "Menu_ContasPagar";
-            this.Menu_ContasPagar.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.P)));
-            this.Menu_ContasPagar.Size = new System.Drawing.Size(354, 22);
-            this.Menu_ContasPagar.Text = "Contas a pagar";
-            this.Menu_ContasPagar.Click += new System.EventHandler(this.Menu_ContasPagar_Click);
-            // 
-            // Menu_ContasReceber
-            // 
-            this.Menu_ContasReceber.BackColor = System.Drawing.Color.Aquamarine;
-            this.Menu_ContasReceber.Image = global::sistemaControleVendas.Properties.Resources.Money_icon;
-            this.Menu_ContasReceber.Name = "Menu_ContasReceber";
-            this.Menu_ContasReceber.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.Menu_ContasReceber.Size = new System.Drawing.Size(354, 22);
-            this.Menu_ContasReceber.Text = "Contas a receber";
-            this.Menu_ContasReceber.Click += new System.EventHandler(this.Menu_ContasReceber_Click);
-            // 
-            // Menu_RealizarVendas
-            // 
-            this.Menu_RealizarVendas.BackColor = System.Drawing.Color.Aquamarine;
-            this.Menu_RealizarVendas.Image = global::sistemaControleVendas.Properties.Resources.Carrinho_de_compra1;
-            this.Menu_RealizarVendas.Name = "Menu_RealizarVendas";
-            this.Menu_RealizarVendas.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.Menu_RealizarVendas.Size = new System.Drawing.Size(354, 22);
-            this.Menu_RealizarVendas.Text = "Realizar Vendas";
-            this.Menu_RealizarVendas.Click += new System.EventHandler(this.Menu_RealizarVendas_Click);
-            // 
-            // menuAlterardevolverItensVenda
-            // 
-            this.menuAlterardevolverItensVenda.BackColor = System.Drawing.Color.Aquamarine;
-            this.menuAlterardevolverItensVenda.Image = global::sistemaControleVendas.Properties.Resources.Carrinho_de_compra;
-            this.menuAlterardevolverItensVenda.Name = "menuAlterardevolverItensVenda";
-            this.menuAlterardevolverItensVenda.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.menuAlterardevolverItensVenda.Size = new System.Drawing.Size(354, 22);
-            this.menuAlterardevolverItensVenda.Text = "Alteração/devolução de itens da Venda";
-            this.menuAlterardevolverItensVenda.Click += new System.EventHandler(this.menuAlterardevolverItensVenda_Click);
-            // 
             // Menu_AnaliseDeVendas
             // 
             this.Menu_AnaliseDeVendas.BackColor = System.Drawing.Color.Aquamarine;
@@ -592,6 +541,68 @@
             this.Menu_todosServiçosPrestados.Text = "Todos Serviços Prestados";
             this.Menu_todosServiçosPrestados.Click += new System.EventHandler(this.Menu_todosServiçosPrestados_Click);
             // 
+            // menuAlterardevolverItensVenda
+            // 
+            this.menuAlterardevolverItensVenda.BackColor = System.Drawing.Color.Aquamarine;
+            this.menuAlterardevolverItensVenda.Image = global::sistemaControleVendas.Properties.Resources.Carrinho_de_compra;
+            this.menuAlterardevolverItensVenda.Name = "menuAlterardevolverItensVenda";
+            this.menuAlterardevolverItensVenda.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.menuAlterardevolverItensVenda.Size = new System.Drawing.Size(354, 22);
+            this.menuAlterardevolverItensVenda.Text = "Alteração/devolução de itens da Venda";
+            this.menuAlterardevolverItensVenda.Click += new System.EventHandler(this.menuAlterardevolverItensVenda_Click);
+            // 
+            // Menu_ContasClientes
+            // 
+            this.Menu_ContasClientes.BackColor = System.Drawing.Color.Aquamarine;
+            this.Menu_ContasClientes.Image = global::sistemaControleVendas.Properties.Resources.client_account_template_icon;
+            this.Menu_ContasClientes.Name = "Menu_ContasClientes";
+            this.Menu_ContasClientes.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.C)));
+            this.Menu_ContasClientes.Size = new System.Drawing.Size(354, 22);
+            this.Menu_ContasClientes.Text = "Contas Clientes";
+            this.Menu_ContasClientes.Click += new System.EventHandler(this.Menu_ContasClientes_Click);
+            // 
+            // Menu_ContasPagar
+            // 
+            this.Menu_ContasPagar.BackColor = System.Drawing.Color.Aquamarine;
+            this.Menu_ContasPagar.Image = global::sistemaControleVendas.Properties.Resources.Contas_a_pagar_e_receber_300x227;
+            this.Menu_ContasPagar.Name = "Menu_ContasPagar";
+            this.Menu_ContasPagar.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.P)));
+            this.Menu_ContasPagar.Size = new System.Drawing.Size(354, 22);
+            this.Menu_ContasPagar.Text = "Contas a pagar";
+            this.Menu_ContasPagar.Click += new System.EventHandler(this.Menu_ContasPagar_Click);
+            // 
+            // Menu_ContasReceber
+            // 
+            this.Menu_ContasReceber.BackColor = System.Drawing.Color.Aquamarine;
+            this.Menu_ContasReceber.Image = global::sistemaControleVendas.Properties.Resources.Money_icon;
+            this.Menu_ContasReceber.Name = "Menu_ContasReceber";
+            this.Menu_ContasReceber.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.Menu_ContasReceber.Size = new System.Drawing.Size(354, 22);
+            this.Menu_ContasReceber.Text = "Contas a receber";
+            this.Menu_ContasReceber.Click += new System.EventHandler(this.Menu_ContasReceber_Click);
+            // 
+            // Menu_RealizarVendas
+            // 
+            this.Menu_RealizarVendas.BackColor = System.Drawing.Color.Aquamarine;
+            this.Menu_RealizarVendas.Image = global::sistemaControleVendas.Properties.Resources.Carrinho_de_compra1;
+            this.Menu_RealizarVendas.Name = "Menu_RealizarVendas";
+            this.Menu_RealizarVendas.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.Menu_RealizarVendas.Size = new System.Drawing.Size(354, 22);
+            this.Menu_RealizarVendas.Text = "Realizar Vendas";
+            this.Menu_RealizarVendas.Click += new System.EventHandler(this.Menu_RealizarVendas_Click);
+            // 
+            // menuVendasNãoContablizadas
+            // 
+            this.menuVendasNãoContablizadas.BackColor = System.Drawing.Color.Aquamarine;
+            this.menuVendasNãoContablizadas.Image = global::sistemaControleVendas.Properties.Resources.Carrinho_de_compra;
+            this.menuVendasNãoContablizadas.Name = "menuVendasNãoContablizadas";
+            this.menuVendasNãoContablizadas.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.menuVendasNãoContablizadas.Size = new System.Drawing.Size(354, 22);
+            this.menuVendasNãoContablizadas.Text = "Vendas não contablizadas";
+            this.menuVendasNãoContablizadas.Click += new System.EventHandler(this.menuVendasNãoContablizadas_Click);
+            // 
             // diversosToolStripMenuItem
             // 
             this.diversosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -603,18 +614,6 @@
             this.diversosToolStripMenuItem.Name = "diversosToolStripMenuItem";
             this.diversosToolStripMenuItem.Size = new System.Drawing.Size(88, 23);
             this.diversosToolStripMenuItem.Text = "Diversos";
-            // 
-            // Menu_ValidadesProdutos
-            // 
-            this.Menu_ValidadesProdutos.BackColor = System.Drawing.Color.Aquamarine;
-            this.Menu_ValidadesProdutos.Font = new System.Drawing.Font("Times New Roman", 11.25F);
-            this.Menu_ValidadesProdutos.Image = ((System.Drawing.Image)(resources.GetObject("Menu_ValidadesProdutos.Image")));
-            this.Menu_ValidadesProdutos.Name = "Menu_ValidadesProdutos";
-            this.Menu_ValidadesProdutos.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.V)));
-            this.Menu_ValidadesProdutos.Size = new System.Drawing.Size(288, 22);
-            this.Menu_ValidadesProdutos.Text = "Validade dos produtos";
-            this.Menu_ValidadesProdutos.Click += new System.EventHandler(this.Menu_ValidadesProdutos_Click);
             // 
             // Menu_Agendamento
             // 
@@ -659,33 +658,46 @@
             this.Menu_ProcurarTodosOsAgendamentos.Text = "Todos os agendamentos";
             this.Menu_ProcurarTodosOsAgendamentos.Click += new System.EventHandler(this.Menu_ProcurarTodosOsAgendamentos_Click);
             // 
+            // Menu_ValidadesProdutos
+            // 
+            this.Menu_ValidadesProdutos.BackColor = System.Drawing.Color.Aquamarine;
+            this.Menu_ValidadesProdutos.Font = new System.Drawing.Font("Times New Roman", 11.25F);
+            this.Menu_ValidadesProdutos.Image = ((System.Drawing.Image)(resources.GetObject("Menu_ValidadesProdutos.Image")));
+            this.Menu_ValidadesProdutos.Name = "Menu_ValidadesProdutos";
+            this.Menu_ValidadesProdutos.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.V)));
+            this.Menu_ValidadesProdutos.Size = new System.Drawing.Size(288, 22);
+            this.Menu_ValidadesProdutos.Text = "Validade dos produtos";
+            this.Menu_ValidadesProdutos.Click += new System.EventHandler(this.Menu_ValidadesProdutos_Click);
+            // 
             // Menu_Relatórios
             // 
             this.Menu_Relatórios.BackColor = System.Drawing.Color.Aquamarine;
             this.Menu_Relatórios.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuHistoricoDePagamento,
             this.Menu_AberturaCaixa,
             this.Menu_ListagemVendasRealizadasNoDia,
-            this.Menu_Relatorio_RetiradasCaixa,
             this.Menu_listagensDeClientesCadastrados,
             this.Menu_listagemDeProdutosCadastrados,
             this.Menu_listagemDeServiçosCadastrados,
             this.Menu_RelatorioFechamentoCaixa,
-            this.MenuRegistroSaldoFinal});
+            this.MenuRegistroSaldoFinal,
+            this.Menu_Relatorio_RetiradasCaixa});
             this.Menu_Relatórios.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Menu_Relatórios.Image = ((System.Drawing.Image)(resources.GetObject("Menu_Relatórios.Image")));
             this.Menu_Relatórios.Name = "Menu_Relatórios";
             this.Menu_Relatórios.Size = new System.Drawing.Size(95, 23);
             this.Menu_Relatórios.Text = "Relatórios";
             // 
-            // Menu_RelatorioFechamentoCaixa
+            // menuHistoricoDePagamento
             // 
-            this.Menu_RelatorioFechamentoCaixa.BackColor = System.Drawing.Color.Aquamarine;
-            this.Menu_RelatorioFechamentoCaixa.Image = ((System.Drawing.Image)(resources.GetObject("Menu_RelatorioFechamentoCaixa.Image")));
-            this.Menu_RelatorioFechamentoCaixa.Name = "Menu_RelatorioFechamentoCaixa";
-            this.Menu_RelatorioFechamentoCaixa.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.Menu_RelatorioFechamentoCaixa.Size = new System.Drawing.Size(379, 22);
-            this.Menu_RelatorioFechamentoCaixa.Text = "Registro de Fechamento de caixa";
-            this.Menu_RelatorioFechamentoCaixa.Click += new System.EventHandler(this.Menu_RelatorioFechamentoCaixa_Click);
+            this.menuHistoricoDePagamento.BackColor = System.Drawing.Color.Aquamarine;
+            this.menuHistoricoDePagamento.Image = global::sistemaControleVendas.Properties.Resources.Sales_report_icon__1_;
+            this.menuHistoricoDePagamento.Name = "menuHistoricoDePagamento";
+            this.menuHistoricoDePagamento.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.menuHistoricoDePagamento.Size = new System.Drawing.Size(379, 22);
+            this.menuHistoricoDePagamento.Text = "Histórico de pagamento";
+            this.menuHistoricoDePagamento.Click += new System.EventHandler(this.menuHistoricoDePagamento_Click);
             // 
             // Menu_AberturaCaixa
             // 
@@ -696,16 +708,6 @@
             this.Menu_AberturaCaixa.Size = new System.Drawing.Size(379, 22);
             this.Menu_AberturaCaixa.Text = "Horário de abertura e fechamento de Caixa";
             this.Menu_AberturaCaixa.Click += new System.EventHandler(this.Menu_AberturaCaixa_Click);
-            // 
-            // MenuRegistroSaldoFinal
-            // 
-            this.MenuRegistroSaldoFinal.BackColor = System.Drawing.Color.Aquamarine;
-            this.MenuRegistroSaldoFinal.Image = global::sistemaControleVendas.Properties.Resources.Sales_report_icon;
-            this.MenuRegistroSaldoFinal.Name = "MenuRegistroSaldoFinal";
-            this.MenuRegistroSaldoFinal.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.MenuRegistroSaldoFinal.Size = new System.Drawing.Size(379, 22);
-            this.MenuRegistroSaldoFinal.Text = "Registro de Saldo Final";
-            this.MenuRegistroSaldoFinal.Click += new System.EventHandler(this.MenuRegistroSaldoFinal_Click);
             // 
             // Menu_ListagemVendasRealizadasNoDia
             // 
@@ -751,16 +753,16 @@
             this.Menu_TodasAsVendas.Text = "Todas as Vendas";
             this.Menu_TodasAsVendas.Click += new System.EventHandler(this.Menu_TodasAsVendas_Click);
             // 
-            // Menu_Relatorio_RetiradasCaixa
+            // Menu_listagensDeClientesCadastrados
             // 
-            this.Menu_Relatorio_RetiradasCaixa.BackColor = System.Drawing.Color.Aquamarine;
-            this.Menu_Relatorio_RetiradasCaixa.Image = ((System.Drawing.Image)(resources.GetObject("Menu_Relatorio_RetiradasCaixa.Image")));
-            this.Menu_Relatorio_RetiradasCaixa.Name = "Menu_Relatorio_RetiradasCaixa";
-            this.Menu_Relatorio_RetiradasCaixa.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.L)));
-            this.Menu_Relatorio_RetiradasCaixa.Size = new System.Drawing.Size(379, 22);
-            this.Menu_Relatorio_RetiradasCaixa.Text = "Retiradas do caixa";
-            this.Menu_Relatorio_RetiradasCaixa.Click += new System.EventHandler(this.Menu_Relatorio_RetiradasCaixa_Click);
+            this.Menu_listagensDeClientesCadastrados.BackColor = System.Drawing.Color.Aquamarine;
+            this.Menu_listagensDeClientesCadastrados.Image = ((System.Drawing.Image)(resources.GetObject("Menu_listagensDeClientesCadastrados.Image")));
+            this.Menu_listagensDeClientesCadastrados.Name = "Menu_listagensDeClientesCadastrados";
+            this.Menu_listagensDeClientesCadastrados.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.C)));
+            this.Menu_listagensDeClientesCadastrados.Size = new System.Drawing.Size(379, 22);
+            this.Menu_listagensDeClientesCadastrados.Text = "Listagem de Clientes cadastrados";
+            this.Menu_listagensDeClientesCadastrados.Click += new System.EventHandler(this.listagensDeClientesCadastradosToolStripMenuItem_Click);
             // 
             // Menu_listagemDeProdutosCadastrados
             // 
@@ -773,17 +775,6 @@
             this.Menu_listagemDeProdutosCadastrados.Text = "Listagem de produtos cadastrados";
             this.Menu_listagemDeProdutosCadastrados.Click += new System.EventHandler(this.listagemDeProdutosCadastradosToolStripMenuItem_Click);
             // 
-            // Menu_listagensDeClientesCadastrados
-            // 
-            this.Menu_listagensDeClientesCadastrados.BackColor = System.Drawing.Color.Aquamarine;
-            this.Menu_listagensDeClientesCadastrados.Image = ((System.Drawing.Image)(resources.GetObject("Menu_listagensDeClientesCadastrados.Image")));
-            this.Menu_listagensDeClientesCadastrados.Name = "Menu_listagensDeClientesCadastrados";
-            this.Menu_listagensDeClientesCadastrados.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.C)));
-            this.Menu_listagensDeClientesCadastrados.Size = new System.Drawing.Size(379, 22);
-            this.Menu_listagensDeClientesCadastrados.Text = "Listagem de Clientes cadastrados";
-            this.Menu_listagensDeClientesCadastrados.Click += new System.EventHandler(this.listagensDeClientesCadastradosToolStripMenuItem_Click);
-            // 
             // Menu_listagemDeServiçosCadastrados
             // 
             this.Menu_listagemDeServiçosCadastrados.BackColor = System.Drawing.Color.Aquamarine;
@@ -794,6 +785,37 @@
             this.Menu_listagemDeServiçosCadastrados.Size = new System.Drawing.Size(379, 22);
             this.Menu_listagemDeServiçosCadastrados.Text = "Listagem de serviços cadastrados";
             this.Menu_listagemDeServiçosCadastrados.Click += new System.EventHandler(this.listagemDeServiçosCadastradosToolStripMenuItem_Click);
+            // 
+            // Menu_RelatorioFechamentoCaixa
+            // 
+            this.Menu_RelatorioFechamentoCaixa.BackColor = System.Drawing.Color.Aquamarine;
+            this.Menu_RelatorioFechamentoCaixa.Image = ((System.Drawing.Image)(resources.GetObject("Menu_RelatorioFechamentoCaixa.Image")));
+            this.Menu_RelatorioFechamentoCaixa.Name = "Menu_RelatorioFechamentoCaixa";
+            this.Menu_RelatorioFechamentoCaixa.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.Menu_RelatorioFechamentoCaixa.Size = new System.Drawing.Size(379, 22);
+            this.Menu_RelatorioFechamentoCaixa.Text = "Registro de Fechamento de caixa";
+            this.Menu_RelatorioFechamentoCaixa.Click += new System.EventHandler(this.Menu_RelatorioFechamentoCaixa_Click);
+            // 
+            // MenuRegistroSaldoFinal
+            // 
+            this.MenuRegistroSaldoFinal.BackColor = System.Drawing.Color.Aquamarine;
+            this.MenuRegistroSaldoFinal.Image = global::sistemaControleVendas.Properties.Resources.Sales_report_icon;
+            this.MenuRegistroSaldoFinal.Name = "MenuRegistroSaldoFinal";
+            this.MenuRegistroSaldoFinal.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.MenuRegistroSaldoFinal.Size = new System.Drawing.Size(379, 22);
+            this.MenuRegistroSaldoFinal.Text = "Registro de Saldo Final";
+            this.MenuRegistroSaldoFinal.Click += new System.EventHandler(this.MenuRegistroSaldoFinal_Click);
+            // 
+            // Menu_Relatorio_RetiradasCaixa
+            // 
+            this.Menu_Relatorio_RetiradasCaixa.BackColor = System.Drawing.Color.Aquamarine;
+            this.Menu_Relatorio_RetiradasCaixa.Image = ((System.Drawing.Image)(resources.GetObject("Menu_Relatorio_RetiradasCaixa.Image")));
+            this.Menu_Relatorio_RetiradasCaixa.Name = "Menu_Relatorio_RetiradasCaixa";
+            this.Menu_Relatorio_RetiradasCaixa.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.L)));
+            this.Menu_Relatorio_RetiradasCaixa.Size = new System.Drawing.Size(379, 22);
+            this.Menu_Relatorio_RetiradasCaixa.Text = "Retiradas do caixa";
+            this.Menu_Relatorio_RetiradasCaixa.Click += new System.EventHandler(this.Menu_Relatorio_RetiradasCaixa_Click);
             // 
             // Menu_FluxoDeCaixa
             // 
@@ -910,16 +932,6 @@
             this.menuAjustar.Text = "Ajustar";
             this.menuAjustar.Click += new System.EventHandler(this.menuAjustar_Click);
             // 
-            // menuVendasNãoContablizadas
-            // 
-            this.menuVendasNãoContablizadas.BackColor = System.Drawing.Color.Aquamarine;
-            this.menuVendasNãoContablizadas.Image = global::sistemaControleVendas.Properties.Resources.Carrinho_de_compra;
-            this.menuVendasNãoContablizadas.Name = "menuVendasNãoContablizadas";
-            this.menuVendasNãoContablizadas.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.menuVendasNãoContablizadas.Size = new System.Drawing.Size(354, 22);
-            this.menuVendasNãoContablizadas.Text = "Vendas não contablizadas";
-            this.menuVendasNãoContablizadas.Click += new System.EventHandler(this.menuVendasNãoContablizadas_Click);
-            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -1023,6 +1035,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuAjustar;
         private System.Windows.Forms.ToolStripMenuItem menuAlterardevolverItensVenda;
         private System.Windows.Forms.ToolStripMenuItem menuVendasNãoContablizadas;
+        private System.Windows.Forms.ToolStripMenuItem menuHistoricoDePagamento;
     }
 }
 
