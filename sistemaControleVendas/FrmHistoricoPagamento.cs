@@ -60,11 +60,6 @@ namespace sistemaControleVendas
             this.Close();
         }
 
-        private void Menu_Sair_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         int X = 0, Y = 0;
         string FormaPagamento;
 

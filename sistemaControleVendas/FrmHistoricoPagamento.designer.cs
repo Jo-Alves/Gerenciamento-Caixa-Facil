@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbFormaPagamento = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -38,14 +38,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgv_DadosVenda = new System.Windows.Forms.DataGridView();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelCabecalho = new System.Windows.Forms.Panel();
             this.Lbl_Titulo = new System.Windows.Forms.Label();
             this.Lbl_Icone = new System.Windows.Forms.Label();
@@ -55,6 +47,14 @@
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
+            this.btnMaisInformacoes = new System.Windows.Forms.Button();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DadosVenda)).BeginInit();
@@ -65,6 +65,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnMaisInformacoes);
             this.panel1.Controls.Add(this.cbFormaPagamento);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.txtCliente);
@@ -87,7 +88,7 @@
             "Parcela",
             "Parcial",
             "Prazo"});
-            this.cbFormaPagamento.Location = new System.Drawing.Point(748, 121);
+            this.cbFormaPagamento.Location = new System.Drawing.Point(750, 103);
             this.cbFormaPagamento.Name = "cbFormaPagamento";
             this.cbFormaPagamento.Size = new System.Drawing.Size(204, 27);
             this.cbFormaPagamento.TabIndex = 9;
@@ -96,7 +97,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(744, 98);
+            this.label4.Location = new System.Drawing.Point(746, 80);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(141, 19);
             this.label4.TabIndex = 8;
@@ -105,7 +106,7 @@
             // txtCliente
             // 
             this.txtCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCliente.Location = new System.Drawing.Point(273, 125);
+            this.txtCliente.Location = new System.Drawing.Point(275, 107);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(435, 26);
             this.txtCliente.TabIndex = 7;
@@ -114,7 +115,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(269, 98);
+            this.label3.Location = new System.Drawing.Point(271, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 19);
             this.label3.TabIndex = 6;
@@ -123,7 +124,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dgv_DadosVenda);
-            this.groupBox1.Location = new System.Drawing.Point(3, 181);
+            this.groupBox1.Location = new System.Drawing.Point(3, 148);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1156, 386);
             this.groupBox1.TabIndex = 4;
@@ -136,33 +137,32 @@
             this.dgv_DadosVenda.BackgroundColor = System.Drawing.Color.White;
             this.dgv_DadosVenda.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dgv_DadosVenda.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Times New Roman", 12F);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_DadosVenda.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_DadosVenda.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_DadosVenda.ColumnHeadersHeight = 32;
             this.dgv_DadosVenda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv_DadosVenda.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
             this.Column12,
             this.Column11,
-            this.Column1,
             this.Column9,
-            this.Column4,
             this.Column2,
             this.Column3,
             this.Column10});
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Times New Roman", 12F);
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_DadosVenda.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_DadosVenda.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgv_DadosVenda.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_DadosVenda.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dgv_DadosVenda.Location = new System.Drawing.Point(3, 22);
@@ -172,81 +172,6 @@
             this.dgv_DadosVenda.Size = new System.Drawing.Size(1150, 361);
             this.dgv_DadosVenda.TabIndex = 0;
             this.dgv_DadosVenda.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_DadosVenda_DataBindingComplete);
-            // 
-            // Column12
-            // 
-            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column12.DataPropertyName = "Id_Cliente";
-            this.Column12.HeaderText = "Cód. Cliente";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            this.Column12.Width = 111;
-            // 
-            // Column11
-            // 
-            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column11.DataPropertyName = "NomeCliente";
-            this.Column11.HeaderText = "Cliente";
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            this.Column11.Width = 76;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column1.DataPropertyName = "Id_Venda";
-            this.Column1.HeaderText = "Cod. Venda";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 107;
-            // 
-            // Column9
-            // 
-            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column9.DataPropertyName = "ValorTotal";
-            dataGridViewCellStyle11.Format = "C2";
-            dataGridViewCellStyle11.NullValue = null;
-            this.Column9.DefaultCellStyle = dataGridViewCellStyle11;
-            this.Column9.HeaderText = "Valor Venda";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Width = 108;
-            // 
-            // Column4
-            // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column4.DataPropertyName = "Descricao";
-            this.Column4.HeaderText = "F. Pagamento";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 117;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column2.DataPropertyName = "DataVenda";
-            this.Column2.HeaderText = "Data Venda";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 105;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column3.DataPropertyName = "HoraVenda";
-            this.Column3.HeaderText = "Hora Venda";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 107;
-            // 
-            // Column10
-            // 
-            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column10.DataPropertyName = "NomeUsuario";
-            this.Column10.HeaderText = "Operador";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 94;
             // 
             // PanelCabecalho
             // 
@@ -340,6 +265,82 @@
             // 
             this.ContentPanel.Size = new System.Drawing.Size(150, 106);
             // 
+            // btnMaisInformacoes
+            // 
+            this.btnMaisInformacoes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMaisInformacoes.Location = new System.Drawing.Point(948, 540);
+            this.btnMaisInformacoes.Name = "btnMaisInformacoes";
+            this.btnMaisInformacoes.Size = new System.Drawing.Size(208, 47);
+            this.btnMaisInformacoes.TabIndex = 10;
+            this.btnMaisInformacoes.Text = "+ informações";
+            this.btnMaisInformacoes.UseVisualStyleBackColor = true;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column1.DataPropertyName = "Id_Venda";
+            this.Column1.HeaderText = "Venda";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 72;
+            // 
+            // Column12
+            // 
+            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column12.DataPropertyName = "Id_Cliente";
+            this.Column12.HeaderText = "Cód. Cliente";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.Width = 111;
+            // 
+            // Column11
+            // 
+            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column11.DataPropertyName = "NomeCliente";
+            this.Column11.HeaderText = "Cliente";
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            this.Column11.Width = 76;
+            // 
+            // Column9
+            // 
+            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column9.DataPropertyName = "ValorTotal";
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Column9.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Column9.HeaderText = "Valor Venda";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Width = 108;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column2.DataPropertyName = "DataVenda";
+            this.Column2.HeaderText = "Data Venda";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 105;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column3.DataPropertyName = "HoraVenda";
+            this.Column3.HeaderText = "Hora Venda";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 107;
+            // 
+            // Column10
+            // 
+            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column10.DataPropertyName = "NomeUsuario";
+            this.Column10.HeaderText = "Operador";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 94;
+            // 
             // FrmHistoricoPagamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -379,11 +380,11 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnMaisInformacoes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
