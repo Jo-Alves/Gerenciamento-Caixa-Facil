@@ -31,7 +31,7 @@ namespace sistemaControleVendas
                 comando.SelectCommand.CommandText = _sql;
                 DataTable Tabela = new DataTable();
                 comando.Fill(Tabela);
-                dgv_DadosVenda.DataSource = Tabela;
+                dgvHistoricoPagamento.DataSource = Tabela;
             }
             catch (Exception ex)
             {
@@ -234,7 +234,7 @@ namespace sistemaControleVendas
             comando.Fill(Tabela);
             if (Tabela.Rows.Count > 0)
             {
-                dgv_DadosVenda.DataSource = Tabela;
+                dgvHistoricoPagamento.DataSource = Tabela;
             }
             else
             {
@@ -245,7 +245,7 @@ namespace sistemaControleVendas
             }
         }
 
-        private void dgv_DadosVenda_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void dgvHistoricoPagamento_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridView dgv;
             dgv = (DataGridView)sender;
@@ -271,7 +271,7 @@ namespace sistemaControleVendas
 
         private void btnVerHistoricoPagamento_Click(object sender, EventArgs e)
         {
-            if(dgv_DadosVenda.CurrentRow.Selected == true)
+            if(dgvHistoricoPagamento.CurrentRow.Selected == true)
             {
                 if (cbFormaPagamento.Text == "Parcial")
                 {
@@ -296,11 +296,11 @@ namespace sistemaControleVendas
             
         }
 
-        private void dgv_DadosVenda_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvHistoricoPagamento_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
-                DataGridViewRow row = dgv_DadosVenda.Rows[e.RowIndex];
+                DataGridViewRow row = dgvHistoricoPagamento.Rows[e.RowIndex];
                 NVenda = row.Cells["ColVenda"].Value.ToString();
                 codCliente = row.Cells["ColCodCliente"].Value.ToString();
                 Cliente = row.Cells["ColCliente"].Value.ToString();              

@@ -122,7 +122,7 @@ namespace sistemaControleVendas
 
                         if (Caixa.dataEntrada != DataAtual)
                         {
-                            if (MessageBox.Show("O caixa anterior está aberto.Feche o caixa para prosseguir.", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
+                            if (MessageBox.Show("O caixa anterior está aberto. Feche o caixa para prosseguir.", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
                             {
                                 this.Visible = false;
                                 FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");

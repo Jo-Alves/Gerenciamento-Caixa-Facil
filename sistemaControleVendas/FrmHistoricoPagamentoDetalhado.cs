@@ -62,6 +62,10 @@ namespace sistemaControleVendas
             {
                 btnFechar_Click(sender, e);
             }
+            if (e.KeyCode == Keys.F3)
+            {
+                btnVisualizar_Click(sender, e);
+            }
         }
 
         private void btnVisualizar_Click(object sender, EventArgs e)

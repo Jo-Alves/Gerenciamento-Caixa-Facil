@@ -31,7 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHistoricoPagamentoVisualizarDataPagamento));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvHistoricoPagamento = new System.Windows.Forms.DataGridView();
             this.ColCodVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColValorAbatimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColDataAbatimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +47,7 @@
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistoricoPagamento)).BeginInit();
             this.PanelCabecalho.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +55,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.dataGridView1);
+            this.panel1.Controls.Add(this.dgvHistoricoPagamento);
             this.panel1.Controls.Add(this.btnFechar);
             this.panel1.Controls.Add(this.PanelCabecalho);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -65,22 +65,24 @@
             this.panel1.Size = new System.Drawing.Size(611, 431);
             this.panel1.TabIndex = 0;
             // 
-            // dataGridView1
+            // dgvHistoricoPagamento
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeight = 27;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvHistoricoPagamento.AllowUserToAddRows = false;
+            this.dgvHistoricoPagamento.AllowUserToDeleteRows = false;
+            this.dgvHistoricoPagamento.BackgroundColor = System.Drawing.Color.White;
+            this.dgvHistoricoPagamento.ColumnHeadersHeight = 27;
+            this.dgvHistoricoPagamento.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColCodVenda,
             this.ColValorAbatimento,
             this.ColDataAbatimento,
             this.ColHoraAbatimento});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 73);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(602, 294);
-            this.dataGridView1.TabIndex = 4;
+            this.dgvHistoricoPagamento.Location = new System.Drawing.Point(3, 73);
+            this.dgvHistoricoPagamento.Name = "dgvHistoricoPagamento";
+            this.dgvHistoricoPagamento.ReadOnly = true;
+            this.dgvHistoricoPagamento.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvHistoricoPagamento.Size = new System.Drawing.Size(602, 294);
+            this.dgvHistoricoPagamento.TabIndex = 4;
+            this.dgvHistoricoPagamento.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvHistoricoPagamento_DataBindingComplete);
             // 
             // ColCodVenda
             // 
@@ -239,7 +241,7 @@
             this.Load += new System.EventHandler(this.FrmListavenda_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmHistoricoPagamentoDetalhado_KeyDown);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistoricoPagamento)).EndInit();
             this.PanelCabecalho.ResumeLayout(false);
             this.PanelCabecalho.PerformLayout();
             this.ResumeLayout(false);
@@ -259,7 +261,7 @@
         private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel ContentPanel;
         private System.Windows.Forms.Button btnFechar;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvHistoricoPagamento;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColCodVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColValorAbatimento;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColDataAbatimento;

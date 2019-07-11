@@ -52,7 +52,7 @@ namespace sistemaControleVendas
                 comando.SelectCommand.CommandText = _sql;
                 DataTable Tabela = new DataTable();
                 comando.Fill(Tabela);
-                dataGridView1.DataSource = Tabela;
+                dgvHistoricoPagamento.DataSource = Tabela;
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace sistemaControleVendas
                 comando.SelectCommand.CommandText = _sql;
                 DataTable Tabela = new DataTable();
                 comando.Fill(Tabela);
-                dataGridView1.DataSource = Tabela;
+                dgvHistoricoPagamento.DataSource = Tabela;
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace sistemaControleVendas
                 comando.SelectCommand.CommandText = _sql;
                 DataTable Tabela = new DataTable();
                 comando.Fill(Tabela);
-                dataGridView1.DataSource = Tabela;
+                dgvHistoricoPagamento.DataSource = Tabela;
             }
             catch (Exception ex)
             {
@@ -116,6 +116,13 @@ namespace sistemaControleVendas
         private void btnFechar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dgvHistoricoPagamento_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridView dgv;
+            dgv = (DataGridView)sender;
+            dgv.ClearSelection();
         }
 
         private void FrmHistoricoPagamentoDetalhado_KeyDown(object sender, KeyEventArgs e)

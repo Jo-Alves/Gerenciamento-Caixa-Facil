@@ -222,7 +222,7 @@ namespace sistemaControleVendas
         {
             CriarPasta();
             SetHorarioBackup();
-
+            Cursor = Cursors.WaitCursor;
             SqlConnection conexao = new SqlConnection(ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdHJjGrOXTsH7b9NW1qcCpVJxD4wsfhTDR6OXOUSfCqDynZ+0PYEaREWQ=="));
             _sql = "backup database dbControleVenda to disk = '" + Pasta + "Backup - " + DataTempo + ".bak'";
             SqlCommand comando = new SqlCommand(_sql, conexao);
@@ -239,6 +239,7 @@ namespace sistemaControleVendas
             }
             finally
             {
+                Cursor = Cursors.Default;
                 conexao.Close();
             }
         }

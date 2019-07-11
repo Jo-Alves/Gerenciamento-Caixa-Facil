@@ -34,6 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFechamentoCaixa));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_Cancelar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -58,6 +59,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txt_CodigoCaixa = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txt_ValorDebito = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txt_ValorCredito = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txt_Desconto = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -72,10 +77,6 @@
             this.Lbl_Titulo = new System.Windows.Forms.Label();
             this.Lbl_Icone = new System.Windows.Forms.Label();
             this.btn_Fechar = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txt_ValorCredito = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txt_ValorDebito = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_HistoricoVendas)).BeginInit();
@@ -389,6 +390,48 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Movimentação do Caixa do dia";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(492, 95);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(158, 19);
+            this.label12.TabIndex = 21;
+            this.label12.Text = "V. do cartão de débito:";
+            // 
+            // txt_ValorDebito
+            // 
+            this.txt_ValorDebito.BackColor = System.Drawing.Color.White;
+            this.txt_ValorDebito.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_ValorDebito.ForeColor = System.Drawing.Color.Red;
+            this.txt_ValorDebito.Location = new System.Drawing.Point(495, 117);
+            this.txt_ValorDebito.Name = "txt_ValorDebito";
+            this.txt_ValorDebito.ReadOnly = true;
+            this.txt_ValorDebito.Size = new System.Drawing.Size(143, 29);
+            this.txt_ValorDebito.TabIndex = 20;
+            this.txt_ValorDebito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(159, 95);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(163, 19);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "V. do cartão de crédito:";
+            // 
+            // txt_ValorCredito
+            // 
+            this.txt_ValorCredito.BackColor = System.Drawing.Color.White;
+            this.txt_ValorCredito.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_ValorCredito.ForeColor = System.Drawing.Color.Red;
+            this.txt_ValorCredito.Location = new System.Drawing.Point(175, 117);
+            this.txt_ValorCredito.Name = "txt_ValorCredito";
+            this.txt_ValorCredito.ReadOnly = true;
+            this.txt_ValorCredito.Size = new System.Drawing.Size(143, 29);
+            this.txt_ValorCredito.TabIndex = 18;
+            this.txt_ValorCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -546,48 +589,6 @@
             this.btn_Fechar.MouseEnter += new System.EventHandler(this.btn_Fechar_MouseEnter);
             this.btn_Fechar.MouseLeave += new System.EventHandler(this.btn_Fechar_MouseLeave);
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(159, 95);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(163, 19);
-            this.label11.TabIndex = 19;
-            this.label11.Text = "V. do cartão de crédito:";
-            // 
-            // txt_ValorCredito
-            // 
-            this.txt_ValorCredito.BackColor = System.Drawing.Color.White;
-            this.txt_ValorCredito.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_ValorCredito.ForeColor = System.Drawing.Color.Red;
-            this.txt_ValorCredito.Location = new System.Drawing.Point(175, 117);
-            this.txt_ValorCredito.Name = "txt_ValorCredito";
-            this.txt_ValorCredito.ReadOnly = true;
-            this.txt_ValorCredito.Size = new System.Drawing.Size(143, 29);
-            this.txt_ValorCredito.TabIndex = 18;
-            this.txt_ValorCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(492, 95);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(158, 19);
-            this.label12.TabIndex = 21;
-            this.label12.Text = "V. do cartão de débito:";
-            // 
-            // txt_ValorDebito
-            // 
-            this.txt_ValorDebito.BackColor = System.Drawing.Color.White;
-            this.txt_ValorDebito.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_ValorDebito.ForeColor = System.Drawing.Color.Red;
-            this.txt_ValorDebito.Location = new System.Drawing.Point(495, 117);
-            this.txt_ValorDebito.Name = "txt_ValorDebito";
-            this.txt_ValorDebito.ReadOnly = true;
-            this.txt_ValorDebito.Size = new System.Drawing.Size(143, 29);
-            this.txt_ValorDebito.TabIndex = 20;
-            this.txt_ValorDebito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // FrmFechamentoCaixa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -596,6 +597,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmFechamentoCaixa";
