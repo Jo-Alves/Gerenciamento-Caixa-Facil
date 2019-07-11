@@ -69,7 +69,7 @@ namespace sistemaControleVendas
         bool Validado = false;
         int codigo;
 
-        ClassContasNaoContabilizada vendasNaoContabilizada = new ClassContasNaoContabilizada();
+        ClassContasNaoContabilizada contasNaoContabilizada = new ClassContasNaoContabilizada();
 
         private void btn_Editar_Click(object sender, EventArgs e)
         {
@@ -80,18 +80,36 @@ namespace sistemaControleVendas
                     ValidarCampos();
                     if (Validado == true)
                     {
-                        vendasNaoContabilizada.codigo = codigo;
-                        vendasNaoContabilizada.nome = txt_Nome.Text.Trim();
-                        vendasNaoContabilizada.bairro = txt_Bairro.Text.Trim();
-                        vendasNaoContabilizada.endereco = txt_Endereco.Text.Trim();
-                        vendasNaoContabilizada.numero = txt_Numero.Text.Trim();
-                        vendasNaoContabilizada.valorConta = decimal.Parse(txt_Valor.Text.Trim());
-                        vendasNaoContabilizada.dataConta = dt_DataVenda.Text;
-                        vendasNaoContabilizada.EditarVendaNaoContabilizada();
-                        MessageBox.Show("Conta alterada com sucesso!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        btn_Limpar_Click(sender, e);
-                        txt_Nome.Focus();
-                        Validado = false;
+                        contasNaoContabilizada.codigo = codigo;
+                        contasNaoContabilizada.nome = txt_Nome.Text.Trim();
+                        contasNaoContabilizada.bairro = txt_Bairro.Text.Trim();
+                        contasNaoContabilizada.endereco = txt_Endereco.Text.Trim();
+                        contasNaoContabilizada.numero = txt_Numero.Text.Trim();
+                        contasNaoContabilizada.dataConta = dt_DataVenda.Text;
+                        if (decimal.Parse(txt_Valor.Text) != ValorConta)
+                        {
+                            if (MessageBox.Show("Valor é diferente da conta atual, Deseja alterar o valor? " + txt_Valor.Text, "Mensagem do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                                contasNaoContabilizada.valorConta = decimal.Parse(txt_Valor.Text.Trim());
+                            else
+                                contasNaoContabilizada.valorConta = ValorConta;
+                        }
+                        else
+                        {
+                            contasNaoContabilizada.valorConta = ValorConta;
+                        }
+                        if (contasNaoContabilizada.valorConta > 0)
+                        {
+                            contasNaoContabilizada.EditarVendaNaoContabilizada();
+                            MessageBox.Show("Conta alterada com sucesso!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LimparCampos();
+                            txt_Nome.Focus();
+                            Validado = false;
+                            codigo = 0;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Informe valor maior que zero!", "Aviso do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
                     }
                 }
                 else
@@ -102,6 +120,26 @@ namespace sistemaControleVendas
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (codigo == 0)
+            {
+                MessageBox.Show("Busque a conta para excluir!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                DialogResult dr = MessageBox.Show("Deseja mesmo excluir esta conta? Excluindo a conta, não haverá com recuperá-la.", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                {
+                    contasNaoContabilizada.codigo = codigo;
+                    contasNaoContabilizada.ExcluirVendaNaoContabilizada();
+                    MessageBox.Show("Conta excluido com sucesso!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimparCampos();
+                    txt_Nome.Focus();
+                }
             }
         }
 
@@ -121,7 +159,7 @@ namespace sistemaControleVendas
                     txt_Numero.Text = buscarContasNaoContabilizadas.numero;
                     txt_Valor.Text = buscarContasNaoContabilizadas.valorConta;
                     dt_DataVenda.Text = buscarContasNaoContabilizadas.DataConta;
-                    ValorConta = decimal.Parse(txt_Valor.Text);
+                    ValorConta = decimal.Parse(buscarContasNaoContabilizadas.valorConta);
                 }
             }
             else
@@ -133,7 +171,7 @@ namespace sistemaControleVendas
         private bool BuscarConta()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "select * from ContasNaoContabilizadas";
+            _sql = "select * from ContasNaoContabilizadas where Valor_Conta > 0";
 
             SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
             conexao.Open();
@@ -163,9 +201,8 @@ namespace sistemaControleVendas
             }
         }
 
-        private void btn_Limpar_Click(object sender, EventArgs e)
+        private void LimparCampos()
         {
-
             txt_Nome.Clear();
             txt_Endereco.Clear();
             txt_Bairro.Clear();
@@ -174,6 +211,7 @@ namespace sistemaControleVendas
             dt_DataVenda.Text = DateTime.Now.ToShortDateString();
             codigo = 0;
         }
+
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
             try
@@ -181,17 +219,26 @@ namespace sistemaControleVendas
                 ValidarCampos();
                if(Validado == true)
                 {
-                    vendasNaoContabilizada.nome = txt_Nome.Text.Trim();
-                    vendasNaoContabilizada.bairro = txt_Bairro.Text.Trim();
-                    vendasNaoContabilizada.endereco = txt_Endereco.Text.Trim();
-                    vendasNaoContabilizada.numero = txt_Numero.Text.Trim();
-                    vendasNaoContabilizada.valorConta = decimal.Parse(txt_Valor.Text.Trim());
-                    vendasNaoContabilizada.dataConta = dt_DataVenda.Text;
-                    vendasNaoContabilizada.ConfimarVendaNaoContabilizada();
-                    MessageBox.Show("Conta salvo com sucesso!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    btn_Limpar_Click(sender, e);
-                    txt_Nome.Focus();
-                    Validado = false;
+                    contasNaoContabilizada.nome = txt_Nome.Text.Trim();
+                    contasNaoContabilizada.bairro = txt_Bairro.Text.Trim();
+                    contasNaoContabilizada.endereco = txt_Endereco.Text.Trim();
+                    contasNaoContabilizada.numero = txt_Numero.Text.Trim();
+                    contasNaoContabilizada.valorConta = decimal.Parse(txt_Valor.Text.Trim());
+                    contasNaoContabilizada.dataConta = dt_DataVenda.Text;
+                    
+                    if (contasNaoContabilizada.valorConta > 0)
+                    {
+                        contasNaoContabilizada.ConfimarVendaNaoContabilizada();
+                        MessageBox.Show("Conta salvo com sucesso!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txt_Nome.Focus();
+                        LimparCampos();
+                        txt_Nome.Focus();
+                        Validado = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Informe valor maior que zero!", "Aviso do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
             }
             catch (Exception ex)
@@ -382,7 +429,7 @@ namespace sistemaControleVendas
                 if (baixarPagamentoContasNaoContabilizadas.pagamentobaixado)
                 {
                     {
-                        btn_Limpar_Click(sender, e);
+                        LimparCampos();
                         txt_Nome.Focus();
                     }
                 }

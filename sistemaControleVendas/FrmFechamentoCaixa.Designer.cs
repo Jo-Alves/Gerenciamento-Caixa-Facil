@@ -59,6 +59,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txt_CodigoCaixa = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblValorCaixa = new System.Windows.Forms.Label();
+            this.txtValorCaixa = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txt_ValorDebito = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -137,6 +139,7 @@
             // txt_SaldoCaixa
             // 
             this.txt_SaldoCaixa.BackColor = System.Drawing.Color.White;
+            this.txt_SaldoCaixa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_SaldoCaixa.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_SaldoCaixa.ForeColor = System.Drawing.Color.Black;
             this.txt_SaldoCaixa.Location = new System.Drawing.Point(171, 642);
@@ -158,6 +161,7 @@
             // 
             // txt_ValorTotalCaixa
             // 
+            this.txt_ValorTotalCaixa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_ValorTotalCaixa.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_ValorTotalCaixa.ForeColor = System.Drawing.Color.Black;
             this.txt_ValorTotalCaixa.Location = new System.Drawing.Point(11, 642);
@@ -317,6 +321,7 @@
             // txt_Operador
             // 
             this.txt_Operador.BackColor = System.Drawing.Color.White;
+            this.txt_Operador.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_Operador.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Operador.Location = new System.Drawing.Point(384, 128);
             this.txt_Operador.Name = "txt_Operador";
@@ -338,6 +343,7 @@
             // txt_DateTimeAberturaCaixa
             // 
             this.txt_DateTimeAberturaCaixa.BackColor = System.Drawing.Color.White;
+            this.txt_DateTimeAberturaCaixa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_DateTimeAberturaCaixa.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_DateTimeAberturaCaixa.Location = new System.Drawing.Point(211, 128);
             this.txt_DateTimeAberturaCaixa.Name = "txt_DateTimeAberturaCaixa";
@@ -358,6 +364,7 @@
             // txt_CodigoCaixa
             // 
             this.txt_CodigoCaixa.BackColor = System.Drawing.Color.White;
+            this.txt_CodigoCaixa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_CodigoCaixa.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_CodigoCaixa.Location = new System.Drawing.Point(50, 128);
             this.txt_CodigoCaixa.Name = "txt_CodigoCaixa";
@@ -368,6 +375,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblValorCaixa);
+            this.groupBox1.Controls.Add(this.txtValorCaixa);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.txt_ValorDebito);
             this.groupBox1.Controls.Add(this.label11);
@@ -390,10 +399,29 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Movimentação do Caixa do dia";
             // 
+            // lblValorCaixa
+            // 
+            this.lblValorCaixa.AutoSize = true;
+            this.lblValorCaixa.Location = new System.Drawing.Point(647, 101);
+            this.lblValorCaixa.Name = "lblValorCaixa";
+            this.lblValorCaixa.Size = new System.Drawing.Size(117, 19);
+            this.lblValorCaixa.TabIndex = 23;
+            this.lblValorCaixa.Text = "Valor em Caixa:";
+            // 
+            // txtValorCaixa
+            // 
+            this.txtValorCaixa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtValorCaixa.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorCaixa.Location = new System.Drawing.Point(647, 126);
+            this.txtValorCaixa.Name = "txtValorCaixa";
+            this.txtValorCaixa.Size = new System.Drawing.Size(143, 29);
+            this.txtValorCaixa.TabIndex = 22;
+            this.txtValorCaixa.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(492, 95);
+            this.label12.Location = new System.Drawing.Point(168, 104);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(158, 19);
             this.label12.TabIndex = 21;
@@ -402,9 +430,10 @@
             // txt_ValorDebito
             // 
             this.txt_ValorDebito.BackColor = System.Drawing.Color.White;
+            this.txt_ValorDebito.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_ValorDebito.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_ValorDebito.ForeColor = System.Drawing.Color.Red;
-            this.txt_ValorDebito.Location = new System.Drawing.Point(495, 117);
+            this.txt_ValorDebito.Location = new System.Drawing.Point(171, 126);
             this.txt_ValorDebito.Name = "txt_ValorDebito";
             this.txt_ValorDebito.ReadOnly = true;
             this.txt_ValorDebito.Size = new System.Drawing.Size(143, 29);
@@ -414,7 +443,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(159, 95);
+            this.label11.Location = new System.Drawing.Point(2, 104);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(163, 19);
             this.label11.TabIndex = 19;
@@ -423,9 +452,10 @@
             // txt_ValorCredito
             // 
             this.txt_ValorCredito.BackColor = System.Drawing.Color.White;
+            this.txt_ValorCredito.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_ValorCredito.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_ValorCredito.ForeColor = System.Drawing.Color.Red;
-            this.txt_ValorCredito.Location = new System.Drawing.Point(175, 117);
+            this.txt_ValorCredito.Location = new System.Drawing.Point(18, 126);
             this.txt_ValorCredito.Name = "txt_ValorCredito";
             this.txt_ValorCredito.ReadOnly = true;
             this.txt_ValorCredito.Size = new System.Drawing.Size(143, 29);
@@ -435,7 +465,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(334, 27);
+            this.label10.Location = new System.Drawing.Point(336, 31);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(77, 19);
             this.label10.TabIndex = 16;
@@ -444,8 +474,9 @@
             // txt_Desconto
             // 
             this.txt_Desconto.BackColor = System.Drawing.Color.White;
+            this.txt_Desconto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_Desconto.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_Desconto.Location = new System.Drawing.Point(338, 49);
+            this.txt_Desconto.Location = new System.Drawing.Point(340, 53);
             this.txt_Desconto.Name = "txt_Desconto";
             this.txt_Desconto.ReadOnly = true;
             this.txt_Desconto.Size = new System.Drawing.Size(143, 29);
@@ -455,7 +486,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(646, 27);
+            this.label7.Location = new System.Drawing.Point(648, 31);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(132, 19);
             this.label7.TabIndex = 13;
@@ -473,9 +504,10 @@
             // txt_ValorReceber
             // 
             this.txt_ValorReceber.BackColor = System.Drawing.Color.White;
+            this.txt_ValorReceber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_ValorReceber.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_ValorReceber.ForeColor = System.Drawing.Color.Red;
-            this.txt_ValorReceber.Location = new System.Drawing.Point(649, 49);
+            this.txt_ValorReceber.Location = new System.Drawing.Point(651, 53);
             this.txt_ValorReceber.Name = "txt_ValorReceber";
             this.txt_ValorReceber.ReadOnly = true;
             this.txt_ValorReceber.Size = new System.Drawing.Size(143, 29);
@@ -485,6 +517,7 @@
             // txt_ValorRetiradas
             // 
             this.txt_ValorRetiradas.BackColor = System.Drawing.Color.White;
+            this.txt_ValorRetiradas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_ValorRetiradas.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_ValorRetiradas.Location = new System.Drawing.Point(175, 53);
             this.txt_ValorRetiradas.Name = "txt_ValorRetiradas";
@@ -496,7 +529,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(492, 27);
+            this.label6.Location = new System.Drawing.Point(494, 31);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(133, 19);
             this.label6.TabIndex = 11;
@@ -505,9 +538,10 @@
             // txt_ValorRecebido
             // 
             this.txt_ValorRecebido.BackColor = System.Drawing.Color.White;
+            this.txt_ValorRecebido.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_ValorRecebido.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_ValorRecebido.ForeColor = System.Drawing.Color.Lime;
-            this.txt_ValorRecebido.Location = new System.Drawing.Point(495, 49);
+            this.txt_ValorRecebido.Location = new System.Drawing.Point(497, 53);
             this.txt_ValorRecebido.Name = "txt_ValorRecebido";
             this.txt_ValorRecebido.ReadOnly = true;
             this.txt_ValorRecebido.Size = new System.Drawing.Size(143, 29);
@@ -526,6 +560,7 @@
             // txt_ValorEntrada
             // 
             this.txt_ValorEntrada.BackColor = System.Drawing.Color.White;
+            this.txt_ValorEntrada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_ValorEntrada.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_ValorEntrada.Location = new System.Drawing.Point(16, 53);
             this.txt_ValorEntrada.Name = "txt_ValorEntrada";
@@ -661,5 +696,7 @@
         private System.Windows.Forms.TextBox txt_ValorDebito;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txt_ValorCredito;
+        private System.Windows.Forms.TextBox txtValorCaixa;
+        private System.Windows.Forms.Label lblValorCaixa;
     }
 }

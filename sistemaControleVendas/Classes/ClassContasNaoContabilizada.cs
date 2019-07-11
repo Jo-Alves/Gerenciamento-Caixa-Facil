@@ -118,6 +118,28 @@ namespace sistemaControleVendas
             }
         }
 
+        public void ExcluirVendaNaoContabilizada()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "delete from ContasNaoContabilizadas where id = @id";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@id", codigo);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
         public void AbaterVendaNaoContabilizada()
         {
             SqlConnection conexao = new SqlConnection(stringConn);

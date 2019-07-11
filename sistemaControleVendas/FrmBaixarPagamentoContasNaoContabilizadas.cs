@@ -73,28 +73,7 @@ namespace sistemaControleVendas
 
         string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3");
         string _sql;
-        private void Abater()
-        {
-            SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "update PagamentoParcial set ValorRestante = @Restante, dataAbatimento = @DataAbatimento from PagamentoParcial inner join Venda on PagamentoParcial.Id_Venda = Venda.Id_Venda inner join Cliente on Cliente.Id_Cliente = venda.Id_Cliente where Cliente.Id_Cliente = @id and ValorRestante > 0";
-            SqlCommand comando = new SqlCommand(_sql, conexao);
-            comando.Parameters.AddWithValue("@id", txt_Codigo.Text);
-            comando.Parameters.AddWithValue("@Restante", ValorRestante);
-            comando.Parameters.AddWithValue("@DataAbatimento", DateTime.Now.ToShortDateString());
-            try
-            {
-                conexao.Open();
-                comando.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }        
+          
 
         private void txt_ValorPago_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -118,9 +97,6 @@ namespace sistemaControleVendas
                     ValorNCaixa = decimal.Parse(txt_ValorPago.Text);
                     CaixaDia();
                     GerenciarCaixa();
-                    InformarValorabatido();
-                    Abater();
-                    AtualizarValorReceber();
                     contasNaoContabilizada.codigo = int.Parse(txt_Codigo.Text);
                     contasNaoContabilizada.valorConta = decimal.Parse(txt_ValorRestante.Text.Substring(3));
                     contasNaoContabilizada.AbaterVendaNaoContabilizada();
@@ -192,38 +168,6 @@ namespace sistemaControleVendas
         }
             
         ClassPagamentoParcial PagamentoParcial = new ClassPagamentoParcial();
-        private void InformarValorabatido()
-        {
-             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "select * from PagamentoParcial inner join Venda on Venda.Id_Venda= PagamentoParcial.Id_Venda inner join Cliente on Cliente.Id_Cliente=venda.Id_Cliente where Cliente.Id_Cliente = @ID_Cliente and PagamentoParcial.ValorRestante > 0";
-            try
-            {
-                conexao.Open();
-                SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
-                comando.SelectCommand.Parameters.AddWithValue("@ID_Cliente", txt_Codigo.Text);
-                comando.SelectCommand.CommandText = _sql;
-                DataTable Tabela = new DataTable();
-                comando.Fill(Tabela);
-                if (Tabela.Rows.Count > 0)
-                {
-                    int id = int.Parse(Tabela.Rows[0]["Id_PagamentoParcial"].ToString());
-                    PagamentoParcial.Id = id;
-                    PagamentoParcial.valorTotalAbatido = decimal.Parse(txt_ValorPago.Text);
-                    PagamentoParcial.dataAbatimento = DateTime.Now.ToShortDateString();
-                    PagamentoParcial.horaPagamento = DateTime.Now.ToLongTimeString();
-                    PagamentoParcial.InserirValorAbatido();
-                }
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
         private void txt_ValorPago_Leave(object sender, EventArgs e)
         {
             try
@@ -294,35 +238,6 @@ namespace sistemaControleVendas
                     ValorReceber = decimal.Parse(Tabela.Rows[0]["ValorReceber"].ToString());
                     Id_Usuario = int.Parse(Tabela.Rows[0]["Id_Usuario"].ToString());
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
-        private void AtualizarValorReceber()
-        {
-            decimal ValorPago = decimal.Parse(txt_ValorPago.Text);
-            ValorReceber -= ValorPago;
-            SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "update FluxoCaixa set ValorReceber = @ValorReceber from FluxoCaixa inner join Usuario on Usuario.Id_Usuario = FluxoCaixa.Id_Usuario inner join Venda on Venda.Id_Usuario=Usuario.Id_Usuario inner join Cliente on Cliente.Id_Cliente = Venda.Id_Cliente inner join PagamentoParcial on PagamentoParcial.Id_Venda = Venda.Id_Venda where FluxoCaixa.Id_Fluxo = @Id_Fluxo and  PagamentoParcial.DataAbatimento = @DataEntrada and venda.DataVenda = @DataEntrada and Venda.HoraVenda > @HoraEntrada and Usuario.Id_Usuario = @Id_Usuario and cliente.Id_Cliente = @Id_Cliente";
-            SqlCommand comando = new SqlCommand(_sql, conexao);
-            comando.Parameters.AddWithValue("@Id_Fluxo", Id_FluxoCaixa);
-            comando.Parameters.AddWithValue("@DataEntrada", DataEntrada);
-            comando.Parameters.AddWithValue("@HoraEntrada", HoraEntrada);
-            comando.Parameters.AddWithValue("@Id_Usuario", Id_Usuario);
-            comando.Parameters.AddWithValue("@Id_Cliente", txt_Codigo.Text);
-            comando.Parameters.AddWithValue("@ValorReceber", ValorReceber);
-            comando.CommandText = _sql;
-            try
-            {
-                conexao.Open();
-                comando.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

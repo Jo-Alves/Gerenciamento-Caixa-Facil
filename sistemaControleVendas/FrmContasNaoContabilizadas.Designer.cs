@@ -35,6 +35,7 @@
             this.btn_Fechar = new System.Windows.Forms.Button();
             this.btn_Minimizar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnExcluir = new System.Windows.Forms.Button();
             this.btnBaixarConta = new System.Windows.Forms.Button();
             this.btn_BuscarVenda = new System.Windows.Forms.Button();
             this.btn_Editar = new System.Windows.Forms.Button();
@@ -128,6 +129,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.btnExcluir);
             this.panel2.Controls.Add(this.btnBaixarConta);
             this.panel2.Controls.Add(this.btn_BuscarVenda);
             this.panel2.Controls.Add(this.btn_Editar);
@@ -139,10 +141,21 @@
             this.panel2.Size = new System.Drawing.Size(678, 441);
             this.panel2.TabIndex = 0;
             // 
+            // btnExcluir
+            // 
+            this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluir.Location = new System.Drawing.Point(403, 288);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(127, 44);
+            this.btnExcluir.TabIndex = 79;
+            this.btnExcluir.Text = "Excluir";
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            // 
             // btnBaixarConta
             // 
             this.btnBaixarConta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBaixarConta.Location = new System.Drawing.Point(86, 288);
+            this.btnBaixarConta.Location = new System.Drawing.Point(6, 288);
             this.btnBaixarConta.Name = "btnBaixarConta";
             this.btnBaixarConta.Size = new System.Drawing.Size(138, 44);
             this.btnBaixarConta.TabIndex = 78;
@@ -153,7 +166,7 @@
             // btn_BuscarVenda
             // 
             this.btn_BuscarVenda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_BuscarVenda.Location = new System.Drawing.Point(230, 288);
+            this.btn_BuscarVenda.Location = new System.Drawing.Point(150, 288);
             this.btn_BuscarVenda.Name = "btn_BuscarVenda";
             this.btn_BuscarVenda.Size = new System.Drawing.Size(138, 44);
             this.btn_BuscarVenda.TabIndex = 77;
@@ -164,9 +177,9 @@
             // btn_Editar
             // 
             this.btn_Editar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Editar.Location = new System.Drawing.Point(374, 288);
+            this.btn_Editar.Location = new System.Drawing.Point(294, 288);
             this.btn_Editar.Name = "btn_Editar";
-            this.btn_Editar.Size = new System.Drawing.Size(138, 44);
+            this.btn_Editar.Size = new System.Drawing.Size(103, 44);
             this.btn_Editar.TabIndex = 76;
             this.btn_Editar.Text = "Editar";
             this.btn_Editar.UseVisualStyleBackColor = true;
@@ -175,7 +188,7 @@
             // btn_Confirmar
             // 
             this.btn_Confirmar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Confirmar.Location = new System.Drawing.Point(518, 288);
+            this.btn_Confirmar.Location = new System.Drawing.Point(536, 288);
             this.btn_Confirmar.Name = "btn_Confirmar";
             this.btn_Confirmar.Size = new System.Drawing.Size(138, 44);
             this.btn_Confirmar.TabIndex = 75;
@@ -421,5 +434,6 @@
         private System.Windows.Forms.Button btn_BuscarVenda;
         private System.Windows.Forms.Button btn_Editar;
         private System.Windows.Forms.Button btnBaixarConta;
+        private System.Windows.Forms.Button btnExcluir;
     }
 }

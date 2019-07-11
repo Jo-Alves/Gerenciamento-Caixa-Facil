@@ -76,7 +76,7 @@ namespace sistemaControleVendas
 
         private void txtNome_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtNome.Text.Trim()))
+            if (!string.IsNullOrEmpty(txtNome.Text.Trim()))
             {
                 SqlConnection conexao = new SqlConnection(stringConn);
                 _sql = "select * from ContasNaoContabilizadas where Nome_Cliente like '%" + txtNome.Text.Trim() + "%' and Valor_Conta > 0";

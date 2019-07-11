@@ -28,6 +28,8 @@ namespace sistemaControleVendas
                 txt_ValorTotalCaixa.ReadOnly = true;
                 txt_ValorTotalCaixa.BackColor = Color.White;
                 RegistroVenda();
+                txtValorCaixa.Visible = false;
+                lblValorCaixa.Visible = false;
             }
             else
             {
@@ -48,6 +50,9 @@ namespace sistemaControleVendas
                 {
                     txt_ValorReceber.Text = "R$ " + ValorReceber;
                 }
+
+                //decimal saldo
+                txtValorCaixa.Text = "R$ " + ((ValoresRecebidos + ValorEntrada) - ValorSaida).ToString();
             }
         }
 
