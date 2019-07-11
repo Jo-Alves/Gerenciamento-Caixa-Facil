@@ -39,6 +39,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgv_DadosVenda = new System.Windows.Forms.DataGridView();
+            this.ColVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColCodCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColDataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColHoraVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColOperador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelCabecalho = new System.Windows.Forms.Panel();
             this.Lbl_Titulo = new System.Windows.Forms.Label();
             this.Lbl_Icone = new System.Windows.Forms.Label();
@@ -48,12 +54,6 @@
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
-            this.ColVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColCodCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColDataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColHoraVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColOperador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DadosVenda)).BeginInit();
@@ -91,6 +91,7 @@
             // 
             // cbFormaPagamento
             // 
+            this.cbFormaPagamento.BackColor = System.Drawing.Color.Silver;
             this.cbFormaPagamento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFormaPagamento.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbFormaPagamento.FormattingEnabled = true;
@@ -183,98 +184,6 @@
             this.dgv_DadosVenda.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_DadosVenda_CellClick);
             this.dgv_DadosVenda.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_DadosVenda_DataBindingComplete);
             // 
-            // PanelCabecalho
-            // 
-            this.PanelCabecalho.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelCabecalho.BackColor = System.Drawing.Color.Green;
-            this.PanelCabecalho.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PanelCabecalho.Controls.Add(this.Lbl_Titulo);
-            this.PanelCabecalho.Controls.Add(this.Lbl_Icone);
-            this.PanelCabecalho.Controls.Add(this.btn_Fechar);
-            this.PanelCabecalho.Location = new System.Drawing.Point(-1, -1);
-            this.PanelCabecalho.Margin = new System.Windows.Forms.Padding(4);
-            this.PanelCabecalho.Name = "PanelCabecalho";
-            this.PanelCabecalho.Size = new System.Drawing.Size(813, 67);
-            this.PanelCabecalho.TabIndex = 3;
-            this.PanelCabecalho.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PanelCabecalho_MouseDown);
-            this.PanelCabecalho.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PanelCabecalho_MouseMove);
-            // 
-            // Lbl_Titulo
-            // 
-            this.Lbl_Titulo.AutoSize = true;
-            this.Lbl_Titulo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
-            this.Lbl_Titulo.ForeColor = System.Drawing.Color.White;
-            this.Lbl_Titulo.Location = new System.Drawing.Point(107, 17);
-            this.Lbl_Titulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Lbl_Titulo.Name = "Lbl_Titulo";
-            this.Lbl_Titulo.Size = new System.Drawing.Size(0, 19);
-            this.Lbl_Titulo.TabIndex = 65;
-            // 
-            // Lbl_Icone
-            // 
-            this.Lbl_Icone.Image = global::sistemaControleVendas.Properties.Resources.Data_List_icon;
-            this.Lbl_Icone.Location = new System.Drawing.Point(11, 4);
-            this.Lbl_Icone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Lbl_Icone.Name = "Lbl_Icone";
-            this.Lbl_Icone.Size = new System.Drawing.Size(88, 53);
-            this.Lbl_Icone.TabIndex = 64;
-            this.Lbl_Icone.Text = "    ";
-            // 
-            // btn_Fechar
-            // 
-            this.btn_Fechar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Fechar.BackColor = System.Drawing.Color.Green;
-            this.btn_Fechar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Fechar.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Fechar.ForeColor = System.Drawing.Color.White;
-            this.btn_Fechar.Location = new System.Drawing.Point(769, 4);
-            this.btn_Fechar.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_Fechar.Name = "btn_Fechar";
-            this.btn_Fechar.Size = new System.Drawing.Size(38, 41);
-            this.btn_Fechar.TabIndex = 62;
-            this.btn_Fechar.Text = "X";
-            this.btn_Fechar.UseVisualStyleBackColor = false;
-            this.btn_Fechar.Click += new System.EventHandler(this.btn_Fechar_Click);
-            this.btn_Fechar.MouseEnter += new System.EventHandler(this.btn_Fechar_MouseEnter);
-            this.btn_Fechar.MouseLeave += new System.EventHandler(this.btn_Fechar_MouseLeave);
-            // 
-            // BottomToolStripPanel
-            // 
-            this.BottomToolStripPanel.Location = new System.Drawing.Point(0, 0);
-            this.BottomToolStripPanel.Name = "BottomToolStripPanel";
-            this.BottomToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.BottomToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.BottomToolStripPanel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // TopToolStripPanel
-            // 
-            this.TopToolStripPanel.Location = new System.Drawing.Point(0, 0);
-            this.TopToolStripPanel.Name = "TopToolStripPanel";
-            this.TopToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.TopToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.TopToolStripPanel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // RightToolStripPanel
-            // 
-            this.RightToolStripPanel.Location = new System.Drawing.Point(0, 0);
-            this.RightToolStripPanel.Name = "RightToolStripPanel";
-            this.RightToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.RightToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.RightToolStripPanel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // LeftToolStripPanel
-            // 
-            this.LeftToolStripPanel.Location = new System.Drawing.Point(0, 0);
-            this.LeftToolStripPanel.Name = "LeftToolStripPanel";
-            this.LeftToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.LeftToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.LeftToolStripPanel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // ContentPanel
-            // 
-            this.ContentPanel.Size = new System.Drawing.Size(150, 106);
-            // 
             // ColVenda
             // 
             this.ColVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -328,6 +237,98 @@
             this.ColOperador.Name = "ColOperador";
             this.ColOperador.ReadOnly = true;
             this.ColOperador.Width = 106;
+            // 
+            // PanelCabecalho
+            // 
+            this.PanelCabecalho.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelCabecalho.BackColor = System.Drawing.Color.Turquoise;
+            this.PanelCabecalho.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelCabecalho.Controls.Add(this.Lbl_Titulo);
+            this.PanelCabecalho.Controls.Add(this.Lbl_Icone);
+            this.PanelCabecalho.Controls.Add(this.btn_Fechar);
+            this.PanelCabecalho.Location = new System.Drawing.Point(-1, -1);
+            this.PanelCabecalho.Margin = new System.Windows.Forms.Padding(4);
+            this.PanelCabecalho.Name = "PanelCabecalho";
+            this.PanelCabecalho.Size = new System.Drawing.Size(813, 67);
+            this.PanelCabecalho.TabIndex = 3;
+            this.PanelCabecalho.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PanelCabecalho_MouseDown);
+            this.PanelCabecalho.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PanelCabecalho_MouseMove);
+            // 
+            // Lbl_Titulo
+            // 
+            this.Lbl_Titulo.AutoSize = true;
+            this.Lbl_Titulo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
+            this.Lbl_Titulo.ForeColor = System.Drawing.Color.White;
+            this.Lbl_Titulo.Location = new System.Drawing.Point(107, 17);
+            this.Lbl_Titulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Lbl_Titulo.Name = "Lbl_Titulo";
+            this.Lbl_Titulo.Size = new System.Drawing.Size(0, 19);
+            this.Lbl_Titulo.TabIndex = 65;
+            // 
+            // Lbl_Icone
+            // 
+            this.Lbl_Icone.Image = global::sistemaControleVendas.Properties.Resources.Data_List_icon;
+            this.Lbl_Icone.Location = new System.Drawing.Point(11, 4);
+            this.Lbl_Icone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Lbl_Icone.Name = "Lbl_Icone";
+            this.Lbl_Icone.Size = new System.Drawing.Size(88, 53);
+            this.Lbl_Icone.TabIndex = 64;
+            this.Lbl_Icone.Text = "    ";
+            // 
+            // btn_Fechar
+            // 
+            this.btn_Fechar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Fechar.BackColor = System.Drawing.Color.Transparent;
+            this.btn_Fechar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_Fechar.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Fechar.ForeColor = System.Drawing.Color.White;
+            this.btn_Fechar.Location = new System.Drawing.Point(769, 4);
+            this.btn_Fechar.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_Fechar.Name = "btn_Fechar";
+            this.btn_Fechar.Size = new System.Drawing.Size(38, 41);
+            this.btn_Fechar.TabIndex = 62;
+            this.btn_Fechar.Text = "X";
+            this.btn_Fechar.UseVisualStyleBackColor = false;
+            this.btn_Fechar.Click += new System.EventHandler(this.btn_Fechar_Click);
+            this.btn_Fechar.MouseEnter += new System.EventHandler(this.btn_Fechar_MouseEnter);
+            this.btn_Fechar.MouseLeave += new System.EventHandler(this.btn_Fechar_MouseLeave);
+            // 
+            // BottomToolStripPanel
+            // 
+            this.BottomToolStripPanel.Location = new System.Drawing.Point(0, 0);
+            this.BottomToolStripPanel.Name = "BottomToolStripPanel";
+            this.BottomToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.BottomToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.BottomToolStripPanel.Size = new System.Drawing.Size(0, 0);
+            // 
+            // TopToolStripPanel
+            // 
+            this.TopToolStripPanel.Location = new System.Drawing.Point(0, 0);
+            this.TopToolStripPanel.Name = "TopToolStripPanel";
+            this.TopToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.TopToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.TopToolStripPanel.Size = new System.Drawing.Size(0, 0);
+            // 
+            // RightToolStripPanel
+            // 
+            this.RightToolStripPanel.Location = new System.Drawing.Point(0, 0);
+            this.RightToolStripPanel.Name = "RightToolStripPanel";
+            this.RightToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.RightToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.RightToolStripPanel.Size = new System.Drawing.Size(0, 0);
+            // 
+            // LeftToolStripPanel
+            // 
+            this.LeftToolStripPanel.Location = new System.Drawing.Point(0, 0);
+            this.LeftToolStripPanel.Name = "LeftToolStripPanel";
+            this.LeftToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.LeftToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.LeftToolStripPanel.Size = new System.Drawing.Size(0, 0);
+            // 
+            // ContentPanel
+            // 
+            this.ContentPanel.Size = new System.Drawing.Size(150, 106);
             // 
             // FrmHistoricoPagamento
             // 

@@ -14,7 +14,8 @@ namespace sistemaControleVendas
     public partial class FrmHistoricoPagamentoDetalhado : Form
     {
         string FormaPagamento, CodCliente;
-        public FrmHistoricoPagamentoDetalhado(string NVenda, string Cliente, string dateTime, decimal ValorVenda, string FormaPagamento, decimal ValorAbatido, decimal ValorRestante)
+        int IdPagamentoParcial;
+        public FrmHistoricoPagamentoDetalhado(string NVenda, string Cliente, string dateTime, decimal ValorVenda, string FormaPagamento, decimal ValorAbatido, decimal ValorRestante, int IdPagamentoParcial)
         {
             InitializeComponent();
             txtCodigoVenda.Text = NVenda;
@@ -24,7 +25,8 @@ namespace sistemaControleVendas
             txtFormaPagamento.Text = FormaPagamento;
             txtValorRestante.Text = "R$ " + ValorRestante.ToString();
             txtValorPago.Text = "R$ " + ValorAbatido.ToString();
-            this.CodCliente = CodCliente;            
+            this.CodCliente = CodCliente;
+            this.IdPagamentoParcial = IdPagamentoParcial;
         }
 
         private void FrmListavenda_Load(object sender, EventArgs e)
@@ -59,6 +61,19 @@ namespace sistemaControleVendas
             if (e.KeyCode == Keys.Escape)
             {
                 btnFechar_Click(sender, e);
+            }
+        }
+
+        private void btnVisualizar_Click(object sender, EventArgs e)
+        {
+            if (txtValorPago.Text == "R$ 0,00")
+            {
+                MessageBox.Show("Não constamos pagamentos realizados por estes clientes!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                FrmHistoricoPagamentoVisualizarDataPagamento historicoPagamentoVisualizarDataPagamento = new FrmHistoricoPagamentoVisualizarDataPagamento(txtCodigoVenda.Text, txtFormaPagamento.Text, IdPagamentoParcial);
+                historicoPagamentoVisualizarDataPagamento.ShowDialog();
             }
         }
 

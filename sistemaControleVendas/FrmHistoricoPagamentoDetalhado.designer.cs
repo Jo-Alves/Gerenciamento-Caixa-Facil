@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHistoricoPagamentoDetalhado));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnVisualizar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtFormaPagamento = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -49,13 +50,13 @@
             this.btnFechar = new System.Windows.Forms.Button();
             this.PanelCabecalho = new System.Windows.Forms.Panel();
             this.Lbl_Titulo = new System.Windows.Forms.Label();
-            this.Lbl_Icone = new System.Windows.Forms.Label();
             this.btn_Fechar = new System.Windows.Forms.Button();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
+            this.Lbl_Icone = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -66,6 +67,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnVisualizar);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.txtCliente);
@@ -78,6 +80,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(611, 518);
             this.panel1.TabIndex = 0;
+            // 
+            // btnVisualizar
+            // 
+            this.btnVisualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnVisualizar.Location = new System.Drawing.Point(168, 461);
+            this.btnVisualizar.Name = "btnVisualizar";
+            this.btnVisualizar.Size = new System.Drawing.Size(208, 47);
+            this.btnVisualizar.TabIndex = 20;
+            this.btnVisualizar.Text = "Visualizar a data do abatimento";
+            this.btnVisualizar.UseVisualStyleBackColor = true;
+            this.btnVisualizar.Click += new System.EventHandler(this.btnVisualizar_Click);
             // 
             // groupBox2
             // 
@@ -257,7 +270,7 @@
             // 
             this.PanelCabecalho.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelCabecalho.BackColor = System.Drawing.Color.Green;
+            this.PanelCabecalho.BackColor = System.Drawing.Color.SlateBlue;
             this.PanelCabecalho.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelCabecalho.Controls.Add(this.Lbl_Titulo);
             this.PanelCabecalho.Controls.Add(this.Lbl_Icone);
@@ -281,20 +294,10 @@
             this.Lbl_Titulo.Size = new System.Drawing.Size(0, 19);
             this.Lbl_Titulo.TabIndex = 65;
             // 
-            // Lbl_Icone
-            // 
-            this.Lbl_Icone.Image = global::sistemaControleVendas.Properties.Resources.Data_List_icon;
-            this.Lbl_Icone.Location = new System.Drawing.Point(4, 4);
-            this.Lbl_Icone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Lbl_Icone.Name = "Lbl_Icone";
-            this.Lbl_Icone.Size = new System.Drawing.Size(88, 53);
-            this.Lbl_Icone.TabIndex = 64;
-            this.Lbl_Icone.Text = "    ";
-            // 
             // btn_Fechar
             // 
             this.btn_Fechar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Fechar.BackColor = System.Drawing.Color.Green;
+            this.btn_Fechar.BackColor = System.Drawing.Color.Transparent;
             this.btn_Fechar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_Fechar.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Fechar.ForeColor = System.Drawing.Color.White;
@@ -344,6 +347,16 @@
             // ContentPanel
             // 
             this.ContentPanel.Size = new System.Drawing.Size(150, 106);
+            // 
+            // Lbl_Icone
+            // 
+            this.Lbl_Icone.Image = global::sistemaControleVendas.Properties.Resources.Data_List_icon;
+            this.Lbl_Icone.Location = new System.Drawing.Point(4, 4);
+            this.Lbl_Icone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Lbl_Icone.Name = "Lbl_Icone";
+            this.Lbl_Icone.Size = new System.Drawing.Size(88, 53);
+            this.Lbl_Icone.TabIndex = 64;
+            this.Lbl_Icone.Text = "    ";
             // 
             // FrmHistoricoPagamentoDetalhado
             // 
@@ -400,5 +413,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtValorPago;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnVisualizar;
     }
 }
