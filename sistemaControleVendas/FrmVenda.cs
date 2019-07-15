@@ -124,6 +124,7 @@ namespace sistemaControleVendas
                 label32.Text = "Valor total do Serviço:";
                 label27.Text = "Valor Serviço:";
                 label10.Text = "Valor Total do serviço:";
+                lblValorTotalVenda.Text = "Valor Total do serviço: ";
             }
         }
 

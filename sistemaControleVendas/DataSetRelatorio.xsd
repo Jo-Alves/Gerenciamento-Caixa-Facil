@@ -11,7 +11,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="EmpresaTableAdapter" GeneratorDataComponentClassName="EmpresaTableAdapter" Name="Empresa" UserDataComponentName="EmpresaTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="dbControleVendaConnectionString1 (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DbControleVendaConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Cliente.Id_Cliente, Cliente.Nome, Cliente.DataNascimento, Cliente.CPF, Cliente.RG, Cliente.CEP, Cliente.Bairro, Cliente.Endereco, Cliente.Numero, Cliente.Cidade, 
@@ -91,15 +91,15 @@ WHERE        (ItensVenda.Id_Venda = 2)</CommandText>
               <Mapping SourceColumn="Expr13" DataSetColumn="Expr13" />
               <Mapping SourceColumn="Usuario" DataSetColumn="Usuario" />
               <Mapping SourceColumn="Senha" DataSetColumn="Senha" />
-              <Mapping SourceColumn="Numero" DataSetColumn="Numero" />
               <Mapping SourceColumn="Expr14" DataSetColumn="Expr14" />
               <Mapping SourceColumn="Descricao" DataSetColumn="Descricao" />
+              <Mapping SourceColumn="Numero" DataSetColumn="Numero1" />
             </Mappings>
             <Sources />
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="UsuarioTableAdapter" GeneratorDataComponentClassName="UsuarioTableAdapter" Name="Usuario" UserDataComponentName="UsuarioTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="dbControleVendaConnectionString1 (Settings)" DbObjectName="dbControleVenda.dbo.Usuario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DbControleVendaConnectionString (Settings)" DbObjectName="DbControleVenda.dbo.Usuario" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Nome
@@ -116,7 +116,7 @@ FROM            Usuario</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="VendaTableAdapter" GeneratorDataComponentClassName="VendaTableAdapter" Name="Venda" UserDataComponentName="VendaTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="dbControleVendaConnectionString1 (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DbControleVendaConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Produto.Descricao, ItensVenda.Quantidade, ItensVenda.Valor, Venda.Desconto
@@ -125,7 +125,7 @@ FROM            ItensVenda INNER JOIN
                          Venda ON Venda.Id_Venda = ItensVenda.Id_Venda
 WHERE        (ItensVenda.Id_Venda = @ID)</CommandText>
                     <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="ID" ColumnName="Id_Venda" DataSourceName="dbControleVenda.dbo.ItensVenda" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id_Venda" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="ID" ColumnName="Id_Venda" DataSourceName="DbControleVenda.dbo.ItensVenda" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id_Venda" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </SelectCommand>
@@ -141,7 +141,7 @@ WHERE        (ItensVenda.Id_Venda = @ID)</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TableCupomFiscalTableAdapter" GeneratorDataComponentClassName="TableCupomFiscalTableAdapter" Name="TableCupomFiscal" UserDataComponentName="TableCupomFiscalTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="dbControleVendaConnectionString1 (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DbControleVendaConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Cliente.Nome, ItensVenda.Valor, ItensVenda.Quantidade, Produto.Descricao, Venda.Desconto, Venda.ValorTotal, Venda.DataVenda, Venda.HoraVenda, 
@@ -152,7 +152,7 @@ FROM            Produto INNER JOIN
                          Cliente ON Venda.Id_Cliente = Cliente.Id_Cliente
 WHERE        (ItensVenda.Id_Venda = @Id)</CommandText>
                     <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="Id" ColumnName="Id_Venda" DataSourceName="dbControleVenda.dbo.ItensVenda" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id_Venda" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Id" ColumnName="Id_Venda" DataSourceName="DbControleVenda.dbo.ItensVenda" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id_Venda" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </SelectCommand>
@@ -175,7 +175,7 @@ WHERE        (ItensVenda.Id_Venda = @Id)</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="RelatorioFechamentoCaixaTableAdapter" GeneratorDataComponentClassName="RelatorioFechamentoCaixaTableAdapter" Name="RelatorioFechamentoCaixa" UserDataComponentName="RelatorioFechamentoCaixaTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="dbControleVendaConnectionString1 (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DbControleVendaConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Produto.Id_Produto, Produto.Descricao AS DescricaoProduto, Produto.ValorVenda, ItensVenda.Quantidade, ItensVenda.Valor, FormaPagamento.Descricao
@@ -186,9 +186,9 @@ FROM            Produto INNER JOIN
                          Usuario ON Usuario.Id_Usuario = Venda.Id_Usuario
 WHERE        (Usuario.Id_Usuario = @Id_Usuario) AND (Venda.DataVenda = @DataVenda) AND (Venda.HoraVenda &gt; @HoraVenda)</CommandText>
                     <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="Id_Usuario" ColumnName="Id_Usuario" DataSourceName="dbControleVenda.dbo.Usuario" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Id_Usuario" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id_Usuario" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="DataVenda" ColumnName="DataVenda" DataSourceName="dbControleVenda.dbo.Venda" DataTypeServer="varchar(16)" DbType="AnsiString" Direction="Input" ParameterName="@DataVenda" Precision="0" ProviderType="VarChar" Scale="0" Size="16" SourceColumn="DataVenda" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="HoraVenda" ColumnName="HoraVenda" DataSourceName="dbControleVenda.dbo.Venda" DataTypeServer="varchar(10)" DbType="AnsiString" Direction="Input" ParameterName="@HoraVenda" Precision="0" ProviderType="VarChar" Scale="0" Size="10" SourceColumn="HoraVenda" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Id_Usuario" ColumnName="Id_Usuario" DataSourceName="DbControleVenda.dbo.Usuario" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Id_Usuario" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id_Usuario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DataVenda" ColumnName="DataVenda" DataSourceName="DbControleVenda.dbo.Venda" DataTypeServer="varchar(16)" DbType="AnsiString" Direction="Input" ParameterName="@DataVenda" Precision="0" ProviderType="VarChar" Scale="0" Size="16" SourceColumn="DataVenda" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="HoraVenda" ColumnName="HoraVenda" DataSourceName="DbControleVenda.dbo.Venda" DataTypeServer="varchar(10)" DbType="AnsiString" Direction="Input" ParameterName="@HoraVenda" Precision="0" ProviderType="VarChar" Scale="0" Size="10" SourceColumn="HoraVenda" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </SelectCommand>
@@ -206,7 +206,7 @@ WHERE        (Usuario.Id_Usuario = @Id_Usuario) AND (Venda.DataVenda = @DataVend
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AnaliseProdutoTableAdapter" GeneratorDataComponentClassName="AnaliseProdutoTableAdapter" Name="AnaliseProduto" UserDataComponentName="AnaliseProdutoTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="dbControleVendaConnectionString1 (Settings)" DbObjectName="dbControleVenda.dbo.Produto" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DbControleVendaConnectionString (Settings)" DbObjectName="DbControleVenda.dbo.Produto" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        SUM(ItensVenda.Quantidade) AS Quantidade, COUNT(Venda.Id_Venda) AS NumeroVendas, SUM(ItensVenda.Valor) AS Valor, SUM(ItensVenda.lucroItens) AS Lucro, 
@@ -237,7 +237,7 @@ ORDER BY Quantidade DESC</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AnaliseServicoPrestadosTableAdapter" GeneratorDataComponentClassName="AnaliseServicoPrestadosTableAdapter" Name="AnaliseServicoPrestados" UserDataComponentName="AnaliseServicoPrestadosTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="dbControleVendaConnectionString1 (Settings)" DbObjectName="dbControleVenda.dbo.Produto" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DbControleVendaConnectionString (Settings)" DbObjectName="DbControleVenda.dbo.Produto" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Produto.Descricao, SUM(ItensVenda.Quantidade) AS Quantidade, COUNT(Venda.Id_Venda) AS NumeroVendas, SUM(ItensVenda.Valor) AS Valor
@@ -272,7 +272,7 @@ ORDER BY Quantidade DESC</CommandText>
   <xs:element name="DataSetRelatorio" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSetRelatorio" msprop:Generator_UserDSName="DataSetRelatorio">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Empresa" msprop:Generator_TableClassName="EmpresaDataTable" msprop:Generator_TableVarName="tableEmpresa" msprop:Generator_TablePropName="Empresa" msprop:Generator_RowDeletingName="EmpresaRowDeleting" msprop:Generator_RowChangingName="EmpresaRowChanging" msprop:Generator_RowEvHandlerName="EmpresaRowChangeEventHandler" msprop:Generator_RowDeletedName="EmpresaRowDeleted" msprop:Generator_UserTableName="Empresa" msprop:Generator_RowChangedName="EmpresaRowChanged" msprop:Generator_RowEvArgName="EmpresaRowChangeEvent" msprop:Generator_RowClassName="EmpresaRow">
+        <xs:element name="Empresa" msprop:Generator_TableClassName="EmpresaDataTable" msprop:Generator_TableVarName="tableEmpresa" msprop:Generator_RowChangedName="EmpresaRowChanged" msprop:Generator_TablePropName="Empresa" msprop:Generator_RowDeletingName="EmpresaRowDeleting" msprop:Generator_RowChangingName="EmpresaRowChanging" msprop:Generator_RowEvHandlerName="EmpresaRowChangeEventHandler" msprop:Generator_RowDeletedName="EmpresaRowDeleted" msprop:Generator_RowClassName="EmpresaRow" msprop:Generator_UserTableName="Empresa" msprop:Generator_RowEvArgName="EmpresaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="RazaoSocial" msprop:Generator_ColumnVarNameInTable="columnRazaoSocial" msprop:Generator_ColumnPropNameInRow="RazaoSocial" msprop:Generator_ColumnPropNameInTable="RazaoSocialColumn" msprop:Generator_UserColumnName="RazaoSocial">
@@ -549,10 +549,11 @@ ORDER BY Quantidade DESC</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="Numero1" msdata:Caption="Numero" msprop:Generator_ColumnVarNameInTable="columnNumero1" msprop:Generator_ColumnPropNameInRow="Numero1" msprop:Generator_ColumnPropNameInTable="Numero1Column" msprop:Generator_UserColumnName="Numero1" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Usuario" msprop:Generator_TableClassName="UsuarioDataTable" msprop:Generator_TableVarName="tableUsuario" msprop:Generator_TablePropName="Usuario" msprop:Generator_RowDeletingName="UsuarioRowDeleting" msprop:Generator_RowChangingName="UsuarioRowChanging" msprop:Generator_RowEvHandlerName="UsuarioRowChangeEventHandler" msprop:Generator_RowDeletedName="UsuarioRowDeleted" msprop:Generator_UserTableName="Usuario" msprop:Generator_RowChangedName="UsuarioRowChanged" msprop:Generator_RowEvArgName="UsuarioRowChangeEvent" msprop:Generator_RowClassName="UsuarioRow">
+        <xs:element name="Usuario" msprop:Generator_TableClassName="UsuarioDataTable" msprop:Generator_TableVarName="tableUsuario" msprop:Generator_RowChangedName="UsuarioRowChanged" msprop:Generator_TablePropName="Usuario" msprop:Generator_RowDeletingName="UsuarioRowDeleting" msprop:Generator_RowChangingName="UsuarioRowChanging" msprop:Generator_RowEvHandlerName="UsuarioRowChangeEventHandler" msprop:Generator_RowDeletedName="UsuarioRowDeleted" msprop:Generator_RowClassName="UsuarioRow" msprop:Generator_UserTableName="Usuario" msprop:Generator_RowEvArgName="UsuarioRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Nome" msprop:Generator_ColumnVarNameInTable="columnNome" msprop:Generator_ColumnPropNameInRow="Nome" msprop:Generator_ColumnPropNameInTable="NomeColumn" msprop:Generator_UserColumnName="Nome">
@@ -565,7 +566,7 @@ ORDER BY Quantidade DESC</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Venda" msprop:Generator_TableClassName="VendaDataTable" msprop:Generator_TableVarName="tableVenda" msprop:Generator_TablePropName="Venda" msprop:Generator_RowDeletingName="VendaRowDeleting" msprop:Generator_RowChangingName="VendaRowChanging" msprop:Generator_RowEvHandlerName="VendaRowChangeEventHandler" msprop:Generator_RowDeletedName="VendaRowDeleted" msprop:Generator_UserTableName="Venda" msprop:Generator_RowChangedName="VendaRowChanged" msprop:Generator_RowEvArgName="VendaRowChangeEvent" msprop:Generator_RowClassName="VendaRow">
+        <xs:element name="Venda" msprop:Generator_TableClassName="VendaDataTable" msprop:Generator_TableVarName="tableVenda" msprop:Generator_RowChangedName="VendaRowChanged" msprop:Generator_TablePropName="Venda" msprop:Generator_RowDeletingName="VendaRowDeleting" msprop:Generator_RowChangingName="VendaRowChanging" msprop:Generator_RowEvHandlerName="VendaRowChangeEventHandler" msprop:Generator_RowDeletedName="VendaRowDeleted" msprop:Generator_RowClassName="VendaRow" msprop:Generator_UserTableName="Venda" msprop:Generator_RowEvArgName="VendaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Quantidade" msprop:Generator_ColumnVarNameInTable="columnQuantidade" msprop:Generator_ColumnPropNameInRow="Quantidade" msprop:Generator_ColumnPropNameInTable="QuantidadeColumn" msprop:Generator_UserColumnName="Quantidade" type="xs:int" />
@@ -581,7 +582,7 @@ ORDER BY Quantidade DESC</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TableCupomFiscal" msprop:Generator_TableClassName="TableCupomFiscalDataTable" msprop:Generator_TableVarName="tableTableCupomFiscal" msprop:Generator_TablePropName="TableCupomFiscal" msprop:Generator_RowDeletingName="TableCupomFiscalRowDeleting" msprop:Generator_RowChangingName="TableCupomFiscalRowChanging" msprop:Generator_RowEvHandlerName="TableCupomFiscalRowChangeEventHandler" msprop:Generator_RowDeletedName="TableCupomFiscalRowDeleted" msprop:Generator_UserTableName="TableCupomFiscal" msprop:Generator_RowChangedName="TableCupomFiscalRowChanged" msprop:Generator_RowEvArgName="TableCupomFiscalRowChangeEvent" msprop:Generator_RowClassName="TableCupomFiscalRow">
+        <xs:element name="TableCupomFiscal" msprop:Generator_TableClassName="TableCupomFiscalDataTable" msprop:Generator_TableVarName="tableTableCupomFiscal" msprop:Generator_RowChangedName="TableCupomFiscalRowChanged" msprop:Generator_TablePropName="TableCupomFiscal" msprop:Generator_RowDeletingName="TableCupomFiscalRowDeleting" msprop:Generator_RowChangingName="TableCupomFiscalRowChanging" msprop:Generator_RowEvHandlerName="TableCupomFiscalRowChangeEventHandler" msprop:Generator_RowDeletedName="TableCupomFiscalRowDeleted" msprop:Generator_RowClassName="TableCupomFiscalRow" msprop:Generator_UserTableName="TableCupomFiscal" msprop:Generator_RowEvArgName="TableCupomFiscalRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Nome" msprop:Generator_ColumnVarNameInTable="columnNome" msprop:Generator_ColumnPropNameInRow="Nome" msprop:Generator_ColumnPropNameInTable="NomeColumn" msprop:Generator_UserColumnName="Nome">
@@ -622,7 +623,7 @@ ORDER BY Quantidade DESC</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="RelatorioFechamentoCaixa" msprop:Generator_TableClassName="RelatorioFechamentoCaixaDataTable" msprop:Generator_TableVarName="tableRelatorioFechamentoCaixa" msprop:Generator_TablePropName="RelatorioFechamentoCaixa" msprop:Generator_RowDeletingName="RelatorioFechamentoCaixaRowDeleting" msprop:Generator_RowChangingName="RelatorioFechamentoCaixaRowChanging" msprop:Generator_RowEvHandlerName="RelatorioFechamentoCaixaRowChangeEventHandler" msprop:Generator_RowDeletedName="RelatorioFechamentoCaixaRowDeleted" msprop:Generator_UserTableName="RelatorioFechamentoCaixa" msprop:Generator_RowChangedName="RelatorioFechamentoCaixaRowChanged" msprop:Generator_RowEvArgName="RelatorioFechamentoCaixaRowChangeEvent" msprop:Generator_RowClassName="RelatorioFechamentoCaixaRow">
+        <xs:element name="RelatorioFechamentoCaixa" msprop:Generator_TableClassName="RelatorioFechamentoCaixaDataTable" msprop:Generator_TableVarName="tableRelatorioFechamentoCaixa" msprop:Generator_RowChangedName="RelatorioFechamentoCaixaRowChanged" msprop:Generator_TablePropName="RelatorioFechamentoCaixa" msprop:Generator_RowDeletingName="RelatorioFechamentoCaixaRowDeleting" msprop:Generator_RowChangingName="RelatorioFechamentoCaixaRowChanging" msprop:Generator_RowEvHandlerName="RelatorioFechamentoCaixaRowChangeEventHandler" msprop:Generator_RowDeletedName="RelatorioFechamentoCaixaRowDeleted" msprop:Generator_RowClassName="RelatorioFechamentoCaixaRow" msprop:Generator_UserTableName="RelatorioFechamentoCaixa" msprop:Generator_RowEvArgName="RelatorioFechamentoCaixaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id_Produto" msprop:Generator_ColumnVarNameInTable="columnId_Produto" msprop:Generator_ColumnPropNameInRow="Id_Produto" msprop:Generator_ColumnPropNameInTable="Id_ProdutoColumn" msprop:Generator_UserColumnName="Id_Produto" type="xs:int" />
@@ -646,7 +647,7 @@ ORDER BY Quantidade DESC</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="AnaliseProduto" msprop:Generator_TableClassName="AnaliseProdutoDataTable" msprop:Generator_TableVarName="tableAnaliseProduto" msprop:Generator_TablePropName="AnaliseProduto" msprop:Generator_RowDeletingName="AnaliseProdutoRowDeleting" msprop:Generator_RowChangingName="AnaliseProdutoRowChanging" msprop:Generator_RowEvHandlerName="AnaliseProdutoRowChangeEventHandler" msprop:Generator_RowDeletedName="AnaliseProdutoRowDeleted" msprop:Generator_UserTableName="AnaliseProduto" msprop:Generator_RowChangedName="AnaliseProdutoRowChanged" msprop:Generator_RowEvArgName="AnaliseProdutoRowChangeEvent" msprop:Generator_RowClassName="AnaliseProdutoRow">
+        <xs:element name="AnaliseProduto" msprop:Generator_TableClassName="AnaliseProdutoDataTable" msprop:Generator_TableVarName="tableAnaliseProduto" msprop:Generator_RowChangedName="AnaliseProdutoRowChanged" msprop:Generator_TablePropName="AnaliseProduto" msprop:Generator_RowDeletingName="AnaliseProdutoRowDeleting" msprop:Generator_RowChangingName="AnaliseProdutoRowChanging" msprop:Generator_RowEvHandlerName="AnaliseProdutoRowChangeEventHandler" msprop:Generator_RowDeletedName="AnaliseProdutoRowDeleted" msprop:Generator_RowClassName="AnaliseProdutoRow" msprop:Generator_UserTableName="AnaliseProduto" msprop:Generator_RowEvArgName="AnaliseProdutoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Quantidade" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnQuantidade" msprop:Generator_ColumnPropNameInRow="Quantidade" msprop:Generator_ColumnPropNameInTable="QuantidadeColumn" msprop:Generator_UserColumnName="Quantidade" type="xs:int" minOccurs="0" />
@@ -663,7 +664,7 @@ ORDER BY Quantidade DESC</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="AnaliseServicoPrestados" msprop:Generator_TableClassName="AnaliseServicoPrestadosDataTable" msprop:Generator_TableVarName="tableAnaliseServicoPrestados" msprop:Generator_RowChangedName="AnaliseServicoPrestadosRowChanged" msprop:Generator_TablePropName="AnaliseServicoPrestados" msprop:Generator_RowDeletingName="AnaliseServicoPrestadosRowDeleting" msprop:Generator_RowChangingName="AnaliseServicoPrestadosRowChanging" msprop:Generator_RowEvHandlerName="AnaliseServicoPrestadosRowChangeEventHandler" msprop:Generator_RowDeletedName="AnaliseServicoPrestadosRowDeleted" msprop:Generator_RowClassName="AnaliseServicoPrestadosRow" msprop:Generator_UserTableName="AnaliseServicoPrestados" msprop:Generator_RowEvArgName="AnaliseServicoPrestadosRowChangeEvent">
+        <xs:element name="AnaliseServicoPrestados" msprop:Generator_TableClassName="AnaliseServicoPrestadosDataTable" msprop:Generator_TableVarName="tableAnaliseServicoPrestados" msprop:Generator_TablePropName="AnaliseServicoPrestados" msprop:Generator_RowDeletingName="AnaliseServicoPrestadosRowDeleting" msprop:Generator_RowChangingName="AnaliseServicoPrestadosRowChanging" msprop:Generator_RowEvHandlerName="AnaliseServicoPrestadosRowChangeEventHandler" msprop:Generator_RowDeletedName="AnaliseServicoPrestadosRowDeleted" msprop:Generator_UserTableName="AnaliseServicoPrestados" msprop:Generator_RowChangedName="AnaliseServicoPrestadosRowChanged" msprop:Generator_RowEvArgName="AnaliseServicoPrestadosRowChangeEvent" msprop:Generator_RowClassName="AnaliseServicoPrestadosRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Quantidade" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnQuantidade" msprop:Generator_ColumnPropNameInRow="Quantidade" msprop:Generator_ColumnPropNameInTable="QuantidadeColumn" msprop:Generator_UserColumnName="Quantidade" type="xs:int" minOccurs="0" />
