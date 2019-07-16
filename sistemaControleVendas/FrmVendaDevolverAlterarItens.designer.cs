@@ -1,6 +1,6 @@
 ﻿namespace sistemaControleVendas
 {
-    partial class FrmVendaAlterarExcluir
+    partial class FrmVendaDevolverAlterarItens
     {
         /// <summary>
         /// Required designer variable.

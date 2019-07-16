@@ -11,16 +11,17 @@ using System.Windows.Forms;
 
 namespace sistemaControleVendas
 {
-    public partial class FrmVendaAlterarExcluir : Form
+    public partial class FrmVendaDevolverAlterarItens : Form
     {
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, descricao, idItensVenda, idProduto;
-        decimal Valor, lucroItens;
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, descricao, idItensVenda, idProduto, idFluxoCaixa;
+        decimal Valor, lucroItens, ValorVenda;
 
-        public FrmVendaAlterarExcluir(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda)
+        public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda)
         {
             InitializeComponent();
             lblCodigoVenda.Text = CodVenda;
             lblCliente.Text = Cliente;
+            this.ValorVenda = decimal.Parse(ValorVenda);
             lblValorTotal.Text = "R$ " + ValorVenda;
             this.CodVenda = CodVenda;
             this.FormaPagamento = FormaPagamento;
@@ -28,8 +29,37 @@ namespace sistemaControleVendas
 
         private void FrmListavenda_Load(object sender, EventArgs e)
         {
+            IdentificarFluxoCaixa();
+            VerificarValorCaixa();
+            VerificarSaidaCaixa();
+            ValorCaixa = ValorCaixa - ValorSaida;
             dgv_ListaVenda.ClearSelection();
             ListaTodasVendas();
+        }
+
+        private void IdentificarFluxoCaixa()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "Select Id_Fluxo from FluxoCaixa where DataSaida = '' and HoraSaida = ''";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                SqlDataReader dr = comando.ExecuteReader();
+                if (dr.Read())
+                {
+                    idFluxoCaixa = dr["Id_Fluxo"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
 
         private void ListaTodasVendas()
@@ -83,7 +113,7 @@ namespace sistemaControleVendas
             }
         }
 
-       string CodVenda = "", Cliente, FormaPagamento;
+        string CodVenda = "", Cliente, FormaPagamento;
 
         private void Menu_Sair_Click(object sender, EventArgs e)
         {
@@ -92,13 +122,133 @@ namespace sistemaControleVendas
 
         private void btnExcluirTudo_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Deseja mesmo excluir todos os itens da venda?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução de todos os itens da venda?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
-            if(dr == DialogResult.Yes)
+            if (dr == DialogResult.Yes)
             {
-                ExcluirTodosItensVenda();
-                ListaTodasVendas();
-                this.Close();
+                if (ValorCaixa > 0)
+                {
+                    if (ValorCaixa >= ValorVenda)
+                    {
+                        ExcluirTodosItensVenda();
+                        GerenciarFluxoCaixa();
+                        ListaTodasVendas();
+                        this.Close();
+                    }
+                    else
+                    {
+                        dr = MessageBox.Show("O Valor da venda é maior que o valor que está em caixa no momento. Você deseja que retire o valor do caixa?", "Aviso do sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
+                        if (dr == DialogResult.Yes)
+                        {
+                            ExcluirTodosItensVenda();
+                            GerenciarFluxoCaixa();
+                            ListaTodasVendas();
+                            this.Close();
+                        }
+                        else if (dr == DialogResult.No)
+                        {
+                            ExcluirTodosItensVenda();
+                            ListaTodasVendas();
+                            this.Close();
+                        }
+                    }
+                }
+                else
+                {
+                    dr = MessageBox.Show("Informamos que não existe valores no caixa no momento. Os valores da venda não irá afetar o fluxo do caixa. Deseja continuar?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                    if (dr == DialogResult.Yes)
+                    {
+                        ExcluirTodosItensVenda();
+                        ListaTodasVendas();
+                        this.Close();
+
+                    }
+                }
+            }
+        }
+
+        decimal ValorRetirado;
+        private void GerenciarFluxoCaixa()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+
+            _sql = "insert into SaidaCaixa values (@Valor, 'Devolução de Itens vendidos', @IdFluxo)";
+
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            if (ValorCaixa >= ValorVenda)
+            {
+                comando.Parameters.AddWithValue("@Valor", ValorVenda);
+            }
+            else
+            {
+                comando.Parameters.AddWithValue("@Valor", ValorCaixa);
+            }
+            comando.Parameters.AddWithValue("@IdFluxo", idFluxoCaixa);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        decimal ValorCaixa, ValorSaida;
+        private void VerificarValorCaixa()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select ValorCaixa from FluxoCaixa  where DataSaida = '' and HoraSaida = ''";
+            SqlCommand comando = new SqlCommand(_sql, conexao);            
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                SqlDataReader dr = comando.ExecuteReader();
+                if (dr.Read())
+                {
+                    ValorCaixa = decimal.Parse(dr["ValorCaixa"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void VerificarSaidaCaixa()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select sum(ValorSaida) as ValorSaida from SaidaCaixa  where Id_Fluxo = @IdFluxo";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdFluxo", idFluxoCaixa);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                if (comando.ExecuteScalar() != DBNull.Value)
+                {
+                    ValorSaida = decimal.Parse(comando.ExecuteScalar().ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
             }
         }
 
@@ -113,7 +263,7 @@ namespace sistemaControleVendas
             {
                 conexao.Open();
                 comando.ExecuteNonQuery();
-                MessageBox.Show("Venda excluida!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Itens devolvidos!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(Exception ex)
             {

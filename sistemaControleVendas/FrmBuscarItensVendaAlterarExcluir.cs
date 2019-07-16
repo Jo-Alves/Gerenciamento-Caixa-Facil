@@ -75,7 +75,7 @@ namespace sistemaControleVendas
             }
             else
             {
-                FrmVendaAlterarExcluir vendaAlterarExcluir = new FrmVendaAlterarExcluir(CodVenda, Cliente, FormaPagamento, ValorVenda);
+                FrmVendaDevolverAlterarItens vendaAlterarExcluir = new FrmVendaDevolverAlterarItens(CodVenda, Cliente, FormaPagamento, ValorVenda);
                 vendaAlterarExcluir.ShowDialog();
                 CodVenda = "";
                 if (txtNomeCliente.Text != "")

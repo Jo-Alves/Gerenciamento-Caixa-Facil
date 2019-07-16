@@ -770,8 +770,8 @@ namespace sistemaControleVendas
 
         private void menuAlterardevolverItensVenda_Click(object sender, EventArgs e)
         {
-            //FrmBuscarItensVendaAlterarExcluir alterarExcluirVenda = new FrmBuscarItensVendaAlterarExcluir();
-            //alterarExcluirVenda.ShowDialog();
+            FrmBuscarItensVendaAlterarExcluir alterarExcluirVenda = new FrmBuscarItensVendaAlterarExcluir();
+            alterarExcluirVenda.ShowDialog();
         }
 
         private void menuVendasNãoContablizadas_Click(object sender, EventArgs e)

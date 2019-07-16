@@ -414,6 +414,7 @@
             this.txtValorCaixa.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtValorCaixa.Location = new System.Drawing.Point(647, 126);
             this.txtValorCaixa.Name = "txtValorCaixa";
+            this.txtValorCaixa.ReadOnly = true;
             this.txtValorCaixa.Size = new System.Drawing.Size(143, 29);
             this.txtValorCaixa.TabIndex = 22;
             this.txtValorCaixa.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
