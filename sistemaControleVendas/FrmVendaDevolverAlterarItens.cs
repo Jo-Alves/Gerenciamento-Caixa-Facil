@@ -14,17 +14,60 @@ namespace sistemaControleVendas
     public partial class FrmVendaDevolverAlterarItens : Form
     {
         string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, descricao, idItensVenda, idProduto, idFluxoCaixa;
-        decimal Valor, lucroItens, ValorVenda;
+        decimal Valor, lucroItens, ValorPago;
 
-        public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda)
+        public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorPago)
         {
             InitializeComponent();
             lblCodigoVenda.Text = CodVenda;
-            lblCliente.Text = Cliente;
-            this.ValorVenda = decimal.Parse(ValorVenda);
-            lblValorTotal.Text = "R$ " + ValorVenda;
+            lblCliente.Text = Cliente;           
+            lblValorTotal.Text = "R$ " + ValorPago;
             this.CodVenda = CodVenda;
             this.FormaPagamento = FormaPagamento;
+            if(FormaPagamento == "VISTA")
+            {
+                this.ValorPago = decimal.Parse(ValorPago);
+            }            
+            else
+            {
+                InformarValoresPagos();
+            }
+        }
+
+        private void InformarValoresPagos()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            if (FormaPagamento == "PAGAMENTO PARCIAL")
+            {
+               _sql = "select SUM(ValorAbatido.ValorTotalAbatimento) as ValorPago from ValorAbatido INNER JOIN PagamentoParcial ON ValorAbatido.Id_PagamentoParcial = PagamentoParcial.Id_PagamentoParcial WHERE PagamentoParcial.Id_Venda = @IdVenda";
+            }
+            else if (FormaPagamento == "PARCELADO")
+            {
+                _sql = "SELECT SUM(ParcelaVenda.ValorParcelado) as ValorPago FROM ParcelaVenda INNER JOIN FormaPagamento ON ParcelaVenda.Id_Venda = FormaPagamento.Id_Venda WHERE ParcelaVenda.Id_Venda = @IdVenda AND ParcelaVenda.DataPagamento <> '' AND FormaPagamento.Descricao = 'PARCELADO'"; 
+            }
+            else if (FormaPagamento == "PRAZO")
+            {
+                _sql = "SELECT SUM(ParcelaVenda.ValorParcelado) as ValorPago FROM ParcelaVenda INNER JOIN FormaPagamento ON ParcelaVenda.Id_Venda = FormaPagamento.Id_Venda WHERE ParcelaVenda.Id_Venda = @IdVenda AND ParcelaVenda.DataPagamento <> '' AND FormaPagamento.Descricao = 'PRAZO'";
+            }
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdVenda", CodVenda);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                if (comando.ExecuteScalar() != DBNull.Value)
+                {
+                    ValorPago = decimal.Parse(comando.ExecuteScalar().ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
 
         private void FrmListavenda_Load(object sender, EventArgs e)
@@ -128,7 +171,7 @@ namespace sistemaControleVendas
             {
                 if (ValorCaixa > 0)
                 {
-                    if (ValorCaixa >= ValorVenda)
+                    if (ValorCaixa >= ValorPago)
                     {
                         ExcluirTodosItensVenda();
                         GerenciarFluxoCaixa();
@@ -176,9 +219,9 @@ namespace sistemaControleVendas
             _sql = "insert into SaidaCaixa values (@Valor, 'Devolução de Itens vendidos', @IdFluxo)";
 
             SqlCommand comando = new SqlCommand(_sql, conexao);
-            if (ValorCaixa >= ValorVenda)
+            if (ValorCaixa >= ValorPago)
             {
-                comando.Parameters.AddWithValue("@Valor", ValorVenda);
+                comando.Parameters.AddWithValue("@Valor", ValorPago);
             }
             else
             {
@@ -263,7 +306,7 @@ namespace sistemaControleVendas
             {
                 conexao.Open();
                 comando.ExecuteNonQuery();
-                MessageBox.Show("Itens devolvidos!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Itens devolvidos! O valor já foi pago pelo cliente está no valor de " + ValorPago, "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(Exception ex)
             {

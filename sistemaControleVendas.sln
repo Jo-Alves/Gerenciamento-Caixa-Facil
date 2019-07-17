@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaControleVendas", "sistemaControleVendas\SistemaControleVendas.csproj", "{3A2B8CE5-0126-4726-865E-245584617535}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Gerenciamento Caixa Fácil", "..\Installer\Gerenciamento Caixa Fácil\Gerenciamento Caixa Fácil.vdproj", "{95AEAF28-D586-4D35-890D-592986C6B862}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Gerenciamento Caixa Fácil", "Gerenciamento Caixa Fácil\Gerenciamento Caixa Fácil.vdproj", "{0FC4F0A5-8CBF-42DA-9683-A53B998342E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,12 +29,12 @@ Global
 		{3A2B8CE5-0126-4726-865E-245584617535}.Release|x64.Build.0 = Release|x64
 		{3A2B8CE5-0126-4726-865E-245584617535}.Release|x86.ActiveCfg = Release|x86
 		{3A2B8CE5-0126-4726-865E-245584617535}.Release|x86.Build.0 = Release|x86
-		{95AEAF28-D586-4D35-890D-592986C6B862}.Debug|Any CPU.ActiveCfg = Debug
-		{95AEAF28-D586-4D35-890D-592986C6B862}.Debug|x64.ActiveCfg = Debug
-		{95AEAF28-D586-4D35-890D-592986C6B862}.Debug|x86.ActiveCfg = Debug
-		{95AEAF28-D586-4D35-890D-592986C6B862}.Release|Any CPU.ActiveCfg = Release
-		{95AEAF28-D586-4D35-890D-592986C6B862}.Release|x64.ActiveCfg = Release
-		{95AEAF28-D586-4D35-890D-592986C6B862}.Release|x86.ActiveCfg = Release
+		{0FC4F0A5-8CBF-42DA-9683-A53B998342E8}.Debug|Any CPU.ActiveCfg = Debug
+		{0FC4F0A5-8CBF-42DA-9683-A53B998342E8}.Debug|x64.ActiveCfg = Debug
+		{0FC4F0A5-8CBF-42DA-9683-A53B998342E8}.Debug|x86.ActiveCfg = Debug
+		{0FC4F0A5-8CBF-42DA-9683-A53B998342E8}.Release|Any CPU.ActiveCfg = Release
+		{0FC4F0A5-8CBF-42DA-9683-A53B998342E8}.Release|x64.ActiveCfg = Release
+		{0FC4F0A5-8CBF-42DA-9683-A53B998342E8}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -37,14 +37,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgv_ListaVenda = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColValorVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelCabecalho = new System.Windows.Forms.Panel();
             this.Lbl_Titulo = new System.Windows.Forms.Label();
             this.Lbl_Icone = new System.Windows.Forms.Label();
@@ -54,6 +46,14 @@
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
+            this.ColCodVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColCodCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColValorVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColFormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColDataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColHoraVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColOperador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ListaVenda)).BeginInit();
@@ -133,14 +133,14 @@
             this.dgv_ListaVenda.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_ListaVenda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv_ListaVenda.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column12,
-            this.Column11,
+            this.ColCodVenda,
+            this.ColCodCliente,
+            this.ColCliente,
             this.ColValorVenda,
-            this.Column4,
-            this.Column2,
-            this.Column3,
-            this.Column10});
+            this.ColFormaPagamento,
+            this.ColDataVenda,
+            this.ColHoraVenda,
+            this.ColOperador});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -159,81 +159,6 @@
             this.dgv_ListaVenda.TabIndex = 0;
             this.dgv_ListaVenda.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ListaVenda_CellClick);
             this.dgv_ListaVenda.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_ListaVenda_DataBindingComplete);
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column1.DataPropertyName = "Id_Venda";
-            this.Column1.HeaderText = "Cod. Venda";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 98;
-            // 
-            // Column12
-            // 
-            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column12.DataPropertyName = "Id_Cliente";
-            this.Column12.HeaderText = "Cód. Cliente";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            this.Column12.Width = 101;
-            // 
-            // Column11
-            // 
-            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column11.DataPropertyName = "NomeCliente";
-            this.Column11.HeaderText = "Cliente";
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            this.Column11.Width = 71;
-            // 
-            // ColValorVenda
-            // 
-            this.ColValorVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColValorVenda.DataPropertyName = "ValorTotal";
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.ColValorVenda.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColValorVenda.HeaderText = "Valor Venda";
-            this.ColValorVenda.Name = "ColValorVenda";
-            this.ColValorVenda.ReadOnly = true;
-            this.ColValorVenda.Width = 101;
-            // 
-            // Column4
-            // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column4.DataPropertyName = "Descricao";
-            this.Column4.HeaderText = "Forma de pagamento";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 150;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column2.DataPropertyName = "DataVenda";
-            this.Column2.HeaderText = "Data Venda";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 99;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column3.DataPropertyName = "HoraVenda";
-            this.Column3.HeaderText = "Hora Venda";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 99;
-            // 
-            // Column10
-            // 
-            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column10.DataPropertyName = "NomeUsuario";
-            this.Column10.HeaderText = "Operador";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 84;
             // 
             // PanelCabecalho
             // 
@@ -327,6 +252,81 @@
             // 
             this.ContentPanel.Size = new System.Drawing.Size(150, 106);
             // 
+            // ColCodVenda
+            // 
+            this.ColCodVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColCodVenda.DataPropertyName = "Id_Venda";
+            this.ColCodVenda.HeaderText = "Cod. Venda";
+            this.ColCodVenda.Name = "ColCodVenda";
+            this.ColCodVenda.ReadOnly = true;
+            this.ColCodVenda.Width = 98;
+            // 
+            // ColCodCliente
+            // 
+            this.ColCodCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColCodCliente.DataPropertyName = "Id_Cliente";
+            this.ColCodCliente.HeaderText = "Cód. Cliente";
+            this.ColCodCliente.Name = "ColCodCliente";
+            this.ColCodCliente.ReadOnly = true;
+            this.ColCodCliente.Width = 101;
+            // 
+            // ColCliente
+            // 
+            this.ColCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColCliente.DataPropertyName = "NomeCliente";
+            this.ColCliente.HeaderText = "Cliente";
+            this.ColCliente.Name = "ColCliente";
+            this.ColCliente.ReadOnly = true;
+            this.ColCliente.Width = 71;
+            // 
+            // ColValorVenda
+            // 
+            this.ColValorVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColValorVenda.DataPropertyName = "ValorTotal";
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.ColValorVenda.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ColValorVenda.HeaderText = "Valor Venda";
+            this.ColValorVenda.Name = "ColValorVenda";
+            this.ColValorVenda.ReadOnly = true;
+            this.ColValorVenda.Width = 101;
+            // 
+            // ColFormaPagamento
+            // 
+            this.ColFormaPagamento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColFormaPagamento.DataPropertyName = "Descricao";
+            this.ColFormaPagamento.HeaderText = "Forma de pagamento";
+            this.ColFormaPagamento.Name = "ColFormaPagamento";
+            this.ColFormaPagamento.ReadOnly = true;
+            this.ColFormaPagamento.Width = 150;
+            // 
+            // ColDataVenda
+            // 
+            this.ColDataVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColDataVenda.DataPropertyName = "DataVenda";
+            this.ColDataVenda.HeaderText = "Data Venda";
+            this.ColDataVenda.Name = "ColDataVenda";
+            this.ColDataVenda.ReadOnly = true;
+            this.ColDataVenda.Width = 99;
+            // 
+            // ColHoraVenda
+            // 
+            this.ColHoraVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColHoraVenda.DataPropertyName = "HoraVenda";
+            this.ColHoraVenda.HeaderText = "Hora Venda";
+            this.ColHoraVenda.Name = "ColHoraVenda";
+            this.ColHoraVenda.ReadOnly = true;
+            this.ColHoraVenda.Width = 99;
+            // 
+            // ColOperador
+            // 
+            this.ColOperador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColOperador.DataPropertyName = "NomeUsuario";
+            this.ColOperador.HeaderText = "Operador";
+            this.ColOperador.Name = "ColOperador";
+            this.ColOperador.ReadOnly = true;
+            this.ColOperador.Width = 84;
+            // 
             // FrmBuscarItensVendaAlterarExcluir
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,13 +365,13 @@
         private System.Windows.Forms.TextBox txtNomeCliente;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnProsseguir;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColCodVenda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColCodCliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColValorVenda;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColFormaPagamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColDataVenda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColHoraVenda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColOperador;
     }
 }

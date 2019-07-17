@@ -115,13 +115,14 @@ namespace sistemaControleVendas
             if (contLinhas > -1)
             {
                 DataGridViewRow linhas = dgv_ListaVenda.Rows[contLinhas];
-                Cliente = linhas.Cells[2].Value.ToString();
-                CodVenda = linhas.Cells[0].Value.ToString();
-                horaVenda = linhas.Cells[6].Value.ToString();
-                dataVenda = linhas.Cells[5].Value.ToString();
-                atendente = linhas.Cells[7].Value.ToString();
-                FormaPagamento = linhas.Cells[4].Value.ToString();
-                ValorVenda = linhas.Cells[3].Value.ToString();
+                CodVenda = linhas.Cells["ColCodVenda"].Value.ToString();
+                Cliente = linhas.Cells["ColCliente"].Value.ToString();
+                ValorVenda = linhas.Cells["ColValorVenda"].Value.ToString();
+                FormaPagamento = linhas.Cells["ColFormaPagamento"].Value.ToString();
+                dataVenda = linhas.Cells["ColDataVenda"].Value.ToString();
+                horaVenda = linhas.Cells["ColHoraVenda"].Value.ToString();
+                atendente = linhas.Cells["ColOperador"].Value.ToString();
+                
             }
         }
 

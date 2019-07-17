@@ -18,42 +18,7 @@ namespace sistemaControleVendas
             InitializeComponent();
             this.Usuario = Usuario;
             this.Data = Data;
-            if (Data != "" && Usuario != "")
-            {
-                BuscarId_Usuario();
-                RegistroCaixa(Data, Id_Usuario);
-                RegistroSaidaCaixa();
-                btn_Cancelar.Visible = false;
-                btn_FecharCaixa.Visible = false;
-                txt_ValorTotalCaixa.ReadOnly = true;
-                txt_ValorTotalCaixa.BackColor = Color.White;
-                RegistroVenda();
-                txtValorCaixa.Visible = false;
-                lblValorCaixa.Visible = false;
-            }
-            else
-            {
-                txt_ValorTotalCaixa.Focus();
-                CodigoCaixa();
-                ValoresCaixa();
-                HistoricoVendas();
-                txt_ValorEntrada.Text = "R$ " + ValorEntrada.ToString();
-                txt_ValorRecebido.Text = "R$ " + ValoresRecebidos.ToString();
-                ValoresSaidaCaixa();
-                txt_DateTimeAberturaCaixa.Text = DataEntrada + ", " + HoraEntrada;
-                txt_Operador.Text = NomeUsuario;
-                if (ValorReceber == 0)
-                {
-                    txt_ValorReceber.Text = "R$ 0,00";
-                }
-                else
-                {
-                    txt_ValorReceber.Text = "R$ " + ValorReceber;
-                }
-
-                //decimal saldo
-                txtValorCaixa.Text = "R$ " + ((ValoresRecebidos + ValorEntrada) - ValorSaida).ToString();
-            }
+           
         }
 
         string Usuario, Data;
@@ -88,7 +53,8 @@ namespace sistemaControleVendas
                 txt_ValorEntrada.Text = Tabela.Rows[0]["ValorEntrada"].ToString();
 
                 Id_Usuario = int.Parse(Tabela.Rows[0]["Id_Usuario"].ToString());
-                DataEntrada = Tabela.Rows[0]["DataEntrada"].ToString(); HoraEntrada = Tabela.Rows[0]["HoraEntrada"].ToString();
+                DataEntrada = Tabela.Rows[0]["DataEntrada"].ToString();
+                HoraEntrada = Tabela.Rows[0]["HoraEntrada"].ToString();
                 txt_DateTimeAberturaCaixa.Text = DataEntrada + ", " + HoraEntrada;
                 txt_Operador.Text = Tabela.Rows[0]["Nome"].ToString();
                 Id_Caixa = int.Parse(Tabela.Rows[0]["Id_Fluxo"].ToString());
@@ -150,7 +116,42 @@ namespace sistemaControleVendas
 
         private void FrmFechamentoCaixa_Load(object sender, EventArgs e)
         {
+            if (Data != "" && Usuario != "")
+            {
+                BuscarId_Usuario();
+                RegistroCaixa(Data, Id_Usuario);
+                RegistroSaidaCaixa();
+                btn_Cancelar.Visible = false;
+                btn_FecharCaixa.Visible = false;
+                txt_ValorTotalCaixa.ReadOnly = true;
+                txt_ValorTotalCaixa.BackColor = Color.White;
+                RegistroVenda();
+                txtValorCaixa.Visible = false;
+                lblValorCaixa.Visible = false;
+            }
+            else
+            {
+                txt_ValorTotalCaixa.Focus();
+                CodigoCaixa();
+                ValoresCaixa();
+                HistoricoVendas();
+                txt_ValorEntrada.Text = "R$ " + ValorEntrada.ToString();
+                txt_ValorRecebido.Text = "R$ " + ValoresRecebidos.ToString();
+                ValoresSaidaCaixa();
+                txt_DateTimeAberturaCaixa.Text = DataEntrada + ", " + HoraEntrada;
+                txt_Operador.Text = NomeUsuario;
+                if (ValorReceber == 0)
+                {
+                    txt_ValorReceber.Text = "R$ 0,00";
+                }
+                else
+                {
+                    txt_ValorReceber.Text = "R$ " + ValorReceber;
+                }
 
+                //decimal saldo
+                txtValorCaixa.Text = "R$ " + ((ValoresRecebidos + ValorEntrada) - ValorSaida).ToString();
+            }
         }
 
         private void HistoricoVendas()
