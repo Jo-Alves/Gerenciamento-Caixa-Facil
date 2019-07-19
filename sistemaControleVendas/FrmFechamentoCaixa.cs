@@ -41,7 +41,7 @@ namespace sistemaControleVendas
         private void RegistroCaixa(string Data, int Id_Usuario)
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "select * from FluxoCaixa inner join Usuario on Usuario.Id_Usuario=FluxoCaixa.Id_Usuario where FluxoCaixa.Id_Usuario = @Id_Usuario and FluxoCaixa.DataEntrada = @Data";
+            _sql = "select * from FluxoCaixa inner join Usuario on Usuario.Id_Usuario=FluxoCaixa.Id_Usuario where FluxoCaixa.Id_Usuario = @Id_Usuario and convert(Date, FluxoCaixa.DataEntrada, 103) = Convert(Date, @Data, 103)";
             SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
             comando.SelectCommand.Parameters.AddWithValue("@Id_Usuario", Id_Usuario);
             comando.SelectCommand.Parameters.AddWithValue("@Data", Data);
@@ -104,7 +104,7 @@ namespace sistemaControleVendas
         private void RegistroVenda()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "SELECT Produto.Id_Produto, Produto.Descricao AS DescricaoProduto, Produto.ValorVenda, ItensVenda.Quantidade, ItensVenda.Valor, FormaPagamento.Descricao, Venda.DataVenda, Venda.HoraVenda FROM Produto INNER JOIN ItensVenda ON Produto.Id_Produto = ItensVenda.Id_Produto INNER JOIN Venda ON ItensVenda.Id_Venda = Venda.Id_Venda INNER JOIN FormaPagamento ON Venda.Id_Venda = FormaPagamento.Id_Venda INNER JOIN Usuario ON Usuario.Id_Usuario = Venda.Id_Usuario WHERE (Usuario.Id_Usuario = @Id_Usuario) AND (Venda.DataVenda = @DataVenda)";
+            _sql = "SELECT Produto.Id_Produto, Produto.Descricao AS DescricaoProduto, Produto.ValorVenda, ItensVenda.Quantidade, ItensVenda.Valor, FormaPagamento.Descricao, Venda.DataVenda, Venda.HoraVenda FROM Produto INNER JOIN ItensVenda ON Produto.Id_Produto = ItensVenda.Id_Produto INNER JOIN Venda ON ItensVenda.Id_Venda = Venda.Id_Venda INNER JOIN FormaPagamento ON Venda.Id_Venda = FormaPagamento.Id_Venda INNER JOIN Usuario ON Usuario.Id_Usuario = Venda.Id_Usuario WHERE (Usuario.Id_Usuario = @Id_Usuario) AND (convert(Date, Venda.DataVenda, 103) = Convert(Date, @DataVenda, 103))";
             SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
             comando.SelectCommand.Parameters.AddWithValue("@Id_Usuario", Id_Usuario);
             comando.SelectCommand.Parameters.AddWithValue("@DataVenda", DataEntrada);
@@ -157,7 +157,7 @@ namespace sistemaControleVendas
         private void HistoricoVendas()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "SELECT Produto.Id_Produto, Produto.Descricao As DescricaoProduto, Produto.ValorVenda, ItensVenda.Quantidade, ItensVenda.Valor, FormaPagamento.Descricao, Venda.DataVenda, Venda.HoraVenda FROM Produto INNER JOIN ItensVenda ON Produto.Id_Produto = ItensVenda.Id_Produto INNER JOIN Venda ON ItensVenda.Id_Venda = Venda.Id_Venda INNER JOIN FormaPagamento ON Venda.Id_Venda = FormaPagamento.Id_Venda inner join Usuario on Usuario.Id_Usuario=Venda.Id_Usuario where Usuario.Id_Usuario = @Id_Usuario and convert(Date, Venda.DataVenda, 103) >= @DataVenda and Venda.HoraVenda > @HoraVenda";
+            _sql = "SELECT Produto.Id_Produto, Produto.Descricao As DescricaoProduto, Produto.ValorVenda, ItensVenda.Quantidade, ItensVenda.Valor, FormaPagamento.Descricao, Venda.DataVenda, Venda.HoraVenda FROM Produto INNER JOIN ItensVenda ON Produto.Id_Produto = ItensVenda.Id_Produto INNER JOIN Venda ON ItensVenda.Id_Venda = Venda.Id_Venda INNER JOIN FormaPagamento ON Venda.Id_Venda = FormaPagamento.Id_Venda inner join Usuario on Usuario.Id_Usuario=Venda.Id_Usuario where Usuario.Id_Usuario = @Id_Usuario and convert(Date, Venda.DataVenda, 103) >= convert(Date, @DataVenda, 103) and convert(time, Venda.HoraVenda, 108) > convert(time, @HoraVenda, 108)";
             SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
             comando.SelectCommand.Parameters.AddWithValue("@DataVenda", DataEntrada);
             comando.SelectCommand.Parameters.AddWithValue("@Id_Usuario", Id_Usuario);

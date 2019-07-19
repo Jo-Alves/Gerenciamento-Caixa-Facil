@@ -402,12 +402,8 @@ namespace sistemaControleVendas
                     Cliente = tabela.Rows[0]["NomeCliente"].ToString();
                     Servico = tabela.Rows[0]["Servico"].ToString();
                     Horario = tabela.Rows[0]["Horario"].ToString();
-                    SoundPlayer sound = new SoundPlayer();
-                    if (File.Exists(Arquivo))
-                    {
-                        sound.SoundLocation = Arquivo;
-                        sound.Play();
-                    }
+                    SoundPlayer sound = new SoundPlayer(Resources.Toque);
+                    sound.Play();
                     PopupNotifier popup = new PopupNotifier();
                     popup.Image = Properties.Resources._1Apps_Notifications_icon;
                     popup.TitleText = "Notificação do sistema...";
@@ -553,7 +549,6 @@ namespace sistemaControleVendas
             }
         }
 
-        string Arquivo = @"C:\Program Files\LAS Technology\Gerenciamento Caixa Fácil\Toque.wav";
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
             VerificarValidadeProdutos();
@@ -562,12 +557,8 @@ namespace sistemaControleVendas
                 if (AreaAtuacao != "SALÃO DE BELEZA" && AreaAtuacao != "PRESTAÇÃO DE SERVIÇO")
                 {
                     linkNotificacao.Visible = true;
-                    SoundPlayer sound = new SoundPlayer();
-                    if (File.Exists(Arquivo))
-                    {
-                        sound.SoundLocation = Arquivo;
-                        sound.Play();
-                    }
+                    SoundPlayer sound = new SoundPlayer(Resources.Toque);
+                    sound.Play();
                     PopupNotifier popup = new PopupNotifier();
                     popup.Image = Properties.Resources._1Apps_Notifications_icon;
                     popup.TitleText = "Notificaçao do sistema...";
@@ -575,7 +566,7 @@ namespace sistemaControleVendas
                     popup.Popup();
                 }
             }
-        }           
+        }   
 
         private void agendamentoToolStripMenuItem_Click(object sender, EventArgs e)
         {
