@@ -15,6 +15,14 @@ namespace sistemaControleVendas
 {
     public partial class FrmVenda : Form
     {
+	string AreaAtuacao, opcao = "Ckecked = true", CodigoBarra, Descontar = "Sim", Prazo;
+        string HoraVenda, NomeFantasia, Cidade, Numero, Endereco, CNPJ, Telefone, Estado, Bairro;
+	int Id_Usuario, X = 0, Y = 0, EstoqueMinimo, Quantidade, Parcela, Nparcelas = 1;
+	decimal ValorPago, ValorCaixa,valorNCaixa, descontoDinheiro, DescontoPorcento, ValorDescontoPorcento, ValorDesconto;
+	decimal valorParcelas, ValorRestante, ValorAbatido = 0.00m, Valor;
+	bool Fechar = false;
+        const int Porcento = 100;
+
         public FrmVenda(int Id_Usuario, string Usuario)
         {
             InitializeComponent();
@@ -28,8 +36,7 @@ namespace sistemaControleVendas
             txt_CodigoVenda.Text = codigoVenda;
             txt_Codigo_Barra.Focus();           
         }
-
-        string AreaAtuacao;
+       
         private void BuscarAtuacaoEmpresaSalao()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
@@ -43,10 +50,7 @@ namespace sistemaControleVendas
                 AreaAtuacao = Tabela.Rows[0]["AreaAtuacao"].ToString();
             }
         }
-
-        int Id_Usuario;
-        int X = 0;
-        int Y = 0;
+       
         private void PanelCabecalho_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
@@ -128,8 +132,7 @@ namespace sistemaControleVendas
             }
         }
 
-        string opcao = "Ckecked = true";
-        private void FrmVenda_KeyDown(object sender, KeyEventArgs e)
+       private void FrmVenda_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F)
             {
@@ -535,7 +538,7 @@ namespace sistemaControleVendas
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -562,7 +565,7 @@ namespace sistemaControleVendas
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -570,8 +573,6 @@ namespace sistemaControleVendas
             }
         }
 
-        int EstoqueMinimo, Quantidade;
-        string CodigoBarra;
         private void AdicionarItens()
         {
             btn_Remover.Enabled = false;
@@ -734,7 +735,7 @@ namespace sistemaControleVendas
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -916,7 +917,7 @@ namespace sistemaControleVendas
 
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
@@ -1001,7 +1002,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1079,7 +1080,6 @@ namespace sistemaControleVendas
             btn_CancelarVendaVista_Click(sender, e);
         }
 
-        string Descontar = "Sim";
         private void btn_Desconto_Click(object sender, EventArgs e)
         {           
             switch (Descontar)
@@ -1114,8 +1114,6 @@ namespace sistemaControleVendas
             }
         }
 
-        decimal ValorPago;
-        int Parcela;
         private void txt_ValorPago_Leave(object sender, EventArgs e)
         {
             try
@@ -1135,7 +1133,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txt_ValorPago.Clear();
             }
         }
@@ -1191,7 +1189,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1215,7 +1213,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1239,7 +1237,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1258,11 +1256,11 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
-        decimal valorNCaixa, descontoDinheiro;
+
         private void txt_DescontoDinheiro_Leave(object sender, EventArgs e)
         {
             if (txt_DescontoDinheiro.Text != "")
@@ -1293,14 +1291,12 @@ namespace sistemaControleVendas
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txt_DescontoDinheiro.Text = "0,00";
                 }
             }
         }
-
-        decimal DescontoPorcento, ValorDescontoPorcento;
-        const int Porcento = 100;
+                 
         private void txt_DescontoPorcento_Leave(object sender, EventArgs e)
         {
             if (txt_DescontoPorcento.Text != "")
@@ -1329,14 +1325,13 @@ namespace sistemaControleVendas
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txt_DescontoPorcento.Text = "0";
                 }
 
             }
         }
 
-        decimal ValorDesconto;
         private void btn_ConfirmarVenda_Click(object sender, EventArgs e)
         {
             txt_DescontoDinheiro_Leave(sender, e);
@@ -1415,15 +1410,7 @@ namespace sistemaControleVendas
                 MessageBox.Show("Informe o valor Pago!", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        string HoraVenda;
-        string NomeFantasia;
-        string Cidade;
-        string Numero;
-        string Endereco;
-        string CNPJ;
-        string Telefone;
-        string Estado;
-        string Bairro;
+
         ClassEmpresa empresa = new ClassEmpresa();
         private void InformacaoEmpresa()
         {
@@ -1515,8 +1502,7 @@ namespace sistemaControleVendas
                 txt_NumeroParcelas.Text = "1";
             }
         }
-        decimal valorParcelas;
-        int Nparcelas = 1;
+        
         private void txt_NumeroParcelas_Leave(object sender, EventArgs e)
         {
             try
@@ -1540,7 +1526,7 @@ namespace sistemaControleVendas
             }
             catch ( Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         decimal Montante;
@@ -1561,7 +1547,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txt_Juros.Text = "0,00";
             }
         }
@@ -1599,7 +1585,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txt_ValorEntrada.Text = "0,00";
             }
         }
@@ -1723,7 +1709,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             formaPagamento.descricao = "PARCELADO";
@@ -1778,7 +1764,7 @@ namespace sistemaControleVendas
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -1834,7 +1820,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1853,7 +1839,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1872,7 +1858,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1948,7 +1934,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -1988,7 +1974,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }         
         }
 
@@ -2013,8 +1999,7 @@ namespace sistemaControleVendas
                 conexao.Close();
             }
         }       
-
-        string Prazo;
+              
         private void btn_SalvarVendaPrazo_Click(object sender, EventArgs e)
         {
             if (txt_NomeCliente.Text == "")
@@ -2047,7 +2032,7 @@ namespace sistemaControleVendas
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
@@ -2117,12 +2102,10 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-       decimal ValorRestante;
-        decimal ValorAbatido = 0.00m;
         private void txt_ValorAbatido_Leave(object sender, EventArgs e)
         {
             try
@@ -2145,7 +2128,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txt_ValorAbatido.Text = "0,00";
             }
         }
@@ -2290,7 +2273,6 @@ namespace sistemaControleVendas
             }
         }
 
-        Decimal Valor;
         private bool verificarSituacaoClienteParcial()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
@@ -2313,8 +2295,7 @@ namespace sistemaControleVendas
             }
             
         }
-
-        bool Fechar = false;
+              
         private void FrmVenda_FormClosing(object sender, FormClosingEventArgs e)
         {
            if(Fechar == false)
@@ -2350,7 +2331,7 @@ namespace sistemaControleVendas
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -2407,7 +2388,7 @@ namespace sistemaControleVendas
             }
              catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -2515,7 +2496,7 @@ namespace sistemaControleVendas
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -2589,7 +2570,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         decimal descontocaixa;
@@ -2616,7 +2597,6 @@ namespace sistemaControleVendas
             }
         }
 
-        decimal ValorCaixa;
         private void CaixaDia()
         {
             SqlConnection conexao = new SqlConnection(stringConn);

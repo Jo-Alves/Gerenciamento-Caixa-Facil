@@ -13,21 +13,29 @@ namespace sistemaControleVendas
 {
     public partial class FrmVendaDevolverAlterarItens : Form
     {
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, descricao, idItensVenda, idProduto, idFluxoCaixa;
-        decimal Valor, lucroItens, ValorPago;
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, descricao, idItensVenda, idProduto, idFluxoCaixa, codCliente;
+        int MaxCodVenda, IdPagamentoParcial;
+        decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda;
 
-        public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorPago)
+        public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda, string codCliente)
         {
             InitializeComponent();
+            this.ValorVenda = decimal.Parse(ValorVenda);
             lblCodigoVenda.Text = CodVenda;
             lblCliente.Text = Cliente;           
-            lblValorTotal.Text = "R$ " + ValorPago;
+            lblValorTotal.Text = "R$ " + ValorVenda;
             this.CodVenda = CodVenda;
             this.FormaPagamento = FormaPagamento;
+            this.codCliente = codCliente;
             if(FormaPagamento == "VISTA")
             {
-                this.ValorPago = decimal.Parse(ValorPago);
+                ValorPago = decimal.Parse(ValorVenda);
             }            
+            else if(FormaPagamento =="PAGAMENTO PARCIAL")
+            {
+                receberValor_e_IdPagamentoParcial();
+                ValorTotalPagamentoParcial = ValorRestante + ReceberValorAbatido();
+            }
             else
             {
                 InformarValoresPagos();
@@ -37,11 +45,7 @@ namespace sistemaControleVendas
         private void InformarValoresPagos()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            if (FormaPagamento == "PAGAMENTO PARCIAL")
-            {
-               _sql = "select SUM(ValorAbatido.ValorTotalAbatimento) as ValorPago from ValorAbatido INNER JOIN PagamentoParcial ON ValorAbatido.Id_PagamentoParcial = PagamentoParcial.Id_PagamentoParcial WHERE PagamentoParcial.Id_Venda = @IdVenda";
-            }
-            else if (FormaPagamento == "PARCELADO")
+            if (FormaPagamento == "PARCELADO")
             {
                 _sql = "SELECT SUM(ParcelaVenda.ValorParcelado) as ValorPago FROM ParcelaVenda INNER JOIN FormaPagamento ON ParcelaVenda.Id_Venda = FormaPagamento.Id_Venda WHERE ParcelaVenda.Id_Venda = @IdVenda AND ParcelaVenda.DataPagamento <> '' AND FormaPagamento.Descricao = 'PARCELADO'"; 
             }
@@ -62,7 +66,135 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void receberValor_e_IdPagamentoParcial()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select PagamentoParcial.ValorRestante, PagamentoParcial.Id_PagamentoParcial from PagamentoParcial inner join Venda on Venda.Id_Venda = PagamentoParcial.Id_Venda where Venda.Id_Cliente = @IdCliente and PagamentoParcial.ValorRestante > 0";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdCliente", codCliente);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                SqlDataReader dr = comando.ExecuteReader();
+                if (dr.Read())
+                {
+                    IdPagamentoParcial = int.Parse(dr["Id_PagamentoParcial"].ToString());
+                    ValorRestante = decimal.Parse(dr["ValorRestante"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private decimal ReceberValorAbatido()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select Sum(ValorTotalAbatimento) as ValorTotalAbatimento from ValorAbatido where Id_PagamentoParcial = @IdPagamentoParcial";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdPagamentoParcial", IdPagamentoParcial);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                SqlDataReader dr = comando.ExecuteReader();
+                if (dr.Read())
+                {                    
+                    valorAbatido = decimal.Parse(dr["ValorTotalAbatimento"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+            return valorAbatido;
+        }
+
+        private void InformarIdVendaMaximo()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            for (int i = 0; i <= 1; i++)
+            {
+                if (MaxCodVenda == 0)
+                {
+                    _sql = "Select Max(Venda.Id_Venda) as MaxCodVenda from Venda inner join FormaPagamento on FormaPagamento.Id_Venda = Venda.Id_Venda where Venda.Id_Venda <> " + CodVenda + " and Venda.Id_Cliente = "+ codCliente +" and FormaPagamento.Descricao = 'PAGAMENTO PARCIAL'";
+                }       
+                else if(MaxCodVenda > 0)
+                {
+                    _sql = "update PagamentoParcial set Id_Venda = " + MaxCodVenda + "where id_PagamentoParcial = " + IdPagamentoParcial;
+                }
+                SqlCommand comando = new SqlCommand(_sql, conexao);
+                comando.CommandText = _sql;
+                try
+                {
+                    conexao.Open();
+                    if (MaxCodVenda == 0)
+                    {
+                        SqlDataReader dr = comando.ExecuteReader();
+                        if (dr.Read())
+                        {
+                            MaxCodVenda = int.Parse(dr["MaxCodVenda"].ToString());
+                        }
+                    }
+                    else
+                    {
+                        comando.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    conexao.Close();
+                }
+            }
+        }
+
+        bool CodVendaIgual = false;
+
+        private void VerificarIdVenda()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select * from PagamentoParcial where Id_Venda = @IdVenda";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdVenda", CodVenda);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                SqlDataReader dr = comando.ExecuteReader();
+                if (dr.Read())
+                {
+                    CodVendaIgual = true;          
+                }
+                else
+                {
+                    CodVendaIgual = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -97,7 +229,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -119,7 +251,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -168,11 +300,12 @@ namespace sistemaControleVendas
             DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução de todos os itens da venda?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
             if (dr == DialogResult.Yes)
-            {
+            {                
                 if (ValorCaixa > 0)
-                {
+                {                   
                     if (ValorCaixa >= ValorPago)
                     {
+                        AlterarValorRestante_Se_PagamentoParcial();
                         ExcluirTodosItensVenda();
                         GerenciarFluxoCaixa();
                         ListaTodasVendas();
@@ -180,9 +313,10 @@ namespace sistemaControleVendas
                     }
                     else
                     {
-                        dr = MessageBox.Show("O Valor da venda é maior que o valor que está em caixa no momento. Você deseja que retire o valor do caixa?", "Aviso do sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
+                        dr = MessageBox.Show("O Valor a devolver para o cliente é maior que o valor que está em caixa no momento. Você deseja que retire o valor do caixa?", "Aviso do sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
                         if (dr == DialogResult.Yes)
                         {
+                            AlterarValorRestante_Se_PagamentoParcial();
                             ExcluirTodosItensVenda();
                             GerenciarFluxoCaixa();
                             ListaTodasVendas();
@@ -190,6 +324,7 @@ namespace sistemaControleVendas
                         }
                         else if (dr == DialogResult.No)
                         {
+                            AlterarValorRestante_Se_PagamentoParcial();
                             ExcluirTodosItensVenda();
                             ListaTodasVendas();
                             this.Close();
@@ -207,6 +342,29 @@ namespace sistemaControleVendas
                         this.Close();
 
                     }
+                }
+            }
+        }
+
+        private void AlterarValorRestante_Se_PagamentoParcial()
+        {
+            if (FormaPagamento == "PAGAMENTO PARCIAL")
+            {
+                if (ValorTotalPagamentoParcial > ValorVenda)
+                {
+                    // primeiro Verifica se o idVenda informado é igual ao idVenda da tabela Pagamento Parcial
+
+                    VerificarIdVenda();
+
+                    if (CodVendaIgual)
+                    {
+                        InformarIdVendaMaximo();
+                    }
+
+                }
+                else
+                {
+                    ValorPago = valorAbatido;
                 }
             }
         }
@@ -236,7 +394,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -262,7 +420,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -287,7 +445,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -310,7 +468,7 @@ namespace sistemaControleVendas
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -363,7 +521,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -386,7 +544,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -440,7 +598,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

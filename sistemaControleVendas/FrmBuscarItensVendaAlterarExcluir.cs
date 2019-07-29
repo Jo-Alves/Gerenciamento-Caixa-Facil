@@ -39,7 +39,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -75,7 +75,7 @@ namespace sistemaControleVendas
             }
             else
             {
-                FrmVendaDevolverAlterarItens vendaAlterarExcluir = new FrmVendaDevolverAlterarItens(CodVenda, Cliente, FormaPagamento, ValorVenda);
+                FrmVendaDevolverAlterarItens vendaAlterarExcluir = new FrmVendaDevolverAlterarItens(CodVenda, Cliente, FormaPagamento, ValorVenda, codCliente);
                 vendaAlterarExcluir.ShowDialog();
                 CodVenda = "";
                 if (txtNomeCliente.Text != "")
@@ -103,7 +103,7 @@ namespace sistemaControleVendas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -116,6 +116,7 @@ namespace sistemaControleVendas
             {
                 DataGridViewRow linhas = dgv_ListaVenda.Rows[contLinhas];
                 CodVenda = linhas.Cells["ColCodVenda"].Value.ToString();
+                codCliente = linhas.Cells["ColCodCliente"].Value.ToString();
                 Cliente = linhas.Cells["ColCliente"].Value.ToString();
                 ValorVenda = linhas.Cells["ColValorVenda"].Value.ToString();
                 FormaPagamento = linhas.Cells["ColFormaPagamento"].Value.ToString();
@@ -126,7 +127,7 @@ namespace sistemaControleVendas
             }
         }
 
-       string CodVenda = "", Cliente, horaVenda, dataVenda, atendente, ValorVenda;
+       string CodVenda = "", Cliente, horaVenda, dataVenda, atendente, ValorVenda, codCliente;
 
         private void Menu_Sair_Click(object sender, EventArgs e)
         {
