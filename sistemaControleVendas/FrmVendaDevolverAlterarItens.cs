@@ -42,6 +42,8 @@ namespace sistemaControleVendas
             }
         }
 
+        // trechos de códigos para excluir todos os itens
+
         private void InformarValoresPagos()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
@@ -242,7 +244,7 @@ namespace sistemaControleVendas
             try
             {
                 SqlConnection conexao = new SqlConnection(stringConn);
-                _sql = "select Venda.Id_Venda, produto.Descricao, ItensVenda.Valor, ItensVenda.Quantidade from Cliente inner join venda on Venda.Id_Cliente = Cliente.Id_Cliente inner join ItensVenda on ItensVenda.Id_Venda = Venda.Id_Venda inner join Produto on Produto.Id_Produto = ItensVenda.Id_Produto where Venda.Id_Venda = " + CodVenda;
+                _sql = "select Venda.Id_Venda, ItensVenda.Id_Produto, produto.Descricao, ItensVenda.Valor, ItensVenda.Quantidade, Venda.DataVenda from Cliente inner join venda on Venda.Id_Cliente = Cliente.Id_Cliente inner join ItensVenda on ItensVenda.Id_Venda = Venda.Id_Venda inner join Produto on Produto.Id_Produto = ItensVenda.Id_Produto where Venda.Id_Venda = " + CodVenda;
                 SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
                 comando.SelectCommand.CommandText = _sql;
                 DataTable Tabela = new DataTable();
@@ -253,47 +255,9 @@ namespace sistemaControleVendas
             {
                 MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void btn_Fechar_MouseEnter(object sender, EventArgs e)
-        {
-            btn_Fechar.BackColor = Color.Red;
-        }
-
-        private void btn_Fechar_MouseLeave(object sender, EventArgs e)
-        {
-            btn_Fechar.BackColor = Color.Transparent;
-        }
-
-        private void btn_Fechar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void dgv_ListaVenda_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            DataGridView dgv;
-            dgv = (DataGridView)sender;
-            dgv.ClearSelection();
-        }
-
-        private void dgv_ListaVenda_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int contLinhas = e.RowIndex;
-            if (contLinhas > -1)
-            {
-                DataGridViewRow linhas = dgv_ListaVenda.Rows[contLinhas];
-                CodVenda = linhas.Cells[0].Value.ToString();
-                descricao = linhas.Cells[1].Value.ToString();
-            }
-        }
+        }      
 
         string CodVenda = "", Cliente, FormaPagamento;
-
-        private void Menu_Sair_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
 
         private void btnExcluirTudo_Click(object sender, EventArgs e)
         {
@@ -308,8 +272,6 @@ namespace sistemaControleVendas
                         AlterarValorRestante_Se_PagamentoParcial();
                         ExcluirTodosItensVenda();
                         GerenciarFluxoCaixa();
-                        ListaTodasVendas();
-                        this.Close();
                     }
                     else
                     {
@@ -319,15 +281,11 @@ namespace sistemaControleVendas
                             AlterarValorRestante_Se_PagamentoParcial();
                             ExcluirTodosItensVenda();
                             GerenciarFluxoCaixa();
-                            ListaTodasVendas();
-                            this.Close();
                         }
                         else if (dr == DialogResult.No)
                         {
                             AlterarValorRestante_Se_PagamentoParcial();
-                            ExcluirTodosItensVenda();
-                            ListaTodasVendas();
-                            this.Close();
+                            ExcluirTodosItensVenda();;
                         }
                     }
                 }
@@ -338,14 +296,43 @@ namespace sistemaControleVendas
                     if (dr == DialogResult.Yes)
                     {
                         ExcluirTodosItensVenda();
-                        ListaTodasVendas();
-                        this.Close();
 
                     }
+                }
+
+                AtualizarTodoEstoque();
+                this.Close();
+            }
+        }
+
+        private void AtualizarTodoEstoque()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            for (int i = 0; i < dgv_ListaVenda.Rows.Count; i++)
+            {
+                _sql = "update Produto set EstoqueAtual = EstoqueAtual + @Quantidade where id_Produto = @IdProduto";
+
+                SqlCommand comando = new SqlCommand(_sql, conexao);
+                comando.Parameters.AddWithValue("@Quantidade", dgv_ListaVenda.Rows[i].Cells["ColQuantidade"].Value.ToString());
+                comando.Parameters.AddWithValue("@IdProduto", dgv_ListaVenda.Rows[i].Cells["ColCodProduto"].Value.ToString());
+                comando.CommandText = _sql;
+                try
+                {
+                    conexao.Open();
+                    comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    conexao.Close();
                 }
             }
         }
 
+        decimal subValorVendaValorAbatido;
         private void AlterarValorRestante_Se_PagamentoParcial()
         {
             if (FormaPagamento == "PAGAMENTO PARCIAL")
@@ -361,11 +348,39 @@ namespace sistemaControleVendas
                         InformarIdVendaMaximo();
                     }
 
+                    subValorVendaValorAbatido = ValorTotalPagamentoParcial - ValorVenda - ReceberValorAbatido();
+                    AlterarValorRestantePagamentoParcial();
+
                 }
                 else
                 {
                     ValorPago = valorAbatido;
                 }
+            }
+        }
+
+        private void AlterarValorRestantePagamentoParcial()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+
+            _sql = "update PagamentoParcial set ValorRestante = @ValorRestante where Id_PagamentoParcial = @IdPagamentoParcial";
+
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@ValorRestante", subValorVendaValorAbatido);
+            comando.Parameters.AddWithValue("@IdPagamentoParcial", IdPagamentoParcial);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
             }
         }
 
@@ -464,7 +479,8 @@ namespace sistemaControleVendas
             {
                 conexao.Open();
                 comando.ExecuteNonQuery();
-                MessageBox.Show("Itens devolvidos! O valor já foi pago pelo cliente está no valor de " + ValorPago, "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (FormaPagamento != "PAGAMENTO PARCIAL")
+                    MessageBox.Show("Itens devolvidos! O valor já foi pago pelo cliente está no valor de " + ValorPago, "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(Exception ex)
             {
@@ -606,6 +622,9 @@ namespace sistemaControleVendas
             }
         }
 
+        // Excluir Item
+
+
         int X = 0, Y = 0;
         private void PanelCabecalho_MouseDown(object sender, MouseEventArgs e)
         {
@@ -619,6 +638,44 @@ namespace sistemaControleVendas
             if (e.Button != MouseButtons.Left) return;
             this.Left = X + MousePosition.X;
             this.Top = Y + MousePosition.Y;
+        }
+
+        private void btn_Fechar_MouseEnter(object sender, EventArgs e)
+        {
+            btn_Fechar.BackColor = Color.Red;
+        }
+
+        private void btn_Fechar_MouseLeave(object sender, EventArgs e)
+        {
+            btn_Fechar.BackColor = Color.Transparent;
+        }
+
+        private void btn_Fechar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dgv_ListaVenda_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridView dgv;
+            dgv = (DataGridView)sender;
+            dgv.ClearSelection();
+        }
+
+        private void Menu_Sair_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void dgv_ListaVenda_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int contLinhas = e.RowIndex;
+            if (contLinhas > -1)
+            {
+                DataGridViewRow linhas = dgv_ListaVenda.Rows[contLinhas];
+                CodVenda = linhas.Cells[0].Value.ToString();
+                descricao = linhas.Cells[1].Value.ToString();
+            }
         }
     }
 }
