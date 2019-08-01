@@ -13,13 +13,16 @@ namespace sistemaControleVendas
 {
     public partial class FrmVendaDevolverAlterarItens : Form
     {
-        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, descricao, idItensVenda, idProduto, idFluxoCaixa, codCliente;
+        string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, descricao, idItensVenda, idProduto, idFluxoCaixa, codCliente, dataVenda;
+
         int MaxCodVenda, IdPagamentoParcial;
+
         decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda;
 
-        public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda, string codCliente)
+        public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda, string codCliente, string dataVenda)
         {
             InitializeComponent();
+            this.dataVenda = dataVenda;
             this.ValorVenda = decimal.Parse(ValorVenda);
             lblCodigoVenda.Text = CodVenda;
             lblCliente.Text = Cliente;           
@@ -295,8 +298,8 @@ namespace sistemaControleVendas
 
                     if (dr == DialogResult.Yes)
                     {
+                        AlterarValorRestante_Se_PagamentoParcial();
                         ExcluirTodosItensVenda();
-
                     }
                 }
 
@@ -356,6 +359,68 @@ namespace sistemaControleVendas
                 {
                     ValorPago = valorAbatido;
                 }
+
+                VerificarDataAbatimentoDataVenda();
+                AtualizarValorReceber();
+            }
+        }
+
+        private void AtualizarValorReceber()
+        {
+            if (dataVenda == DateTime.Now.ToShortDateString() && DataAbatimento == DateTime.Now.ToShortDateString())
+            {
+                SqlConnection conexao = new SqlConnection(stringConn);
+
+                _sql = "update fluxoCaixa set ValorReceber = ValorReceber - @ValorReceber where DataSaida = '' and HoraSaida = ''";
+
+                SqlCommand comando = new SqlCommand(_sql, conexao);
+                comando.Parameters.AddWithValue("@ValorReceber", (ValorVenda - ValorAbatidoParcial));
+                comando.CommandText = _sql;
+                try
+                {
+                    conexao.Open();
+                    comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    conexao.Close();
+                }
+            }
+        }
+
+        string DataAbatimento;
+        decimal ValorAbatidoParcial;
+        private void VerificarDataAbatimentoDataVenda()
+        {            
+            SqlConnection conexao = new SqlConnection(stringConn);
+
+            _sql = "Select ValorTotalAbatimento, DataPagamento from ValorAbatido where Id_PagamentoParcial = @IdPagamentoParcial";
+
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdPagamentoParcial", IdPagamentoParcial);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                SqlDataReader dr = comando.ExecuteReader();
+                if (dr.Read())
+                {
+                    ValorAbatidoParcial = decimal.Parse(dr["ValorTotalAbatimento"] .ToString());
+                    DataAbatimento = dr["DataPagamento"].ToString();
+                  
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
             }
         }
 
@@ -479,10 +544,19 @@ namespace sistemaControleVendas
             {
                 conexao.Open();
                 comando.ExecuteNonQuery();
-                if (FormaPagamento != "PAGAMENTO PARCIAL")
-                    MessageBox.Show("Itens devolvidos! O valor já foi pago pelo cliente está no valor de " + ValorPago, "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (FormaPagamento != "PAGAMENTO PARCIAL" || ValorTotalPagamentoParcial == ValorVenda)
+                {
+
+                    string messagem = "";
+                    if (ValorPago > 0)
+                    {
+                        messagem = " O valor já foi pago pelo cliente está no valor de " + ValorPago;
+                    }
+
+                    MessageBox.Show("Itens devolvidos!" + messagem, "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
