@@ -272,7 +272,8 @@ namespace sistemaControleVendas
                 {                   
                     if (ValorCaixa >= ValorPago)
                     {
-                        AlterarValorRestante_Se_PagamentoParcial();
+                        AlterarValoresPagamentoParcial_E_Parcelado();
+                        verificarDataPagamento_E_AtualizarValoresFluxoCaixa();
                         ExcluirTodosItensVenda();
                         GerenciarFluxoCaixa();
                     }
@@ -281,13 +282,15 @@ namespace sistemaControleVendas
                         dr = MessageBox.Show("O Valor a devolver para o cliente é maior que o valor que está em caixa no momento. Você deseja que retire o valor do caixa?", "Aviso do sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
                         if (dr == DialogResult.Yes)
                         {
-                            AlterarValorRestante_Se_PagamentoParcial();
+                            AlterarValoresPagamentoParcial_E_Parcelado();
+                            verificarDataPagamento_E_AtualizarValoresFluxoCaixa();
                             ExcluirTodosItensVenda();
                             GerenciarFluxoCaixa();
                         }
                         else if (dr == DialogResult.No)
                         {
-                            AlterarValorRestante_Se_PagamentoParcial();
+                            AlterarValoresPagamentoParcial_E_Parcelado();
+                            verificarDataPagamento_E_AtualizarValoresFluxoCaixa();
                             ExcluirTodosItensVenda();;
                         }
                     }
@@ -298,7 +301,8 @@ namespace sistemaControleVendas
 
                     if (dr == DialogResult.Yes)
                     {
-                        AlterarValorRestante_Se_PagamentoParcial();
+                        AlterarValoresPagamentoParcial_E_Parcelado();
+                        verificarDataPagamento_E_AtualizarValoresFluxoCaixa();
                         ExcluirTodosItensVenda();
                     }
                 }
@@ -335,8 +339,8 @@ namespace sistemaControleVendas
             }
         }
 
-        decimal subValorVendaValorAbatido;
-        private void AlterarValorRestante_Se_PagamentoParcial()
+        decimal subValorVendaValorAbatido, subValorReceber;
+        private void AlterarValoresPagamentoParcial_E_Parcelado()
         {
             if (FormaPagamento == "PAGAMENTO PARCIAL")
             {
@@ -359,13 +363,93 @@ namespace sistemaControleVendas
                 {
                     ValorPago = valorAbatido;
                 }
+            }
+            else if (FormaPagamento == "PARCELADO")
+            {
 
-                VerificarDataAbatimentoDataVenda();
-                AtualizarValorReceber();
             }
         }
 
-        private void AtualizarValorReceber()
+        private void verificarDataPagamento_E_AtualizarValoresFluxoCaixa()
+        {
+            if (FormaPagamento == "PAGAMENTO PARCIAL")
+            {
+                VerificarDataAbatimentoDataVenda();
+                subValorReceber = ValorVenda - ValorPagamento;
+                AtualizarValorReceberPagamentoParcial();
+            }
+            else if (FormaPagamento == "PRAZO")
+            {
+                subValorReceber = ValorVenda;         
+            }
+            else
+            {
+
+            }
+            AtualizarValorReceberPagamentoPrazoParcela();
+        }
+
+        private void AtualizarValorReceberPagamentoPrazoParcela()
+        {
+            if (FormaPagamento == "PARCELADO" || FormaPagamento == "PRAZO")
+            {
+                if (dataVenda == DateTime.Now.ToShortDateString())
+                {
+                    SqlConnection conexao = new SqlConnection(stringConn);
+
+                    _sql = "update fluxoCaixa set ValorReceber = ValorReceber - @ValorReceber where DataSaida = '' and HoraSaida = ''";
+
+                    SqlCommand comando = new SqlCommand(_sql, conexao);
+                    comando.Parameters.AddWithValue("@ValorReceber", subValorReceber);
+                    comando.CommandText = _sql;
+                    try
+                    {
+                        conexao.Open();
+                        comando.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        conexao.Close();
+                    }
+                }
+            }
+        }
+
+        private void verificarDataVendaPrazo()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+
+            _sql = "Select ValorTotalAbatimento, DataPagamento from ValorAbatido where Id_PagamentoParcial = @IdPagamentoParcial";
+
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdPagamentoParcial", IdPagamentoParcial);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                SqlDataReader dr = comando.ExecuteReader();
+                if (dr.Read())
+                {
+                    ValorPagamento = decimal.Parse(dr["ValorTotalAbatimento"] .ToString());
+                    DataAbatimento = dr["DataPagamento"].ToString();
+                  
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void AtualizarValorReceberPagamentoParcial()
         {
             if (dataVenda == DateTime.Now.ToShortDateString() && DataAbatimento == DateTime.Now.ToShortDateString())
             {
@@ -374,7 +458,7 @@ namespace sistemaControleVendas
                 _sql = "update fluxoCaixa set ValorReceber = ValorReceber - @ValorReceber where DataSaida = '' and HoraSaida = ''";
 
                 SqlCommand comando = new SqlCommand(_sql, conexao);
-                comando.Parameters.AddWithValue("@ValorReceber", (ValorVenda - ValorAbatidoParcial));
+                comando.Parameters.AddWithValue("@ValorReceber", subValorReceber);
                 comando.CommandText = _sql;
                 try
                 {
@@ -393,7 +477,7 @@ namespace sistemaControleVendas
         }
 
         string DataAbatimento;
-        decimal ValorAbatidoParcial;
+        decimal ValorPagamento;
         private void VerificarDataAbatimentoDataVenda()
         {            
             SqlConnection conexao = new SqlConnection(stringConn);
@@ -409,7 +493,7 @@ namespace sistemaControleVendas
                 SqlDataReader dr = comando.ExecuteReader();
                 if (dr.Read())
                 {
-                    ValorAbatidoParcial = decimal.Parse(dr["ValorTotalAbatimento"] .ToString());
+                    ValorPagamento = decimal.Parse(dr["ValorTotalAbatimento"] .ToString());
                     DataAbatimento = dr["DataPagamento"].ToString();
                   
                 }
