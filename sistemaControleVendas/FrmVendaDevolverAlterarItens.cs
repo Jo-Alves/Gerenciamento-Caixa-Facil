@@ -17,7 +17,7 @@ namespace sistemaControleVendas
 
         int MaxCodVenda, IdPagamentoParcial;
 
-        decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda;
+        decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda, valorEntrada, sumValorParcelado;
 
         public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda, string codCliente, string dataVenda)
         {
@@ -39,9 +39,41 @@ namespace sistemaControleVendas
                 receberValor_e_IdPagamentoParcial();
                 ValorTotalPagamentoParcial = ValorRestante + ReceberValorAbatido();
             }
+            else if (FormaPagamento == "PARCELADO")
+            {
+                InformarValoresPagos();
+                VerificarParcelas_E_ValorEntrada();
+                valorEntrada = this.ValorVenda - sumValorParcelado;
+                ValorPago += valorEntrada;
+            }
             else
             {
                 InformarValoresPagos();
+            }
+        }
+
+        private void VerificarParcelas_E_ValorEntrada()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "SELECT SUM(ParcelaVenda.ValorParcelado) as ValorPago FROM ParcelaVenda INNER JOIN FormaPagamento ON ParcelaVenda.Id_Venda = FormaPagamento.Id_Venda WHERE ParcelaVenda.Id_Venda = @IdVenda AND FormaPagamento.Descricao = 'PARCELADO'";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdVenda", CodVenda);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                if (comando.ExecuteScalar() != DBNull.Value)
+                {
+                    sumValorParcelado = decimal.Parse(comando.ExecuteScalar().ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
             }
         }
 
@@ -384,7 +416,7 @@ namespace sistemaControleVendas
             }
             else
             {
-
+                subValorReceber = ValorVenda -  ValorPago;
             }
             AtualizarValorReceberPagamentoPrazoParcela();
         }
