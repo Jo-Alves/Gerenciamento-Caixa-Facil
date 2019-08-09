@@ -17,7 +17,7 @@ namespace sistemaControleVendas
 
         int MaxCodVenda, IdPagamentoParcial;
 
-        decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda, valorEntrada, sumValorParcelado;
+        decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda, valorEntrada, sumValorParcelado, valorUnitario, ValorCaixaInicial;
 
         public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda, string codCliente, string dataVenda)
         {
@@ -244,7 +244,7 @@ namespace sistemaControleVendas
             IdentificarFluxoCaixa();
             VerificarValorCaixa();
             VerificarSaidaCaixa();
-            ValorCaixa = ValorCaixa - ValorSaida;
+            ValorCaixa = (ValorCaixa + ValorCaixaInicial) - ValorSaida;
             dgv_ListaVenda.ClearSelection();
             ListaTodasVendas();
         }
@@ -296,7 +296,7 @@ namespace sistemaControleVendas
 
         private void btnExcluirTudo_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução de todos os itens da venda?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução do produto(s)?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
             if (dr == DialogResult.Yes)
             {                
@@ -395,10 +395,6 @@ namespace sistemaControleVendas
                 {
                     ValorPago = valorAbatido;
                 }
-            }
-            else if (FormaPagamento == "PARCELADO")
-            {
-
             }
         }
 
@@ -602,7 +598,7 @@ namespace sistemaControleVendas
         private void VerificarValorCaixa()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "select ValorCaixa from FluxoCaixa  where DataSaida = '' and HoraSaida = ''";
+            _sql = "select ValorCaixa, valorEntrada from FluxoCaixa  where DataSaida = '' and HoraSaida = ''";
             SqlCommand comando = new SqlCommand(_sql, conexao);            
             comando.CommandText = _sql;
             try
@@ -612,6 +608,7 @@ namespace sistemaControleVendas
                 if (dr.Read())
                 {
                     ValorCaixa = decimal.Parse(dr["ValorCaixa"].ToString());
+                    ValorCaixaInicial = decimal.Parse(dr["ValorEntrada"].ToString());
                 }
             }
             catch (Exception ex)
@@ -683,81 +680,6 @@ namespace sistemaControleVendas
 
         }
 
-        private void btnExcluirItem_Click(object sender, EventArgs e)
-        {
-            
-            if (dgv_ListaVenda.CurrentRow.Selected == true)
-            {
-                DialogResult dr = MessageBox.Show("Deseja mesmo excluir este item da venda?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-                if (dr == DialogResult.Yes)
-                {
-                    BuscarIdItensVenda();
-                    excluirItensVenda();
-                    ListaTodasVendas();
-                    if (dgv_ListaVenda.Rows.Count == 0)
-                    {
-                        this.Close();
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Selecione o item para excluir!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-
-        private void BuscarIdItensVenda()
-        {
-            SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "select ItensVenda.Id_ItensVenda from ItensVenda  inner join  Produto on Produto.Id_Produto = ItensVenda.Id_Produto where itensVenda.id_Venda = @idVenda and Produto.Descricao = @descricao";
-            SqlCommand comando = new SqlCommand(_sql, conexao);
-            comando.Parameters.AddWithValue("@idVenda", CodVenda);
-            comando.Parameters.AddWithValue("@descricao", descricao);
-            comando.CommandText = _sql;
-            
-            try
-            {
-                conexao.Open();
-                SqlDataReader dr = comando.ExecuteReader();
-                if (dr.Read())
-                {
-                    idItensVenda = dr[0].ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
-        private void excluirItensVenda()
-        {
-            SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "delete from ItensVenda where id_ItensVenda = @IdItensVenda";
-            SqlCommand comando = new SqlCommand(_sql, conexao);
-            comando.Parameters.AddWithValue("@IdItensVenda", idItensVenda);
-            comando.CommandText = _sql;
-            try
-            {
-                conexao.Open();
-                comando.ExecuteNonQuery();
-                MessageBox.Show("Item excluido!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
         private void btnAlterarItem_Click(object sender, EventArgs e)
         {
             if (dgv_ListaVenda.CurrentRow.Selected == true)
@@ -814,6 +736,244 @@ namespace sistemaControleVendas
 
         // Excluir Item
 
+        private void btnExcluirItem_Click(object sender, EventArgs e)
+        {
+            if (dgv_ListaVenda.Rows.Count > 1)
+            {
+                if (dgv_ListaVenda.CurrentRow.Selected == true)
+                {
+                    DialogResult dr = MessageBox.Show("Deseja mesmo excluir este item da venda?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                    if (dr == DialogResult.Yes)
+                    {
+                        if (ValorCaixa > 0)
+                        {
+                            if (ValorCaixa >= ValorPago)
+                            {
+                                verificarPagamentos();
+                                excluirItensVenda();
+
+                                if (FormaPagamento == "VISTA")
+                                {
+                                    GerenciarFluxoCaixa();
+                                }
+                            }
+                            else
+                            {
+                                dr = MessageBox.Show("O Valor a devolver para o cliente é maior que o valor que está em caixa no momento. Você deseja que retire o valor do caixa?", "Aviso do sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
+                                if (dr == DialogResult.Yes)
+                                {
+                                    verificarPagamentos();
+                                    excluirItensVenda();
+
+                                    if (FormaPagamento == "VISTA")
+                                    {
+                                        GerenciarFluxoCaixa();
+                                    }
+                                }
+                                else if (dr == DialogResult.No)
+                                {
+                                    verificarPagamentos();
+                                    excluirItensVenda();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            dr = MessageBox.Show("Informamos que não existe valores no caixa no momento. Os valores da venda não irá afetar o fluxo do caixa. Deseja continuar?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                            if (dr == DialogResult.Yes)
+                            {
+                                verificarPagamentos();
+                                excluirItensVenda();
+                            }
+                        }
+                        subValorReceber = valorUnitario;
+                        AtualizarValorReceberPagamentoPrazoParcela();
+                        AtualizarEstoque();
+                        ListaTodasVendas();
+                        if (dgv_ListaVenda.Rows.Count == 0)
+                        {
+                            this.Close();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Selecione o item para excluir!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+            else
+            {
+                btnExcluirTudo_Click(sender, e);
+            }
+        }
+
+        private void AtualizarEstoque()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+
+            _sql = "update Produto set EstoqueAtual = EstoqueAtual + @Quantidade where id_Produto = @IdProduto";
+
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@Quantidade", dgv_ListaVenda.CurrentRow.Cells["ColQuantidade"].Value.ToString());
+            comando.Parameters.AddWithValue("@IdProduto", dgv_ListaVenda.CurrentRow.Cells["ColCodProduto"].Value.ToString());
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        decimal subValoresTotalUnitario, valorParcela;
+        int qtdParcela;
+        private void verificarPagamentos()
+        {
+            if (FormaPagamento == "PARCELADO")
+            {
+                subValoresTotalUnitario = ValorVenda - valorUnitario;
+                verificarNumeroParcelas();
+                valorParcela = (subValoresTotalUnitario -  valorEntrada) / qtdParcela;
+                AlterarValoresParcelas();
+                AlterarValorVenda();
+                lblValorTotal.Text = "R$ " + subValoresTotalUnitario;                
+            }
+        }
+
+        private void AlterarValorVenda()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "update Venda set ValorTotal = @ValorTotal where id_Venda = @idVenda";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@idVenda", CodVenda);
+            comando.Parameters.AddWithValue("@ValorTotal", subValoresTotalUnitario);
+            comando.CommandText = _sql;
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void AlterarValoresParcelas()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "update ParcelaVenda set valorParcelado = @ValorParcela where id_Venda = @idVenda";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@idVenda", CodVenda);
+            comando.Parameters.AddWithValue("@ValorParcela", valorParcela);
+            comando.CommandText = _sql;
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void verificarNumeroParcelas()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select count(Parcela) from ParcelaVenda where id_Venda = @idVenda";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@idVenda", CodVenda);
+            comando.CommandText = _sql;
+
+            try
+            {
+                conexao.Open();
+                if (comando.ExecuteScalar() != DBNull.Value)
+                {
+                    qtdParcela = int.Parse(comando.ExecuteScalar().ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void BuscarIdItensVenda()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select ItensVenda.Id_ItensVenda from ItensVenda  inner join  Produto on Produto.Id_Produto = ItensVenda.Id_Produto where itensVenda.id_Venda = @idVenda and Produto.Descricao = @descricao";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@idVenda", CodVenda);
+            comando.Parameters.AddWithValue("@descricao", descricao);
+            comando.CommandText = _sql;
+
+            try
+            {
+                conexao.Open();
+                SqlDataReader dr = comando.ExecuteReader();
+                if (dr.Read())
+                {
+                    idItensVenda = dr[0].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void excluirItensVenda()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+
+            _sql = "delete from ItensVenda where id_Produto = " + dgv_ListaVenda.CurrentRow.Cells["ColCodProduto"].Value.ToString();
+
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+                MessageBox.Show("Item excluido!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
 
         int X = 0, Y = 0;
         private void PanelCabecalho_MouseDown(object sender, MouseEventArgs e)
@@ -863,8 +1023,10 @@ namespace sistemaControleVendas
             if (contLinhas > -1)
             {
                 DataGridViewRow linhas = dgv_ListaVenda.Rows[contLinhas];
-                CodVenda = linhas.Cells[0].Value.ToString();
-                descricao = linhas.Cells[1].Value.ToString();
+                CodVenda = linhas.Cells["ColCodVenda"].Value.ToString();
+                descricao = linhas.Cells["ColDescricao"].Value.ToString();
+                valorUnitario = decimal.Parse(linhas.Cells["ColValorUnitario"].Value.ToString());
+
             }
         }
     }
