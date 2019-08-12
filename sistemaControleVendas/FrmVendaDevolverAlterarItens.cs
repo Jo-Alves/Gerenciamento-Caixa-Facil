@@ -738,6 +738,7 @@ namespace sistemaControleVendas
 
         private void btnExcluirItem_Click(object sender, EventArgs e)
         {
+            ValorPago = decimal.Parse(dgv_ListaVenda.CurrentRow.Cells["ColValorUnitario"].Value.ToString());
             if (dgv_ListaVenda.Rows.Count > 1)
             {
                 if (dgv_ListaVenda.CurrentRow.Selected == true)
@@ -750,7 +751,7 @@ namespace sistemaControleVendas
                         {
                             if (ValorCaixa >= ValorPago)
                             {
-                                verificarPagamentos();
+                                verificarFormaPagamentos();
                                 excluirItensVenda();
 
                                 if (FormaPagamento == "VISTA")
@@ -763,7 +764,7 @@ namespace sistemaControleVendas
                                 dr = MessageBox.Show("O Valor a devolver para o cliente é maior que o valor que está em caixa no momento. Você deseja que retire o valor do caixa?", "Aviso do sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
                                 if (dr == DialogResult.Yes)
                                 {
-                                    verificarPagamentos();
+                                    verificarFormaPagamentos();
                                     excluirItensVenda();
 
                                     if (FormaPagamento == "VISTA")
@@ -773,7 +774,7 @@ namespace sistemaControleVendas
                                 }
                                 else if (dr == DialogResult.No)
                                 {
-                                    verificarPagamentos();
+                                    verificarFormaPagamentos();
                                     excluirItensVenda();
                                 }
                             }
@@ -784,7 +785,7 @@ namespace sistemaControleVendas
 
                             if (dr == DialogResult.Yes)
                             {
-                                verificarPagamentos();
+                                verificarFormaPagamentos();
                                 excluirItensVenda();
                             }
                         }
@@ -792,6 +793,7 @@ namespace sistemaControleVendas
                         AtualizarValorReceberPagamentoPrazoParcela();
                         AtualizarEstoque();
                         ListaTodasVendas();
+                        lblValorTotal.Text = "R$ " + subValoresTotalUnitario;
                         if (dgv_ListaVenda.Rows.Count == 0)
                         {
                             this.Close();
@@ -836,16 +838,28 @@ namespace sistemaControleVendas
 
         decimal subValoresTotalUnitario, valorParcela;
         int qtdParcela;
-        private void verificarPagamentos()
+        private void verificarFormaPagamentos()
         {
+            subValoresTotalUnitario = ValorVenda - valorUnitario;
             if (FormaPagamento == "PARCELADO")
-            {
-                subValoresTotalUnitario = ValorVenda - valorUnitario;
+            {                
                 verificarNumeroParcelas();
                 valorParcela = (subValoresTotalUnitario -  valorEntrada) / qtdParcela;
                 AlterarValoresParcelas();
+                AlterarValorVenda();                
+            }
+            else if (FormaPagamento == "PRAZO" || FormaPagamento == "VISTA")
+            {
+                valorParcela = subValoresTotalUnitario;
                 AlterarValorVenda();
-                lblValorTotal.Text = "R$ " + subValoresTotalUnitario;                
+            }
+            else if (FormaPagamento == "PARCIAL")
+            {
+
+            }
+            else
+            {
+
             }
         }
 
@@ -963,7 +977,7 @@ namespace sistemaControleVendas
             {
                 conexao.Open();
                 comando.ExecuteNonQuery();
-                MessageBox.Show("Item excluido!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Item devolvido!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
