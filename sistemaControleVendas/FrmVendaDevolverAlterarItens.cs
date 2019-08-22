@@ -185,10 +185,9 @@ namespace sistemaControleVendas
                     conexao.Open();
                     if (MaxCodVenda == 0)
                     {
-                        SqlDataReader dr = comando.ExecuteReader();
-                        if (dr.Read())
+                        if (comando.ExecuteScalar() != DBNull.Value)
                         {
-                            MaxCodVenda = int.Parse(dr["MaxCodVenda"].ToString());
+                            MaxCodVenda = int.Parse(comando.ExecuteScalar().ToString());
                         }
                     }
                     else
@@ -743,7 +742,7 @@ namespace sistemaControleVendas
             {
                 if (dgv_ListaVenda.CurrentRow.Selected == true)
                 {
-                    DialogResult dr = MessageBox.Show("Deseja mesmo excluir este item da venda?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução deste item?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
                     if (dr == DialogResult.Yes)
                     {
@@ -842,25 +841,30 @@ namespace sistemaControleVendas
         {
             subValoresTotalUnitario = ValorVenda - valorUnitario;
             if (FormaPagamento == "PARCELADO")
-            {                
+            {
                 verificarNumeroParcelas();
-                valorParcela = (subValoresTotalUnitario -  valorEntrada) / qtdParcela;
+                valorParcela = (subValoresTotalUnitario - valorEntrada) / qtdParcela;
                 AlterarValoresParcelas();
-                AlterarValorVenda();                
             }
             else if (FormaPagamento == "PRAZO" || FormaPagamento == "VISTA")
             {
                 valorParcela = subValoresTotalUnitario;
-                AlterarValorVenda();
             }
-            else if (FormaPagamento == "PARCIAL")
+            else if (FormaPagamento == "PAGAMENTO PARCIAL")
             {
-
+                subValorVendaValorAbatido = ((ValorRestante + valorAbatido) - valorUnitario) - valorAbatido;
+                if (subValorVendaValorAbatido < 0)
+                {
+                    MessageBox.Show("Deverá ser devolvido o valor de R$ " + (valorUnitario - ValorRestante) + "! Pois, o cliente tinha o valor restante em sua conta de R$ " + ValorRestante + " e abateu R$" + valorAbatido + ", e com o item devolvido no valor de R$ " + valorUnitario + " a conta do cliente zera e terá o direito de receber R$ " + (valorUnitario - ValorRestante) + " que é o valor que ultrapassou durante toda a transação da venda e devolução.", "Aviso do sistema Gerenciamento Caixa Fácil", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    subValorVendaValorAbatido = 0;
+                }
+                else
+                {
+                    MessageBox.Show("Com a devolução do(a) " + dgv_ListaVenda.CurrentRow.Cells["ColDescricao"].Value.ToString() + " o cliente passa a dever R$ " + subValorVendaValorAbatido, "Aviso do sistema Gerenciamento Caixa Fácil", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                AlterarValorRestantePagamentoParcial();
             }
-            else
-            {
-
-            }
+            AlterarValorVenda();
         }
 
         private void AlterarValorVenda()
