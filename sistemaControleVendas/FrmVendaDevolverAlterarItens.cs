@@ -17,7 +17,7 @@ namespace sistemaControleVendas
 
         int MaxCodVenda, IdPagamentoParcial;
 
-        decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda, valorEntrada, sumValorParcelado, valorUnitario, ValorCaixaInicial;
+        decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda, valorEntrada, sumValorParcelado, valorUnitario, ValorCaixaInicial, valorReceber;
 
         public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda, string codCliente, string dataVenda)
         {
@@ -49,6 +49,31 @@ namespace sistemaControleVendas
             else
             {
                 InformarValoresPagos();
+            }
+        }
+
+        private void BuscarValorReceberFluxCaixa()
+        {
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "select ValorReceber from FluxoCaixa where DataSaida = '' and HoraSaida = ''";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@IdVenda", CodVenda);
+            comando.CommandText = _sql;
+            try
+            {
+                conexao.Open();
+                if (comando.ExecuteScalar() != DBNull.Value)
+                {
+                    valorReceber = decimal.Parse(comando.ExecuteScalar().ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
             }
         }
 
@@ -246,6 +271,7 @@ namespace sistemaControleVendas
             ValorCaixa = (ValorCaixa + ValorCaixaInicial) - ValorSaida;
             dgv_ListaVenda.ClearSelection();
             ListaTodasVendas();
+            BuscarValorReceberFluxCaixa();
         }
 
         private void IdentificarFluxoCaixa()
@@ -293,7 +319,7 @@ namespace sistemaControleVendas
 
         string CodVenda = "", Cliente, FormaPagamento;
 
-        private void btnExcluirTudo_Click(object sender, EventArgs e)
+        private void btnDevolverTudo_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução do produto(s)?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
@@ -402,7 +428,7 @@ namespace sistemaControleVendas
             if (FormaPagamento == "PAGAMENTO PARCIAL")
             {
                 VerificarDataAbatimentoDataVenda();
-                subValorReceber = ValorVenda - ValorPagamento;
+                subValorReceber = valorReceber - (ValorVenda - valorAbatido);
                 AtualizarValorReceberPagamentoParcial();
             }
             else if (FormaPagamento == "PRAZO")
@@ -482,7 +508,7 @@ namespace sistemaControleVendas
             {
                 SqlConnection conexao = new SqlConnection(stringConn);
 
-                _sql = "update fluxoCaixa set ValorReceber = ValorReceber - @ValorReceber where DataSaida = '' and HoraSaida = ''";
+                _sql = "update fluxoCaixa set ValorReceber = @ValorReceber where DataSaida = '' and HoraSaida = ''";
 
                 SqlCommand comando = new SqlCommand(_sql, conexao);
                 comando.Parameters.AddWithValue("@ValorReceber", subValorReceber);
@@ -645,6 +671,11 @@ namespace sistemaControleVendas
             }
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void ExcluirTodosItensVenda()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
@@ -721,7 +752,7 @@ namespace sistemaControleVendas
             {
                 conexao.Open();
                 comando.ExecuteNonQuery();
-                MessageBox.Show("Item excluido!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Item alterado!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -735,9 +766,9 @@ namespace sistemaControleVendas
 
         // Excluir Item
 
-        private void btnExcluirItem_Click(object sender, EventArgs e)
+        private void btnDevolverItem_Click(object sender, EventArgs e)
         {
-            ValorPago = decimal.Parse(dgv_ListaVenda.CurrentRow.Cells["ColValorUnitario"].Value.ToString());
+           // ValorPago = decimal.Parse(dgv_ListaVenda.CurrentRow.Cells["ColValorUnitario"].Value.ToString());
             if (dgv_ListaVenda.Rows.Count > 1)
             {
                 if (dgv_ListaVenda.CurrentRow.Selected == true)
@@ -746,50 +777,60 @@ namespace sistemaControleVendas
 
                     if (dr == DialogResult.Yes)
                     {
-                        if (ValorCaixa > 0)
-                        {
-                            if (ValorCaixa >= ValorPago)
-                            {
+                        //if (ValorCaixa > 0)
+                        //{
+                        //    if (ValorCaixa >= ValorPago)
+                        //    {
+                        //        verificarFormaPagamentos();
+                        //        excluirItensVenda();
+
+                        //        if (FormaPagamento == "VISTA")
+                        //        {
+                        //            GerenciarFluxoCaixa();
+                        //        }
+                        //    }
+                        //    else
+                        //    {
+                        //        dr = MessageBox.Show("O Valor a devolver para o cliente é maior que o valor que está em caixa no momento. Você deseja que retire o valor do caixa?", "Aviso do sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
+                        //        if (dr == DialogResult.Yes)
+                        //        {
+                        //            verificarFormaPagamentos();
+                        //            excluirItensVenda();
+
+                        //            if (FormaPagamento == "VISTA")
+                        //            {
+                        //                GerenciarFluxoCaixa();
+                        //            }
+                        //        }
+                        //        else if (dr == DialogResult.No)
+                        //        {
+                        //            verificarFormaPagamentos();
+                        //            excluirItensVenda();
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    dr = MessageBox.Show("Informamos que não existe valores no caixa no momento. Os valores da venda não irá afetar o fluxo do caixa. Deseja continuar?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                        //    if (dr == DialogResult.Yes)
+                        //    {
                                 verificarFormaPagamentos();
                                 excluirItensVenda();
+                        //    }
+                        //}
 
-                                if (FormaPagamento == "VISTA")
-                                {
-                                    GerenciarFluxoCaixa();
-                                }
-                            }
-                            else
-                            {
-                                dr = MessageBox.Show("O Valor a devolver para o cliente é maior que o valor que está em caixa no momento. Você deseja que retire o valor do caixa?", "Aviso do sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
-                                if (dr == DialogResult.Yes)
-                                {
-                                    verificarFormaPagamentos();
-                                    excluirItensVenda();
-
-                                    if (FormaPagamento == "VISTA")
-                                    {
-                                        GerenciarFluxoCaixa();
-                                    }
-                                }
-                                else if (dr == DialogResult.No)
-                                {
-                                    verificarFormaPagamentos();
-                                    excluirItensVenda();
-                                }
-                            }
-                        }
-                        else
-                        {
-                            dr = MessageBox.Show("Informamos que não existe valores no caixa no momento. Os valores da venda não irá afetar o fluxo do caixa. Deseja continuar?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-                            if (dr == DialogResult.Yes)
-                            {
-                                verificarFormaPagamentos();
-                                excluirItensVenda();
-                            }
-                        }
                         subValorReceber = valorUnitario;
-                        AtualizarValorReceberPagamentoPrazoParcela();
+                        if (FormaPagamento == "PARCELADO" || FormaPagamento == "PRAZO")
+                        {
+                            AtualizarValorReceberPagamentoPrazoParcela();
+                        }
+                        else if (FormaPagamento == "PAGAMENTO PARCIAL")
+                        {
+                            subValorReceber = (valorReceber + valorAbatido) - valorUnitario - valorAbatido;
+                            VerificarDataAbatimentoDataVenda();
+                            AtualizarValorReceberPagamentoParcial();
+                        }
                         AtualizarEstoque();
                         ListaTodasVendas();
                         lblValorTotal.Text = "R$ " + subValoresTotalUnitario;
@@ -806,7 +847,7 @@ namespace sistemaControleVendas
             }
             else
             {
-                btnExcluirTudo_Click(sender, e);
+                btnDevolverTudo_Click(sender, e);
             }
         }
 
@@ -973,7 +1014,7 @@ namespace sistemaControleVendas
         {
             SqlConnection conexao = new SqlConnection(stringConn);
 
-            _sql = "delete from ItensVenda where id_Produto = " + dgv_ListaVenda.CurrentRow.Cells["ColCodProduto"].Value.ToString();
+            _sql = "delete from ItensVenda where id_Produto = " + dgv_ListaVenda.CurrentRow.Cells["ColCodProduto"].Value.ToString() + "and id_Venda = " + CodVenda;
 
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.CommandText = _sql;
