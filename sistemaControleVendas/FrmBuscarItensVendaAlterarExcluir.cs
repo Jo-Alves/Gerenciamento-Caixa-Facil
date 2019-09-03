@@ -122,8 +122,7 @@ namespace sistemaControleVendas
                 FormaPagamento = linhas.Cells["ColFormaPagamento"].Value.ToString();
                 dataVenda = linhas.Cells["ColDataVenda"].Value.ToString();
                 horaVenda = linhas.Cells["ColHoraVenda"].Value.ToString();
-                atendente = linhas.Cells["ColOperador"].Value.ToString();
-                
+                atendente = linhas.Cells["ColOperador"].Value.ToString();                
             }
         }
 

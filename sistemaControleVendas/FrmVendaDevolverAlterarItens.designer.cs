@@ -43,12 +43,6 @@
             this.btnExcluirTudo = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgv_ListaVenda = new System.Windows.Forms.DataGridView();
-            this.ColCodVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColCodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColValorUnitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColQuantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColDataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelCabecalho = new System.Windows.Forms.Panel();
             this.Lbl_Titulo = new System.Windows.Forms.Label();
             this.Lbl_Icone = new System.Windows.Forms.Label();
@@ -58,6 +52,12 @@
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
+            this.ColCodVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColCodProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColValorSubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColQuantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColDataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ListaVenda)).BeginInit();
@@ -85,7 +85,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(635, 533);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label2
             // 
@@ -204,7 +203,7 @@
             this.ColCodVenda,
             this.ColCodProduto,
             this.ColDescricao,
-            this.ColValorUnitario,
+            this.ColValorSubTotal,
             this.ColQuantidade,
             this.ColDataVenda});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -225,63 +224,6 @@
             this.dgv_ListaVenda.TabIndex = 0;
             this.dgv_ListaVenda.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ListaVenda_CellClick);
             this.dgv_ListaVenda.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_ListaVenda_DataBindingComplete);
-            // 
-            // ColCodVenda
-            // 
-            this.ColCodVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColCodVenda.DataPropertyName = "Id_Venda";
-            this.ColCodVenda.HeaderText = "Cod. Venda";
-            this.ColCodVenda.Name = "ColCodVenda";
-            this.ColCodVenda.ReadOnly = true;
-            this.ColCodVenda.Width = 107;
-            // 
-            // ColCodProduto
-            // 
-            this.ColCodProduto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColCodProduto.DataPropertyName = "Id_Produto";
-            this.ColCodProduto.HeaderText = "Cod. Produto";
-            this.ColCodProduto.Name = "ColCodProduto";
-            this.ColCodProduto.ReadOnly = true;
-            this.ColCodProduto.Width = 118;
-            // 
-            // ColDescricao
-            // 
-            this.ColDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColDescricao.DataPropertyName = "Descricao";
-            this.ColDescricao.HeaderText = "Descricao";
-            this.ColDescricao.Name = "ColDescricao";
-            this.ColDescricao.ReadOnly = true;
-            this.ColDescricao.Width = 95;
-            // 
-            // ColValorUnitario
-            // 
-            this.ColValorUnitario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColValorUnitario.DataPropertyName = "Valor";
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.ColValorUnitario.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColValorUnitario.HeaderText = "V. Unitário";
-            this.ColValorUnitario.Name = "ColValorUnitario";
-            this.ColValorUnitario.ReadOnly = true;
-            this.ColValorUnitario.Width = 99;
-            // 
-            // ColQuantidade
-            // 
-            this.ColQuantidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColQuantidade.DataPropertyName = "Quantidade";
-            this.ColQuantidade.HeaderText = "Quantidade";
-            this.ColQuantidade.Name = "ColQuantidade";
-            this.ColQuantidade.ReadOnly = true;
-            this.ColQuantidade.Width = 104;
-            // 
-            // ColDataVenda
-            // 
-            this.ColDataVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColDataVenda.DataPropertyName = "DataVenda";
-            this.ColDataVenda.HeaderText = "Data da Venda";
-            this.ColDataVenda.Name = "ColDataVenda";
-            this.ColDataVenda.ReadOnly = true;
-            this.ColDataVenda.Width = 124;
             // 
             // PanelCabecalho
             // 
@@ -375,6 +317,63 @@
             // 
             this.ContentPanel.Size = new System.Drawing.Size(150, 106);
             // 
+            // ColCodVenda
+            // 
+            this.ColCodVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColCodVenda.DataPropertyName = "Id_Venda";
+            this.ColCodVenda.HeaderText = "Cod. Venda";
+            this.ColCodVenda.Name = "ColCodVenda";
+            this.ColCodVenda.ReadOnly = true;
+            this.ColCodVenda.Width = 107;
+            // 
+            // ColCodProduto
+            // 
+            this.ColCodProduto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColCodProduto.DataPropertyName = "Id_Produto";
+            this.ColCodProduto.HeaderText = "Cod. Produto";
+            this.ColCodProduto.Name = "ColCodProduto";
+            this.ColCodProduto.ReadOnly = true;
+            this.ColCodProduto.Width = 118;
+            // 
+            // ColDescricao
+            // 
+            this.ColDescricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColDescricao.DataPropertyName = "Descricao";
+            this.ColDescricao.HeaderText = "Descricao";
+            this.ColDescricao.Name = "ColDescricao";
+            this.ColDescricao.ReadOnly = true;
+            this.ColDescricao.Width = 95;
+            // 
+            // ColValorSubTotal
+            // 
+            this.ColValorSubTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColValorSubTotal.DataPropertyName = "Valor";
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.ColValorSubTotal.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ColValorSubTotal.HeaderText = "V. SubTotal";
+            this.ColValorSubTotal.Name = "ColValorSubTotal";
+            this.ColValorSubTotal.ReadOnly = true;
+            this.ColValorSubTotal.Width = 105;
+            // 
+            // ColQuantidade
+            // 
+            this.ColQuantidade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColQuantidade.DataPropertyName = "Quantidade";
+            this.ColQuantidade.HeaderText = "Quantidade";
+            this.ColQuantidade.Name = "ColQuantidade";
+            this.ColQuantidade.ReadOnly = true;
+            this.ColQuantidade.Width = 104;
+            // 
+            // ColDataVenda
+            // 
+            this.ColDataVenda.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ColDataVenda.DataPropertyName = "DataVenda";
+            this.ColDataVenda.HeaderText = "Data da Venda";
+            this.ColDataVenda.Name = "ColDataVenda";
+            this.ColDataVenda.ReadOnly = true;
+            this.ColDataVenda.Width = 124;
+            // 
             // FrmVendaDevolverAlterarItens
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -422,7 +421,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColCodVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColCodProduto;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColDescricao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColValorUnitario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColValorSubTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColQuantidade;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColDataVenda;
     }
