@@ -775,6 +775,11 @@ namespace sistemaControleVendas
                 {
                     qtdItensDevolvido = devolverQuantidadeItens.qtdItens;
                 }
+                else
+                {
+                    MessageBox.Show("É necessário informar a quantidade de itens que vai ser devolvida.", "Aviso do sistema Gerenciamento Caixa Fácil", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
             }
             if (FormaPagamento == "VISTA")
             {
@@ -785,7 +790,7 @@ namespace sistemaControleVendas
             {
                 if (dgv_ListaVenda.CurrentRow.Selected == true)
                 {
-                    DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução do(a)" + descricao + " ?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução do(a) " + descricao + " ?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
                     if (dr == DialogResult.Yes)
                     {
@@ -828,8 +833,6 @@ namespace sistemaControleVendas
             {
                 subValorReceber = (valorReceber + valorAbatido) - valorSubTotal - valorAbatido;
                 VerificarDataAbatimentoDataVenda();
-                if (qtdItensDevolvido > 0 && qtdItensDevolvido < qtdItens)
-                    subValorReceber /= qtdItens;
                 if (valorReceber >= subValorReceber)
                     AtualizarValorReceberPagamentoParcial();
             }
@@ -847,7 +850,7 @@ namespace sistemaControleVendas
         {
             if(qtdItensDevolvido > 0 && qtdItensDevolvido < qtdItens)
             {
-                qtdItens -= qtdItensDevolvido;
+                qtdItens = qtdItensDevolvido;
             }
 
             SqlConnection conexao = new SqlConnection(stringConn);
@@ -881,6 +884,7 @@ namespace sistemaControleVendas
             if (qtdItensDevolvido == 0 || qtdItens == qtdItensDevolvido || qtdItens == 1)
             {
                 ValorVenda -= valorSubTotal;
+                subValoresTotalUnitario = valorSubTotal;
             }
             else
             {
@@ -908,6 +912,9 @@ namespace sistemaControleVendas
             }
             else if (FormaPagamento == "PAGAMENTO PARCIAL")
             {
+                if (qtdItensDevolvido > 0 && qtdItensDevolvido < qtdItens)
+                    valorSubTotal -= subValoresTotalUnitario;
+
                 subValorVendaValorAbatido = ((ValorRestante + valorAbatido) - valorSubTotal) - valorAbatido;
                 if (subValorVendaValorAbatido < 0)
                 {
