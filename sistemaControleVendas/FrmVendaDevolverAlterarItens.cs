@@ -707,61 +707,7 @@ namespace sistemaControleVendas
 
         }
 
-        private void btnAlterarItem_Click(object sender, EventArgs e)
-        {
-            if (dgv_ListaVenda.CurrentRow.Selected == true)
-            {
-                FrmPesquisarProdutos pesquisarProdutos = new FrmPesquisarProdutos();
-                pesquisarProdutos.ShowDialog();
-                if (!string.IsNullOrEmpty(pesquisarProdutos.ID_PRODUTO))
-                {
-                    DialogResult dr = MessageBox.Show("Deseja mesmo alterar o produto " + descricao + " por " + pesquisarProdutos.Descricao + "?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-                    if (dr == DialogResult.Yes)
-                    {
-                        idProduto = pesquisarProdutos.ID_PRODUTO;
-                        lucroItens = decimal.Parse(pesquisarProdutos.Lucro);
-                        Valor = decimal.Parse(pesquisarProdutos.ValorVenda);
-                        BuscarIdItensVenda();
-                        alterarItensVenda();
-                        ListaTodasVendas();
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Selecione o item para alterar!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-
-
-        private void alterarItensVenda()
-        {
-            SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "update ItensVenda set id_Produto = @idProduto, Valor = @Valor, lucroItens = @lucroItens  where id_ItensVenda = @IdItensVenda";
-            SqlCommand comando = new SqlCommand(_sql, conexao);
-            comando.Parameters.AddWithValue("@IdProduto", idProduto);
-            comando.Parameters.AddWithValue("@IdItensVenda", idItensVenda);
-            comando.Parameters.AddWithValue("@valor", Valor);
-            comando.Parameters.AddWithValue("@lucroItens", lucroItens);
-            comando.CommandText = _sql;
-            try
-            {
-                conexao.Open();
-                comando.ExecuteNonQuery();
-                MessageBox.Show("Item alterado!", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
-
-        // Excluir Item
+       // Excluir Item
 
         private void btnDevolverItem_Click(object sender, EventArgs e)
         {
@@ -831,10 +777,14 @@ namespace sistemaControleVendas
             }
             else if (FormaPagamento == "PAGAMENTO PARCIAL")
             {
-                subValorReceber = (valorReceber + valorAbatido) - valorSubTotal - valorAbatido;
+                subValorReceber = (valorReceber + valorAbatido) - ((valorSubTotal / qtdItens) * qtdItensDevolvido) - valorAbatido;
                 VerificarDataAbatimentoDataVenda();
                 if (valorReceber >= subValorReceber)
                     AtualizarValorReceberPagamentoParcial();
+            }
+            else if (FormaPagamento == "VISTA")
+            {
+                GerenciarFluxoCaixa();
             }
 
             AtualizarEstoque();
@@ -888,8 +838,9 @@ namespace sistemaControleVendas
             }
             else
             {
-                subValoresTotalUnitario = valorSubTotal - (valorSubTotal / qtdItens);
-                ValorVenda = subValoresTotalUnitario + (ValorVenda - valorSubTotal);
+                subValoresTotalUnitario = valorSubTotal - ((valorSubTotal / qtdItens) * qtdItensDevolvido);
+                //ValorVenda = (valorSubTotal - (valorSubTotal * qtdItensDevolvido)) + (ValorVenda - valorSubTotal);
+                ValorVenda =(ValorVenda - ((valorSubTotal / qtdItens) * qtdItensDevolvido));
             }
 
             if (FormaPagamento == "PARCELADO")
@@ -906,16 +857,24 @@ namespace sistemaControleVendas
                     ExcluirParcelas();
                 }
             }
-            else if (FormaPagamento == "PRAZO" || FormaPagamento == "VISTA")
+            else if (FormaPagamento == "PRAZO")
             {
-                valorParcela = subValoresTotalUnitario;
+                valorParcela = subValoresTotalUnitario;               
+            }
+            else if (FormaPagamento == "VISTA")
+            {
+                ValorPago = subValoresTotalUnitario;
+                //ValorVenda -= subValoresTotalUnitario;
             }
             else if (FormaPagamento == "PAGAMENTO PARCIAL")
             {
-                if (qtdItensDevolvido > 0 && qtdItensDevolvido < qtdItens)
-                    valorSubTotal -= subValoresTotalUnitario;
+                //if (qtdItensDevolvido > 0 && qtdItensDevolvido < qtdItens)
+                //    valorSubTotal -= subValoresTotalUnitario;
 
-                subValorVendaValorAbatido = ((ValorRestante + valorAbatido) - valorSubTotal) - valorAbatido;
+                //subValorVendaValorAbatido = ((ValorRestante + valorAbatido) - valorSubTotal) - valorAbatido;
+
+                subValorVendaValorAbatido = ((ValorRestante + valorAbatido) - (valorSubTotal / qtdItens * qtdItensDevolvido) - valorAbatido);
+
                 if (subValorVendaValorAbatido < 0)
                 {
                     MessageBox.Show("Deverá ser devolvido o valor de R$ " + (valorSubTotal - ValorRestante) + "! Pois, o cliente tinha o valor restante em sua conta de R$ " + ValorRestante + " e abateu R$" + valorAbatido + ", e com o item devolvido no valor de R$ " + valorSubTotal + " a conta do cliente zera e terá o direito de receber R$ " + (valorSubTotal - ValorRestante) + " que é o valor que ultrapassou durante toda a transação da venda e devolução.", "Aviso do sistema Gerenciamento Caixa Fácil", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1066,7 +1025,7 @@ namespace sistemaControleVendas
                 }
                 else
                 {
-                    _sql = "update ItensVenda set Quantidade = Quantidade - " + qtdItensDevolvido + ", Valor = Valor - (Valor / " + qtdItens + ") where id_Produto = " + dgv_ListaVenda.CurrentRow.Cells["ColCodProduto"].Value.ToString() + "and id_Venda = " + CodVenda;
+                    _sql = "update ItensVenda set Quantidade = Quantidade - " + qtdItensDevolvido + ", Valor = Valor - ((Valor / " + qtdItens + ") * " + qtdItensDevolvido + ") where id_Produto = " + dgv_ListaVenda.CurrentRow.Cells["ColCodProduto"].Value.ToString() + "and id_Venda = " + CodVenda;
                 }
             }
             else
