@@ -42,5 +42,20 @@ namespace sistemaControleVendas
             qtdItens = int.Parse(ndQtd.Value.ToString());
             this.Close();
         }
+
+        int X, Y;
+        private void FrmDevolverQuantidadeItens_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left) return;
+            X = this.Left - MousePosition.X;
+            Y = this.Top - MousePosition.Y;
+        }
+
+        private void FrmDevolverQuantidadeItens_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left) return;
+            this.Left = X + MousePosition.X;
+            this.Top = Y + MousePosition.Y;
+        }
     }
 }

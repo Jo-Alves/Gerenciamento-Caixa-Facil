@@ -95,6 +95,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmDevolverQuantidadeItens";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmDevolverQuantidadeItens_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmDevolverQuantidadeItens_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.ndQtd)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

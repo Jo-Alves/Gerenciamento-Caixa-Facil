@@ -761,8 +761,15 @@ namespace sistemaControleVendas
 
         private void menuAlterardevolverItensVenda_Click(object sender, EventArgs e)
         {
-            FrmBuscarItensVendaAlterarExcluir alterarExcluirVenda = new FrmBuscarItensVendaAlterarExcluir();
-            alterarExcluirVenda.ShowDialog();
+            if (ListaTodasVendas() == "true")
+            {
+                FrmBuscarItensVendaAlterarExcluir alterarExcluirVenda = new FrmBuscarItensVendaAlterarExcluir();
+                alterarExcluirVenda.ShowDialog();
+            }
+            else if (ListaTodasVendas() == "false")
+            {
+                MessageBox.Show("Não há vendas realizadas.", "Mensagem do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void menuVendasNãoContablizadas_Click(object sender, EventArgs e)

@@ -17,7 +17,7 @@ namespace sistemaControleVendas
 
         int MaxCodVenda, IdPagamentoParcial, qtdItens, qtdItensDevolvido;
 
-        decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda, valorEntrada, sumValorParcelado, valorSubTotal, ValorCaixaInicial, valorReceber;
+        decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda, valorEntrada, sumValorParcelado, valorSubTotal, ValorCaixaInicial, valorReceber, ValorRecebidoDebito;
 
         public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda, string codCliente, string dataVenda)
         {
@@ -46,7 +46,7 @@ namespace sistemaControleVendas
                 valorEntrada = this.ValorVenda - sumValorParcelado;
                 ValorPago += valorEntrada;
             }
-            else
+            else if((FormaPagamento == "PRAZO"))
             {
                 InformarValoresPagos();
             }
@@ -329,7 +329,7 @@ namespace sistemaControleVendas
                 {
                     if (ValorCaixa >= ValorPago)
                     {
-                        AlterarValoresPagamentoParcial_E_Parcelado();
+                        AlterarValoresPagamentoParcial_Parcelado();
                         verificarDataPagamento_E_AtualizarValoresFluxoCaixa();
                         ExcluirTodosItensVenda();
                         GerenciarFluxoCaixa();
@@ -339,14 +339,14 @@ namespace sistemaControleVendas
                         dr = MessageBox.Show("O Valor a devolver para o cliente é maior que o valor que está em caixa no momento. Você deseja que retire o valor do caixa?", "Aviso do sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
                         if (dr == DialogResult.Yes)
                         {
-                            AlterarValoresPagamentoParcial_E_Parcelado();
+                            AlterarValoresPagamentoParcial_Parcelado();
                             verificarDataPagamento_E_AtualizarValoresFluxoCaixa();
                             ExcluirTodosItensVenda();
                             GerenciarFluxoCaixa();
                         }
                         else if (dr == DialogResult.No)
                         {
-                            AlterarValoresPagamentoParcial_E_Parcelado();
+                            AlterarValoresPagamentoParcial_Parcelado();
                             verificarDataPagamento_E_AtualizarValoresFluxoCaixa();
                             ExcluirTodosItensVenda(); ;
                         }
@@ -358,7 +358,7 @@ namespace sistemaControleVendas
 
                     if (dr == DialogResult.Yes)
                     {
-                        AlterarValoresPagamentoParcial_E_Parcelado();
+                        AlterarValoresPagamentoParcial_Parcelado();
                         verificarDataPagamento_E_AtualizarValoresFluxoCaixa();
                         ExcluirTodosItensVenda();
                     }
@@ -397,7 +397,7 @@ namespace sistemaControleVendas
         }
 
         decimal subValorVendaValorAbatido, subValorReceber;
-        private void AlterarValoresPagamentoParcial_E_Parcelado()
+        private void AlterarValoresPagamentoParcial_Parcelado()
         {
             if (FormaPagamento == "PAGAMENTO PARCIAL")
             {
@@ -436,12 +436,43 @@ namespace sistemaControleVendas
             {
                 subValorReceber = ValorVenda;
             }
+            else if (FormaPagamento == "Cartão de Débito")
+            {
+                ValorRecebidoDebito = ValorVenda;
+                AtualizarValorRecebidoDebito();
+            }
             else
             {
                 subValorReceber = ValorVenda - ValorPago;
             }
             if (valorReceber >= subValorReceber)
                 AtualizarValorReceberPagamentoPrazoParcela();
+        }
+
+        private void AtualizarValorRecebidoDebito()
+        {
+            if (dataVenda == DateTime.Now.ToShortDateString())
+            {
+                SqlConnection conexao = new SqlConnection(stringConn);
+                _sql = "update FluxoCaixa set valorRecebidoDebito =  valorRecebidoDebito - @Valor where DataSaida = '' and HoraSaida = ''";
+
+                SqlCommand comando = new SqlCommand(_sql, conexao);
+                comando.Parameters.AddWithValue("@Valor", ValorRecebidoDebito);
+                comando.CommandText = _sql;
+                try
+                {
+                    conexao.Open();
+                    comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    conexao.Close();
+                }
+            }
         }
 
         private void AtualizarValorReceberPagamentoPrazoParcela()
@@ -775,6 +806,13 @@ namespace sistemaControleVendas
                 if (valorReceber >= subValorReceber)
                     AtualizarValorReceberPagamentoPrazoParcela();
             }
+            else if (FormaPagamento == "Cartão de Débito")
+            {
+                if (qtdItensDevolvido == 0)
+                    qtdItensDevolvido = qtdItens;
+                ValorRecebidoDebito = ((valorSubTotal / qtdItens) * qtdItensDevolvido);
+                AtualizarValorRecebidoDebito();
+            }
             else if (FormaPagamento == "PAGAMENTO PARCIAL")
             {
                 subValorReceber = (valorReceber + valorAbatido) - ((valorSubTotal / qtdItens) * qtdItensDevolvido) - valorAbatido;
@@ -839,7 +877,6 @@ namespace sistemaControleVendas
             else
             {
                 subValoresTotalUnitario = valorSubTotal - ((valorSubTotal / qtdItens) * qtdItensDevolvido);
-                //ValorVenda = (valorSubTotal - (valorSubTotal * qtdItensDevolvido)) + (ValorVenda - valorSubTotal);
                 ValorVenda =(ValorVenda - ((valorSubTotal / qtdItens) * qtdItensDevolvido));
             }
 
@@ -864,15 +901,9 @@ namespace sistemaControleVendas
             else if (FormaPagamento == "VISTA")
             {
                 ValorPago = subValoresTotalUnitario;
-                //ValorVenda -= subValoresTotalUnitario;
             }
             else if (FormaPagamento == "PAGAMENTO PARCIAL")
             {
-                //if (qtdItensDevolvido > 0 && qtdItensDevolvido < qtdItens)
-                //    valorSubTotal -= subValoresTotalUnitario;
-
-                //subValorVendaValorAbatido = ((ValorRestante + valorAbatido) - valorSubTotal) - valorAbatido;
-
                 subValorVendaValorAbatido = ((ValorRestante + valorAbatido) - (valorSubTotal / qtdItens * qtdItensDevolvido) - valorAbatido);
 
                 if (subValorVendaValorAbatido < 0)
