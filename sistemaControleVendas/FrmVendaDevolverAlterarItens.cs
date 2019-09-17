@@ -304,7 +304,7 @@ namespace sistemaControleVendas
             try
             {
                 SqlConnection conexao = new SqlConnection(stringConn);
-                _sql = "select Venda.Id_Venda, ItensVenda.Id_Produto, produto.Descricao, ItensVenda.Valor, ItensVenda.Quantidade, Venda.DataVenda from Cliente inner join venda on Venda.Id_Cliente = Cliente.Id_Cliente inner join ItensVenda on ItensVenda.Id_Venda = Venda.Id_Venda inner join Produto on Produto.Id_Produto = ItensVenda.Id_Produto where Venda.Id_Venda = " + CodVenda;
+                _sql = "select ItensVenda.id_ItensVenda, ItensVenda.Id_Produto, produto.Descricao, ItensVenda.Valor, ItensVenda.Quantidade, ItensVenda.lucroItens, Venda.DataVenda from Cliente inner join venda on Venda.Id_Cliente = Cliente.Id_Cliente inner join ItensVenda on ItensVenda.Id_Venda = Venda.Id_Venda inner join Produto on Produto.Id_Produto = ItensVenda.Id_Produto where Venda.Id_Venda = " + CodVenda;
                 SqlDataAdapter comando = new SqlDataAdapter(_sql, conexao);
                 comando.SelectCommand.CommandText = _sql;
                 DataTable Tabela = new DataTable();
@@ -882,15 +882,15 @@ namespace sistemaControleVendas
 
             if (FormaPagamento == "PARCELADO")
             {
-                if (valorEntrada < ValorVenda)
+                if ((ValorPago) < ValorVenda)
                 {
                     verificarNumeroParcelas();
-                    valorParcela = (ValorVenda - valorEntrada) / qtdParcela;
+                    valorParcela = (ValorVenda - (ValorPago)) / qtdParcela;
                     AlterarValoresParcelas();
                 }
                 else
                 {
-                    MessageBox.Show("O cliente no início da compra, deu o valor de entrada de " + valorEntrada + ", e com devolução do{s} produto(s) e na contabilização dos valores da venda, fica constatado que o cliente tem o direito de receber " + (valorEntrada - ValorVenda) + ". A partir deste momento a conta do cliente zera.", "Aviso do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Informamos que o cliente pagou R$ " + ValorPago + " reais, e com devolução do{s} produto(s) pela contabilização dos valores da venda com tudo que já foi pago, fica constatado que o cliente tem o direito de receber " + (ValorPago - ValorVenda) + ". A partir deste momento a conta do cliente zera.", "Aviso do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ExcluirParcelas();
                 }
             }
@@ -917,7 +917,36 @@ namespace sistemaControleVendas
                 }
                 AlterarValorRestantePagamentoParcial();
             }
-            AlterarValorVenda();
+            AlterarLucroItens();
+            AlterarValor_E_LucroVenda();
+        }
+
+        private void AlterarLucroItens()
+        {
+            if(qtdItensDevolvido == 0)
+            {
+                qtdItensDevolvido = qtdItens;
+            }
+            SqlConnection conexao = new SqlConnection(stringConn);
+            _sql = "update ItensVenda set lucroItens = lucroItens - @LucroItens where id_ItensVenda = @idItensVenda";
+            SqlCommand comando = new SqlCommand(_sql, conexao);
+            comando.Parameters.AddWithValue("@idItensVenda", dgv_ListaVenda.CurrentRow.Cells["ColIdItensVenda"].Value);
+            comando.Parameters.AddWithValue("@LucroItens", ((lucroItens / qtdItens) * qtdItensDevolvido));
+            comando.CommandText = _sql;
+
+            try
+            {
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
 
         private void ExcluirParcelas()
@@ -943,13 +972,14 @@ namespace sistemaControleVendas
             }
         }
 
-        private void AlterarValorVenda()
+        private void AlterarValor_E_LucroVenda()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "update Venda set ValorTotal = @ValorTotal where id_Venda = @idVenda";
+            _sql = "update Venda set ValorTotal = @ValorTotal, Lucro = Lucro - @Lucro where id_Venda = @idVenda";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.Parameters.AddWithValue("@idVenda", CodVenda);
             comando.Parameters.AddWithValue("@ValorTotal", ValorVenda);
+            comando.Parameters.AddWithValue("@Lucro", ((lucroItens / qtdItens) * qtdItensDevolvido));
             comando.CommandText = _sql;
 
             try
@@ -994,7 +1024,7 @@ namespace sistemaControleVendas
         private void verificarNumeroParcelas()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "select count(Parcela) from ParcelaVenda where id_Venda = @idVenda";
+            _sql = "select count(Parcela) from ParcelaVenda where id_Venda = @idVenda and DataPagamento = '' and HoraPagamento = ''";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.Parameters.AddWithValue("@idVenda", CodVenda);
             comando.CommandText = _sql;
@@ -1129,10 +1159,10 @@ namespace sistemaControleVendas
             if (contLinhas > -1)
             {
                 DataGridViewRow linhas = dgv_ListaVenda.Rows[contLinhas];
-                CodVenda = linhas.Cells["ColCodVenda"].Value.ToString();
                 descricao = linhas.Cells["ColDescricao"].Value.ToString();
                 qtdItens = int.Parse(linhas.Cells["ColQuantidade"].Value.ToString());
                 valorSubTotal = decimal.Parse(linhas.Cells["ColValorSubTotal"].Value.ToString());
+                lucroItens = decimal.Parse(linhas.Cells["ColLucroItens"].Value.ToString());
             }
         }
     }
