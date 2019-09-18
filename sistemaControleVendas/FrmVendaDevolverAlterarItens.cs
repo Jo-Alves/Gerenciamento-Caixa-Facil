@@ -15,7 +15,7 @@ namespace sistemaControleVendas
     {
         string stringConn = ClassSeguranca.Descriptografar("9UUEoK5YaRarR0A3RhJbiLUNDsVR7AWUv3GLXCm6nqT787RW+Zpgc9frlclEXhdH70DIx06R57s6u2h3wX/keyP3k/xHE/swBoHi4WgOI3vX3aocmtwEi2KpDD1I0/s3"), _sql, descricao, idItensVenda, idProduto, idFluxoCaixa, codCliente, dataVenda;
 
-        int MaxCodVenda, IdPagamentoParcial, qtdItens, qtdItensDevolvido;
+        int MaxCodVenda, IdPagamentoParcial, qtdItens, qtdItensDevolvido = 1;
 
         decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda, valorEntrada, sumValorParcelado, valorSubTotal, ValorCaixaInicial, valorReceber, ValorRecebidoDebito;
 
@@ -320,7 +320,7 @@ namespace sistemaControleVendas
         string CodVenda = "", Cliente, FormaPagamento;
 
         private void btnDevolverTudo_Click(object sender, EventArgs e)
-        {
+        {            
             DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução do produto(s)?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
             if (dr == DialogResult.Yes)
@@ -486,7 +486,7 @@ namespace sistemaControleVendas
                     _sql = "update fluxoCaixa set ValorReceber = ValorReceber - @ValorReceber where DataSaida = '' and HoraSaida = ''";
 
                     SqlCommand comando = new SqlCommand(_sql, conexao);
-                    comando.Parameters.AddWithValue("@ValorReceber", subValorReceber);
+                    comando.Parameters.AddWithValue("@ValorReceber", ((valorSubTotal / qtdItens) * qtdItensDevolvido));
                     comando.CommandText = _sql;
                     try
                     {
@@ -800,16 +800,10 @@ namespace sistemaControleVendas
             subValorReceber = valorSubTotal;
             if (FormaPagamento == "PARCELADO" || FormaPagamento == "PRAZO")
             {
-                if (valorEntrada < ValorVenda)
-                    if (qtdItensDevolvido > 0 && qtdItensDevolvido < qtdItens)
-                        subValorReceber /= qtdItens;
-                if (valorReceber >= subValorReceber)
-                    AtualizarValorReceberPagamentoPrazoParcela();
+                AtualizarValorReceberPagamentoPrazoParcela();
             }
             else if (FormaPagamento == "Cartão de Débito")
             {
-                if (qtdItensDevolvido == 0)
-                    qtdItensDevolvido = qtdItens;
                 ValorRecebidoDebito = ((valorSubTotal / qtdItens) * qtdItensDevolvido);
                 AtualizarValorRecebidoDebito();
             }
@@ -923,10 +917,6 @@ namespace sistemaControleVendas
 
         private void AlterarLucroItens()
         {
-            if(qtdItensDevolvido == 0)
-            {
-                qtdItensDevolvido = qtdItens;
-            }
             SqlConnection conexao = new SqlConnection(stringConn);
             _sql = "update ItensVenda set lucroItens = lucroItens - @LucroItens where id_ItensVenda = @idItensVenda";
             SqlCommand comando = new SqlCommand(_sql, conexao);
@@ -952,9 +942,11 @@ namespace sistemaControleVendas
         private void ExcluirParcelas()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "delete from ParcelaVenda where id_Venda = @idVenda";
+            _sql = "update ParcelaVenda set DataPagamento = @DataPagamento, HoraPagamento = @HoraPagamento where id_Venda = @idVenda and DataPagamento = '' and HoraPagamento = ''";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.Parameters.AddWithValue("@idVenda", CodVenda);
+            comando.Parameters.AddWithValue("@DataPagamento", DateTime.Now.ToShortDateString());
+            comando.Parameters.AddWithValue("@HoraPagamento", DateTime.Now.ToShortTimeString());
             comando.CommandText = _sql;
 
             try
@@ -1000,7 +992,7 @@ namespace sistemaControleVendas
         private void AlterarValoresParcelas()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "update ParcelaVenda set valorParcelado = @ValorParcela where id_Venda = @idVenda";
+            _sql = "update ParcelaVenda set valorParcelado = @ValorParcela where id_Venda = @idVenda and DataPagamento = '' and HoraPagamento = ''";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.Parameters.AddWithValue("@idVenda", CodVenda);
             comando.Parameters.AddWithValue("@ValorParcela", valorParcela);

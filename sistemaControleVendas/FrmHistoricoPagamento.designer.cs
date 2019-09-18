@@ -342,7 +342,6 @@
             this.Name = "FrmHistoricoPagamento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Histórico de pagamento";
-            this.Load += new System.EventHandler(this.FrmListavenda_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmHistoricoPagamento_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

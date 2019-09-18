@@ -39,12 +39,6 @@ namespace sistemaControleVendas
             }
         }
 
-        private void FrmListavenda_Load(object sender, EventArgs e)
-        {
-            MostrarHistoricoPagamento();
-            cbFormaPagamento.Text = "Parcial";
-        }
-
         int idVenda, idPagamentoParcial; decimal ValorRestante, ValorAbatido;
         private void informarValorVendaParcial()
         {
