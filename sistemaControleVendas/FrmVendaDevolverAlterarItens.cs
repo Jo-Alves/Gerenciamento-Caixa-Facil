@@ -884,7 +884,8 @@ namespace sistemaControleVendas
                 }
                 else
                 {
-                    MessageBox.Show("Informamos que o cliente pagou R$ " + ValorPago + " reais, e com devolução do{s} produto(s) pela contabilização dos valores da venda com tudo que já foi pago, fica constatado que o cliente tem o direito de receber " + (ValorPago - ValorVenda) + ". A partir deste momento a conta do cliente zera.", "Aviso do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    decimal subValorPagoValorVenda = ValorPago - ValorVenda;
+                    MessageBox.Show("Informamos que o cliente pagou R$ " + Math.Ceiling(ValorPago).ToString("0.00") + " reais, e com devolução do{s} produto(s) pela contabilização dos valores da venda com tudo que já foi pago, fica constatado que o cliente tem o direito de receber R$" + Math.Ceiling(subValorPagoValorVenda).ToString("0.00") + ". A partir deste momento a conta do cliente zera.", "Aviso do sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ExcluirParcelas();
                 }
             }
