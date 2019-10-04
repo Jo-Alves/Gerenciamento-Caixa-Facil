@@ -19,6 +19,8 @@ namespace sistemaControleVendas
 
         decimal Valor, lucroItens, ValorPago, ValorRestante, valorAbatido, ValorTotalPagamentoParcial, ValorVenda, valorEntrada, sumValorParcelado, valorSubTotal, ValorCaixaInicial, valorReceber, ValorRecebidoDebito;
 
+        bool devolucaoItensTudo = false;
+
         public FrmVendaDevolverAlterarItens(string CodVenda, string Cliente, string FormaPagamento, string ValorVenda, string codCliente, string dataVenda)
         {
             InitializeComponent();
@@ -320,7 +322,8 @@ namespace sistemaControleVendas
         string CodVenda = "", Cliente, FormaPagamento;
 
         private void btnDevolverTudo_Click(object sender, EventArgs e)
-        {            
+        {
+            devolucaoItensTudo = true;
             DialogResult dr = MessageBox.Show("Deseja mesmo aceitar a devolução do produto(s)?", "Aviso do sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
             if (dr == DialogResult.Yes)
@@ -629,7 +632,10 @@ namespace sistemaControleVendas
             SqlCommand comando = new SqlCommand(_sql, conexao);
             if (ValorCaixa >= ValorPago)
             {
+                if(devolucaoItensTudo)
                 comando.Parameters.AddWithValue("@Valor", ValorPago);
+                else
+                    comando.Parameters.AddWithValue("@Valor", (valorSubTotal / qtdItens) * qtdItensDevolvido);
             }
             else
             {
@@ -742,6 +748,7 @@ namespace sistemaControleVendas
 
         private void btnDevolverItem_Click(object sender, EventArgs e)
         {
+            devolucaoItensTudo = false;
             if (qtdItens >= 2)
             {
                 MessageBox.Show("Informe a quantidade de itens que vai ser devolvida.", "Aviso do sistema Gerenciamento Caixa Fácil", MessageBoxButtons.OK, MessageBoxIcon.Information);
