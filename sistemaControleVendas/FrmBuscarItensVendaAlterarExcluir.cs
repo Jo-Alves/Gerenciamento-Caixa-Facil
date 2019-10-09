@@ -71,7 +71,7 @@ namespace sistemaControleVendas
         {
             if (string.IsNullOrEmpty(CodVenda))
             {
-                MessageBox.Show(@"Selecione a Venda que deseja alterar\excluir!", "Aviso do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(@"Selecione a Venda que será devolvida\alterada!", "Aviso do sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {

@@ -279,16 +279,15 @@ namespace sistemaControleVendas
         private void IdentificarFluxoCaixa()
         {
             SqlConnection conexao = new SqlConnection(stringConn);
-            _sql = "Select Id_Fluxo from FluxoCaixa where DataSaida = '' and HoraSaida = ''";
+            _sql = "Select max(Id_Fluxo) from FluxoCaixa";
             SqlCommand comando = new SqlCommand(_sql, conexao);
             comando.CommandText = _sql;
             try
             {
                 conexao.Open();
-                SqlDataReader dr = comando.ExecuteReader();
-                if (dr.Read())
+               if(comando.ExecuteScalar() != DBNull.Value)                
                 {
-                    idFluxoCaixa = dr["Id_Fluxo"].ToString();
+                    idFluxoCaixa = comando.ExecuteScalar().ToString();
                 }
             }
             catch (Exception ex)

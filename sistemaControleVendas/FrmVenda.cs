@@ -15,7 +15,7 @@ namespace sistemaControleVendas
 {
     public partial class FrmVenda : Form
     {
-	string AreaAtuacao, opcao = "Ckecked = true", CodigoBarra, Descontar = "Sim", Prazo;
+	string AreaAtuacao, opcao = "true", CodigoBarra, Descontar = "Sim", Prazo;
         string HoraVenda, NomeFantasia, Cidade, Numero, Endereco, CNPJ, Telefone, Estado, Bairro;
 	int Id_Usuario, X = 0, Y = 0, EstoqueMinimo, Quantidade, Parcela, Nparcelas = 1;
 	decimal ValorPago, ValorCaixa,valorNCaixa, descontoDinheiro, DescontoPorcento, ValorDescontoPorcento, ValorDesconto;
@@ -245,13 +245,13 @@ namespace sistemaControleVendas
 
                     switch (opcao)
                     {
-                        case "Ckecked = true":
+                        case "true":
                             cbOpcao.Checked = true;
-                            opcao = "Ckecked = false";
+                            opcao = "false";
                             break;
-                        case "Ckecked = false":
+                        case "false":
                             cbOpcao.Checked = false;
-                            opcao = "Ckecked = true";
+                            opcao = "true";
                             break;
                     }
                 }
@@ -864,6 +864,17 @@ namespace sistemaControleVendas
             txt_CodigoVenda.Enabled = true;
             id_Cliente = "1";
             LucroTotal = 0.00m;
+            ValorPago = 0.00m;
+            ValorCaixa = 0.00m;
+            valorNCaixa = 0.00m;
+            descontoDinheiro = 0.00m;
+            DescontoPorcento = 0.00m;
+            ValorDescontoPorcento = 0.00m;
+            ValorDesconto = 0.00m;
+            valorParcelas = 0.00m;
+            ValorRestante = 0.00m;
+            ValorAbatido = 0.00m;
+            Valor = 0.00m;
         }
 
         private void Sair()

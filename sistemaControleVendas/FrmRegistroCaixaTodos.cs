@@ -42,7 +42,7 @@ namespace sistemaControleVendas
             comando.Fill(Tabela);
             if (Tabela.Rows.Count > 0)
             {
-                FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa(Data, Usuario);
+                FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa(Data, Usuario, "");
                 fechamentoCaixa.ShowDialog();
             }
             else

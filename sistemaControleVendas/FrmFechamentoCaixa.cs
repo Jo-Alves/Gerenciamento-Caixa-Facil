@@ -13,12 +13,17 @@ namespace sistemaControleVendas
 {
     public partial class FrmFechamentoCaixa : Form
     {
-        public FrmFechamentoCaixa(string Data, string Usuario)
+        public FrmFechamentoCaixa(string Data, string Usuario, string Funcao)
         {
             InitializeComponent();
             this.Usuario = Usuario;
             this.Data = Data;
-           
+            if (Funcao != "ADMINISTRADOR")
+            {
+                txtValorCaixa.Visible = false;
+                lblValorCaixa.Visible = false;
+            }
+
         }
 
         string Usuario, Data;

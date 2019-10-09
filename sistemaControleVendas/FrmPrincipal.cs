@@ -426,7 +426,7 @@ namespace sistemaControleVendas
         {
             if (SituacaoCaixa() == true)
             {
-                FrmFechamentoCaixa FechamentoCaixa = new FrmFechamentoCaixa("", "");
+                FrmFechamentoCaixa FechamentoCaixa = new FrmFechamentoCaixa("", "", Funcao);
                 FechamentoCaixa.ShowDialog();
             }
             else

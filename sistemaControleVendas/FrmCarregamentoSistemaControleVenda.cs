@@ -194,6 +194,7 @@ namespace sistemaControleVendas
                 "[ValorPago] DECIMAL(18, 2) NULL," +
                 "[Status] VARCHAR(10)    NULL," +
                 "PRIMARY KEY CLUSTERED([Id] ASC));" +
+                "" +
                 "CREATE TABLE[dbo].[Empresa](" +
                 "" +
                 "[Id_Empresa] INT           NOT NULL," +
@@ -303,7 +304,7 @@ namespace sistemaControleVendas
                 "[Descricao]         VARCHAR(20) NOT NULL," +
                 "[Id_Venda]          INT NOT NULL," +
                 "PRIMARY KEY CLUSTERED([Id_FormaPagamento] ASC)," +
-                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]));" +
+                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]) ON DELETE CASCADE);" +
                 
                 "CREATE TABLE[dbo].[ItensVenda](" +
                 "[Id_ItensVenda] INT             IDENTITY(1, 1) NOT NULL," +
@@ -314,7 +315,7 @@ namespace sistemaControleVendas
                 "[Id_Produto] INT NOT NULL," +
                 "PRIMARY KEY CLUSTERED([Id_ItensVenda] ASC)," +
                 "FOREIGN KEY([Id_Produto]) REFERENCES[dbo].[Produto] ([Id_Produto])," +
-                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]));" +
+                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]) ON DELETE CASCADE);" +
                 
                 "CREATE TABLE[dbo].[PagamentoParcial](" +
                 "[Id_PagamentoParcial] INT," +
@@ -322,14 +323,14 @@ namespace sistemaControleVendas
                 "[ValorRestante]       DECIMAL(18, 2) NOT NULL," +
                 "[Id_Venda]            INT NOT NULL," +
                 "PRIMARY KEY CLUSTERED([Id_PagamentoParcial] ASC)," +
-                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]));" +
+                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]) ON DELETE CASCADE);" +
                 
                 "CREATE TABLE[dbo].[ParcelaVenda]([Id_Parcela] INT             IDENTITY(1, 1) NOT NULL,[Parcela]        INT NOT NULL," +
                 "[DataVencimento] VARCHAR(10)    NOT NULL," +
                 "[ValorParcelado] DECIMAL(18, 2) NOT NULL," +
                 "[DataPagamento]  VARCHAR(10)    NULL,[HoraPagamento] VARCHAR(10)    NULL,[Id_Venda] INT NOT NULL," +
                 "PRIMARY KEY CLUSTERED([Id_Parcela] ASC)," +
-                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]));" +
+                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]) ON DELETE CASCADE);" +
                 
                 "CREATE TABLE[dbo].[SaidaCaixa](" +
                 "[Id_SaidaCaixa] INT             IDENTITY(1, 1) NOT NULL," +
@@ -345,7 +346,7 @@ namespace sistemaControleVendas
                 "[DadosCartao] VARCHAR(MAX) NULL," +
                 "[Id_Venda] INT NOT NULL," +
                 "PRIMARY KEY CLUSTERED([Id_TipoPagamenro] ASC)," +
-                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]));" +
+                "FOREIGN KEY([Id_Venda]) REFERENCES[dbo].[Venda] ([Id_Venda]) ON DELETE CASCADE);" +
                 
                 "CREATE TABLE[dbo].[ValorAbatido](" +
                 "[Id_ValorAbatido] INT             IDENTITY(1, 1) NOT NULL," +

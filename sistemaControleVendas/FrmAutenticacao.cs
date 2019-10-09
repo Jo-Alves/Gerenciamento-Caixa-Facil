@@ -125,7 +125,7 @@ namespace sistemaControleVendas
                             if (MessageBox.Show("O caixa anterior está aberto. Feche o caixa para prosseguir.", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
                             {
                                 this.Visible = false;
-                                FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");
+                                FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "", Funcao);
                                 fechamentoCaixa.ShowDialog();
                                 if (Caixa.SituacaoCaixa() == false)
                                 {
@@ -151,7 +151,7 @@ namespace sistemaControleVendas
                                 else
                                 {
                                     this.Visible = false;
-                                    FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");
+                                    FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "", Funcao);
                                     fechamentoCaixa.ShowDialog();
                                     if (Caixa.SituacaoCaixa() == false)
                                     {
@@ -171,7 +171,7 @@ namespace sistemaControleVendas
                                 if (MessageBox.Show("Feche o caixa para continuar.", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
                                 {
                                     this.Visible = false;
-                                    FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");
+                                    FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "", Funcao);
                                     fechamentoCaixa.ShowDialog();
                                     if (Caixa.SituacaoCaixa() == false)
                                     {
@@ -220,7 +220,7 @@ namespace sistemaControleVendas
         private void InformarCaixaAberto()
         {
             MessageBox.Show("O Caixa anterior está aberto! Para prosseguir o caixa deverá ser fechado!", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "");
+            FrmFechamentoCaixa fechamentoCaixa = new FrmFechamentoCaixa("", "", Funcao);
             fechamentoCaixa.ShowDialog();
             if (Caixa.SituacaoCaixa() == false)
             {
