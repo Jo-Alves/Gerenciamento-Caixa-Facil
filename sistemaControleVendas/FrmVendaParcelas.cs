@@ -17,6 +17,7 @@ namespace sistemaControleVendas
         decimal Montante, ValorEntrada, ValorReceber, valorParcela;
         int Nparcelas;
         public bool vendaConfirmada = false;
+        public bool repasseGerada = false;
         public DataTable Parcelas;
         public int idCliente { get; set; }
         public decimal valorEntrada { get; set; }
@@ -190,7 +191,11 @@ namespace sistemaControleVendas
 
         private void btn_FinalizarParcelamento_Click(object sender, EventArgs e)
         {
+            finalizarParcelamento();
+        }
 
+        private void finalizarParcelamento()
+        {
             if (idCliente > 0)
             {
                 SituacaoCliente();
@@ -207,9 +212,7 @@ namespace sistemaControleVendas
             {
                 MessageBox.Show("Informe o nome do cliente!", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
         }
-           
 
         private void confirmarParcelas()
         {
@@ -330,6 +333,12 @@ namespace sistemaControleVendas
             {
                 situacaoClientePrazo = 0;
             }
+        }
+
+        private void btn_GerarRepasse_Click(object sender, EventArgs e)
+        {
+            finalizarParcelamento();
+            repasseGerada = true;
         }
 
         string DataVencimento;

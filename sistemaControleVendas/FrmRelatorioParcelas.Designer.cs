@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.TabelaParcelasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.DataSetParcelas = new sistemaControleVendas.DataSetParcelas();
             this.TabelaParcelasTableAdapter = new sistemaControleVendas.DataSetParcelasTableAdapters.TabelaParcelasTableAdapter();
@@ -70,9 +70,12 @@
             // 
             // reportViewer1
             // 
-            reportDataSource1.Name = "DataSet1";
-            reportDataSource1.Value = this.TabelaParcelasBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
+            this.reportViewer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            reportDataSource2.Name = "DataSet1";
+            reportDataSource2.Value = this.TabelaParcelasBindingSource;
+            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "sistemaControleVendas.RelatorioParcela.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 50);
             this.reportViewer1.Name = "reportViewer1";
@@ -82,6 +85,8 @@
             // 
             // panelCabecalho
             // 
+            this.panelCabecalho.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelCabecalho.BackColor = System.Drawing.Color.Coral;
             this.panelCabecalho.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelCabecalho.Controls.Add(this.btn_Fechar);
@@ -119,6 +124,7 @@
             this.Name = "FrmRelatorioParcelas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Relatorio Parcelas";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmRelatorioParcelas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TabelaParcelasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataSetParcelas)).EndInit();

@@ -1023,8 +1023,15 @@ namespace sistemaControleVendas
                     id_Cliente = vendaParcelas.idCliente.ToString();
                     InformacaoEmpresa();
                     GerarParcelas();
-                    InserirItensvenda();
-                    MessageBox.Show("Prestações realizadas com sucesso!", "Mensagem do sistema 'Gerenciamento Caixa Fácil'...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (vendaParcelas.repasseGerada)
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        FrmRelatorioParcelas relatorioParcelas = new FrmRelatorioParcelas(txt_CodigoVenda.Text, NomeFantasia, Endereco, Numero, Cidade, Estado, Telefone, CNPJ);
+                        relatorioParcelas.ShowDialog();
+                        this.Cursor = Cursors.Default;
+
+                    }
+                    InserirItensvenda();                   
                  
                     ValorTotal = 0.00m;
                     DGV_ItensVenda.Rows.Clear();

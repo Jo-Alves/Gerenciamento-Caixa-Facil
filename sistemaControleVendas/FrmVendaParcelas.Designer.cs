@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gropobox7 = new System.Windows.Forms.GroupBox();
             this.btn_GerarRepasse = new System.Windows.Forms.Button();
             this.dgv_Parcelas = new System.Windows.Forms.DataGridView();
@@ -100,6 +100,7 @@
             this.btn_GerarRepasse.TabIndex = 17;
             this.btn_GerarRepasse.Text = "Gerar Repasse - [F9]";
             this.btn_GerarRepasse.UseVisualStyleBackColor = true;
+            this.btn_GerarRepasse.Click += new System.EventHandler(this.btn_GerarRepasse_Click);
             // 
             // dgv_Parcelas
             // 
@@ -122,8 +123,8 @@
             // ColumnNParcelas
             // 
             this.ColumnNParcelas.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black;
-            this.ColumnNParcelas.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.ColumnNParcelas.DefaultCellStyle = dataGridViewCellStyle1;
             this.ColumnNParcelas.HeaderText = "Nº da parcela";
             this.ColumnNParcelas.Name = "ColumnNParcelas";
             this.ColumnNParcelas.ReadOnly = true;
@@ -132,8 +133,8 @@
             // ColumnVencimento
             // 
             this.ColumnVencimento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
-            this.ColumnVencimento.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            this.ColumnVencimento.DefaultCellStyle = dataGridViewCellStyle2;
             this.ColumnVencimento.HeaderText = "Vencimento";
             this.ColumnVencimento.Name = "ColumnVencimento";
             this.ColumnVencimento.ReadOnly = true;
@@ -142,10 +143,10 @@
             // ColumnValorParcela
             // 
             this.ColumnValorParcela.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle21.Format = "C2";
-            dataGridViewCellStyle21.NullValue = null;
-            this.ColumnValorParcela.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.ColumnValorParcela.DefaultCellStyle = dataGridViewCellStyle3;
             this.ColumnValorParcela.HeaderText = "Valor da Parcela";
             this.ColumnValorParcela.Name = "ColumnValorParcela";
             this.ColumnValorParcela.ReadOnly = true;
